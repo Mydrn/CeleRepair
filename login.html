@@ -80,14 +80,16 @@
 							password: password.value
 						};
 				app.login(loginInfo, function(err) {
-							if (err) {
-								plus.nativeUI.toast(err);
-								return;
-							}
-						var newpage = plus.webview.create("index.jsp","index",{},{
-								});
-								newpage.show();
-						});
+					if (err) {
+						plus.nativeUI.toast(err);
+						return;
+					}
+				 	//打开首页
+				  mui.openWindow({
+				    url: 'index.jsp', 
+				    id:'index'
+				  });
+				});
 		   });
 		</script>
 	</body>
