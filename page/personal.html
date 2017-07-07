@@ -17,7 +17,6 @@
 		<div id="">
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
-				<%-- <a href="${ctx}/page/h5/index.jsp" class="mui-icon mui-icon-left-nav mui-pull-left f-white"></a> --%>
 				<h1 class="mui-title">个人中心</h1>
 				<a href="message.html" class="mui-pull-right">
 				</a>
@@ -29,7 +28,7 @@
 							<a href="#picture" class="mui-navigate-right">
 								头像
 								<c:if test="${ empty customer.photoUrl }">
-									<img class="userImg" id="userImg" src="${ctx}/public/celerepair/images/ice-repair.png" />
+									<img class="userImg" id="userImg" src="../images/ice-repair.png" />
 								</c:if>
 								<c:if test="${ not empty customer.photoUrl }">
 									<img class="userImg" id="userImg" src="${customer.photoUrl}" />

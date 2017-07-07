@@ -7,7 +7,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css" type="text/css">
-		<link rel="stylesheet" href="../css/icons-extra.css" type="text/css" />
 		<style>
 			body,html{background-color:#efeff4;font-size:14px}.title{margin:35px 15px 10px}.title+.content{margin:10px 15px 35px;color:#bbb;text-indent:1em;font-size:14px;line-height:24px}.f-white{color:#fff!important}.f-orange{color:#ff5700!important}.f-14{font-size:14px!important}.bg-white{background:#fff}.bg-orange{background:#ff5700!important}.userPic{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#offCanvasSideScroll{padding-top:44px}.content{margin:0 15px 10px;padding:40px 0;position:relative;overflow:hidden;z-index:1}.order-line{float:left;position:relative;width:20%;text-align:center}.order-line img{width:50%}.order-line p{position:absolute;top:-20px;left:50%;-webkit-transform:translate(-50%,0);-ms-transform:translate(-50%,0);transform:translate(-50%,0);font-size:12px;width:100%}#line-active,.line{position:absolute;left:0;top:50%;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%);width:100%;height:4px;z-index:-2;background-color:#ccc}#line-active{background:#ff5700;z-index:-1;width:50%}.active p{top:98%;color:#ff5700}.order-img ul{padding:0}.low{padding-bottom:44px}.order-img li{float:left;list-style:none;width:25%;padding:0 5px 10px 5px}.order-img ul li img{width:100%;height:100%;min-width:100%;min-height:100%}.bottom_tel{position:fixed;bottom:0;left:0;right:0;color:#ccc;border-top:1px solid #f5f5f5}#tel{background:#ff5700;color:#fff}tbody td{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.active img{animation:myfirst 6s linear infinite;-moz-animation:myfirst 6s linear infinite;-webkit-animation:myfirst 6s linear infinite;-o-animation:myfirst 6s linear infinite}@keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}@-moz-keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}@-webkit-keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}@-o-keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}
 			.mui-preview-image.mui-fullscreen {
@@ -176,7 +175,7 @@
 				<div class="bg-white">
 					<div class="content">
 						<div class="order-line" style="text-align: left;">
-							<img src="../../../public/celerepair/images/already-order.png" />
+							<img src="../images/already-order.png" />
 							<p>已下单</p>
 						</div>
 						<div class="order-line">
@@ -186,11 +185,11 @@
 							<c:if test="${obj.customerType != 5 }">
 								<p>待审核</p>
 							</c:if>
-							<img src="../../../public/celerepair/images/not-audit.png" />
+							<img src="../images/not-audit.png" />
 						</div>
 						<div class="order-line">
 							<p>待上门</p>
-							<img src="../../../public/celerepair/images/not-visit.png" />
+							<img src="../images/not-visit.png" />
 						</div>
 						<div class="order-line">
 							<c:if test="${obj.customerType == 5 }">
@@ -199,11 +198,11 @@
 							<c:if test="${obj.customerType != 5 }">
 								<p>待审批</p>
 							</c:if>
-							<img src="../../../public/celerepair/images/not-pay.png" />
+							<img src="../images/not-pay.png" />
 						</div>
 						<div class="order-line" style="text-align: right;">
 							<p>待评价</p>
-							<img src="../../../public/celerepair/images/not-evaluate.png" />
+							<img src="../images/not-evaluate.png" />
 						</div>
 						<span class="line"></span>
 						<span id="line-active"></span>
@@ -226,19 +225,17 @@
 										<td style="width:80%">${ obj.createTime }</td>
 									</tr>
 									<tr>
-									<%-- <td>名称:</td>
-										<c:if test="${customer.customerType == 5}">${ address.name }</c:if>
-										<c:if test="${customer.customerType != 5}">${ address.customerName }</c:if>
-									</tr> --%>
+									<td>名称:</td>
+									<td>名称:</td>
 									<tr>
 										<td>地址:</td>
-										<td>${ obj.proName }${ obj.regiontName }${ obj.cityName }${ address.address }</td>
+										<td>23213</td>
 									</tr>
 									<tr>
 										<td>联系人:</td>
 										<td>
-											<c:if test="${customer.customerType == 5}">${ address.name }</c:if>
-											<c:if test="${customer.customerType != 5}">${ address.customerName }</c:if>
+											<c:if test="${customer.customerType == 5}">222</c:if>
+											<c:if test="${customer.customerType != 5}">2222</c:if>
 										</td>
 									</tr>
 									<tr>
@@ -249,15 +246,13 @@
 							</table>
 						</li>
 						<li class="mui-table-view-cell mui-media bg-white">
-							报修描述:${ obj.caseDesc }
+							报修描述:22222
 						</li>
 						<li class="mui-table-view-cell mui-media bg-white">
 							报修照片:
 							<div class="order-img">
 								<ul>
-								<c:forEach items="${ attachmentList }" var="obj">
-									<li><img src="${ obj.attachmentUrl }" data-preview-src="${ obj.attachmentUrl }" data-preview-group="1" /></li>
-								</c:forEach>
+									<li><img src="../images/60x60.gif" data-preview-src="${ obj.attachmentUrl }" data-preview-group="1" /></li>
 								</ul>
 							</div>
 						</li>
@@ -352,21 +347,21 @@
 				});
 			});
 			
-			
-			if(${obj.caseStatus == -1}){//待审核
+			var caseStatus=0;
+			if(caseStatus == -1){//待审核
 				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="${ctx}/backend/h5/case/addCase" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
 				cycle(0);
-			}else if(${obj.caseStatus == 0 || obj.caseStatus==1 || obj.caseStatus==2 }){//待上门
+			}else if(caseStatus == 0 || obj.caseStatus==1 || obj.caseStatus==2){//待上门
 				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:${contactUs.phone}" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
 				cycle(1);
-			}else if(${obj.caseStatus == 3 && obj.customerType != 5 }){//待审批
+			}else if(caseStatus == 3 && obj.customerType != 5 ){//待审批
 				
 				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:${contactUs.phone}" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
 				cycle(2);
-			}else if(${obj.caseStatus == 3 && obj.customerType == 5 }){//待付款
+			}else if(caseStatus == 3 && obj.customerType == 5 ){//待付款
 				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<div class="text mui-pull-left">应付金额:<span class="f-orange">￥${ obj.caseActualMoney }</span></div><a href="#picture" id="tel" class="mui-text-center mui-pull-right"><span class="mui-icon-extra mui-icon-extra-gold f-14"> 去支付</span></a>';
 				cycle(2);
-			}else if(${obj.caseStatus == 4 && empty obj.assessScore }){//待评价
+			}else if(caseStatus == 4 && obj.assessScore ){//待评价
 				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="${ctx}/backend/h5/case/doEvaluation?caseId=${ obj.id }" id="submit" class="mui-text-center bg-orange f-white"><span class="mui-icon-extra mui-icon-extra-like f-14">待评价</span></a>';
 				cycle(3);
 			}else{//完成订单
@@ -389,7 +384,6 @@
 			mui(function($) {
 				var old = document.querySelectorAll('.order-img li');
 				for(var i=0;i<old.length;i++){
-					console.log(old[i].parentNode.parentNode);
 					old[i].style.height=old[i].parentNode.parentNode.scrollWidth/4+"px";
 				}
 			});
