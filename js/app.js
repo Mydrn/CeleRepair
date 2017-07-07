@@ -77,8 +77,7 @@
 					console.log(JSON.stringify(data));
 					return owner.createState(data, callback);
 				}
-			},
-			error: function(xhr, type, errorThrown) {
+			},error: function(xhr, type, errorThrown) {
 				if(type == "abort") {
 					mui.toast('服务器连接异常！');
 				} else if(type == "timeout") {
