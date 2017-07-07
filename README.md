@@ -35,3 +35,18 @@ console.log(1);
 mui.plusReady(function(){ 
 console.log(2);
 })
+
+#页面传值
+//A
+mui.openWindow({
+    url:'B.html',
+    id:'B',
+    extras:{
+        name:'mui',
+        version:'0.5.8'
+    }
+});
+//B
+var self = plus.webview.currentWebview();
+var name = self.name;
+var version = self.version;
