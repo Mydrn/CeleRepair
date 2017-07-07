@@ -1,0 +1,497 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" /> 
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>问题反馈</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="${ctx}/public/celerepair/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="${ctx}/public/celerepair/css/css/feedback.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+				padding-bottom:20px
+			}
+			
+			.mui-views,
+			.mui-view,
+			.mui-pages,
+			.mui-page,
+			.mui-page-content {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				width: 100%;
+				background-color: #efeff4;
+			}
+			.mui-page{
+				height:100%;
+			}
+			.mui-page-content {
+				top: 0
+			}
+			.mui-input-row:nth-child(1){
+				margin-top:44px;
+			}
+			.mui-pages {
+				top: 46px;
+				height: auto;
+			}
+			
+			.mui-scroll-wrapper,
+			.mui-scroll {
+				background-color: #efeff4;
+			}
+			.mui-scroll-wrapper{padding-bottom: 50px;}
+			.mui-page.mui-transitioning {
+				-webkit-transition: -webkit-transform 300ms ease;
+				transition: transform 300ms ease;
+			}
+			
+			.mui-page-left {
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+			}
+			
+			.mui-ios .mui-page-left {
+				-webkit-transform: translate3d(-20%, 0, 0);
+				transform: translate3d(-20%, 0, 0);
+			}
+			
+			.mui-navbar {
+				position: fixed;
+				right: 0;
+				left: 0;
+				z-index: 10;
+				height: 44px;
+				background-color: #f7f7f8;
+			}
+			
+			.mui-navbar .mui-bar {
+				position: absolute;
+				background: transparent;
+				text-align: center;
+			}
+			
+			.mui-android .mui-navbar-inner.mui-navbar-left {
+				opacity: 0;
+			}
+			
+			.mui-ios .mui-navbar-left .mui-left,
+			.mui-ios .mui-navbar-left .mui-center,
+			.mui-ios .mui-navbar-left .mui-right {
+				opacity: 0;
+			}
+			
+			.mui-navbar .mui-btn-nav {
+				-webkit-transition: none;
+				transition: none;
+				-webkit-transition-duration: .0s;
+				transition-duration: .0s;
+			}
+			
+			.mui-navbar .mui-bar .mui-title {
+				display: inline-block;
+				width: auto;
+			}
+			
+			.mui-page-shadow {
+				position: absolute;
+				right: 100%;
+				top: 0;
+				width: 16px;
+				height: 100%;
+				z-index: -1;
+				content: '';
+			}
+			
+			.mui-page-shadow {
+				background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+				background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+			}
+			
+			.mui-navbar-inner.mui-transitioning,
+			.mui-navbar-inner .mui-transitioning {
+				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+				transition: opacity 300ms ease, transform 300ms ease;
+			}
+			
+			.mui-page {
+				display: none;
+			}
+			
+			.mui-pages .mui-page {
+				display: block;
+			}
+			
+			.mui-page .mui-table-view:first-child {
+				margin-top: 15px;
+			}
+			
+			.mui-page .mui-table-view:last-child {
+				margin-bottom: 30px;
+			}
+			
+			.mui-table-view {
+				margin-top: 20px;
+			}
+			
+			.mui-table-view span.mui-pull-right {
+				color: #999;
+			}
+			
+			.mui-table-view-divider {
+				background-color: #efeff4;
+				font-size: 14px;
+			}
+			
+			.mui-table-view-divider:before,
+			.mui-table-view-divider:after {
+				height: 0;
+			}
+			
+			.head {
+				height: 40px;
+			}
+			
+			#head {
+				line-height: 40px;
+			}
+			
+			.head-img {
+				width: 40px;
+				height: 40px;
+			}
+			
+			#head-img1 {
+				position: absolute;
+				bottom: 10px;
+				right: 40px;
+				width: 40px;
+				height: 40px;
+			}
+			
+			.update {
+				font-style: normal;
+				color: #999999;
+				margin-right: -25px;
+				font-size: 15px
+			}
+			
+			.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+			}
+			
+			.mui-ios .mui-navbar .mui-bar .mui-title {
+				position: static;
+			}
+			/*问题反馈在setting页面单独的css*/
+			
+			#feedback .mui-popover {
+				position: fixed;
+			}
+			
+			#feedback .mui-table-view:last-child {
+				margin-bottom: 0px;
+			}
+			
+			#feedback .mui-table-view:first-child {
+				margin-top: 0px;
+			}
+			/*问题反馈在setting页面单独的css==end*/
+			
+			.mui-content-padded {
+				margin: 10px
+			}
+			
+			.mui-icon-arrowdown {
+				font-size: 20px;
+			}
+			
+			.file-box {
+				float: left;
+				position: relative;
+				overflow: hidden;
+				margin: 0 0 2px 2px;
+				border: 1px dotted #ccc;
+				box-sizing: border-box;
+				border-style: dashed;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+			}
+			
+			.file-box:first-of-type {
+				margin: 0;
+				margin-bottom: 2px;
+			}
+			
+			.file-box img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				z-index: 1;
+				min-height: 100%;
+			}
+			
+			.file {
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.file-box:after {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: "微软雅黑";
+				content: '';
+				width: 50%;
+				height: 2px;
+				background: #ccc
+			}
+			
+			.file-box:before {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: "微软雅黑";
+				content: '';
+				width: 2px;
+				height: 50%;
+				background: #ccc
+			}
+			
+			#submit {
+				border: none;
+				width: 100%;
+				margin-top: 50px;
+				background: #ff5700;
+				color: #fff
+			}
+			
+			.mui-page {
+				display: block;
+			}
+			.mui-backdrop{
+				z-index:-1
+			}
+			#popover{
+				top: 44px!important;
+			}
+			.mui-rows{
+				margin-top:44px
+			}
+		</style>
+	</head>
+
+	<body class="mui-fullscreen">
+		<div id="feedback" class="mui-page feedback">
+			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
+				<h1 class="mui-title">问题反馈</h1>
+			</header>
+			<input type="text" hidden id="imgUrl" name="imgUrl" value="" />
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mui-page-content">
+						<div class="mui-content-padded">
+							<div class="mui-inline">问题和意见</div>
+							<a class="mui-pull-right mui-inline" href="#popover">
+								快捷输入
+								<span class="mui-icon mui-icon-arrowdown"></span>
+							</a>
+							<!--快捷输入具体内容，开发者可自己替换常用语-->
+							<div id="popover" class="mui-popover">
+								<div class="mui-popover-arrow"></div>
+									<ul class="mui-table-view">
+										<!--仅流应用环境下显示-->
+										<li class="mui-table-view-cell stream">
+											<a href="#">桌面快捷方式创建失败</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="#">界面显示错乱</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="#">启动缓慢，卡出翔了</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="#">偶发性崩溃</a>
+										</li>
+										<li class="mui-table-view-cell">
+											<a href="#">UI无法直视，丑哭了</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="row mui-input-row mui-rows">
+							<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+						</div>
+						<p>图片(选填,提供问题截图,总大小10M以下)</p>
+						<div id='image-list' class="row image-list">
+							<div class="file-box">
+								<input type="file" name="file" class="file" accept="image/*" />
+							</div>
+						</div>
+						<p>QQ/邮箱</p>
+						<div class="row mui-input-row">
+							<textarea id='contact' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+						</div>
+						<div class="mui-content-padded">
+							<div class="mui-inline">应用评分</div>
+							<div class="icons mui-inline" style="margin-left: 6px;">
+								<i data-index="1" class="mui-icon mui-icon-star-filled"></i>
+								<i data-index="2" class="mui-icon mui-icon-star-filled"></i>
+								<i data-index="3" class="mui-icon mui-icon-star-filled"></i>
+								<i data-index="4" class="mui-icon mui-icon-star-filled"></i>
+								<i data-index="5" class="mui-icon mui-icon-star-filled"></i>
+							</div>
+							<button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">提交</button>
+						</div><br />
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+	</body>
+	<script src="${ctx}/public/celerepair/js/js/mui.min.js "></script>
+	<script>
+		mui.init();
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui('#offCanvasSideScroll').scroll();
+		//设置图片的平均分配宽度
+		src();
+
+		function src() {
+			var arr = document.querySelectorAll('.file-box');
+			var old = document.querySelector('#image-list').scrollWidth;
+			for(var i = 0; i < arr.length; i++) {
+				arr[i].style.width = arr[i].style.height = (old - 26) / 4 + 'px';
+			}
+
+		};
+		//选择快捷输入
+		mui('.mui-popover').on('tap', 'li', function(e) {
+			document.getElementById("question").value = document.getElementById("question").value + this.children[0].innerHTML;
+			mui('.mui-popover').popover('toggle')
+		});
+		//图片上传事件
+		var  imgs=[];
+		mui(function($) {
+			$("body").on("change", ".file",function() {
+			var _this = this.parentNode;
+			var _that=this;
+			formData = new FormData();
+			formData.append("file", this.files[0]);
+			formData.append("attachmentType", 8);
+			mui.ajax("${ctx}/backend/base/saveImg",{
+				type: "post",
+				dataType: 'text',
+				contentType: false, //必须 
+				processData: false, //必须
+				cache: false,
+				async:true,
+				data: formData,
+				success: function(xhr,status,data) {
+				imgs.push(xhr);
+				document.getElementById("imgUrl").value = imgs;
+				if(window.FileReader) {
+					var reader = new FileReader();
+					reader.readAsDataURL(_that.files[0]);
+					//监听文件读取结束后事件    
+					reader.onloadend = function(e) {
+					//console.log(e.target.result); //e.target.result就是最后的路径地址
+					var img = document.createElement('img');
+					var div = document.createElement('div');
+					img.setAttribute('src', xhr);
+					_this.innerHTML=""
+					_this.appendChild(img);
+					div.setAttribute('class', 'file-box');
+					div.innerHTML = '<input type="file" name="file" class="file" accept="image/*">'
+					_this.parentNode.appendChild(div);
+					src();
+				};
+			}
+		}
+	});
+	
+})
+})
+		var starIndex=5;
+		//应用评分
+		mui('.icons').on('tap', 'i', function() {
+			var index = parseInt(this.getAttribute("data-index"));
+			var parent = this.parentNode;
+			var children = parent.children;
+			if(this.classList.contains("mui-icon-star")) {
+				for(var i = 0; i < index; i++) {
+					children[i].classList.remove('mui-icon-star');
+					children[i].classList.add('mui-icon-star-filled');
+				}
+			} else {
+				for(var i = index; i < 5; i++) {
+					children[i].classList.add('mui-icon-star')
+					children[i].classList.remove('mui-icon-star-filled')
+				}
+			}
+			starIndex = index;
+		});
+		
+		
+		//评价
+		var title = document.getElementById("contact");
+		var adviceContent = document.getElementById('question');
+		var imgUrl=document.getElementById('imgUrl');
+		document.getElementById('submit').addEventListener('tap',function(){
+			event.preventDefault();
+			window.event.returnValue = false;
+			mui.ajax('${ctx}/backend/h5/user/saveCelerepairAdvice',{
+				data:{
+					score:starIndex,
+					title:title.value,
+					adviceContent:adviceContent.value,
+					imgUrl:imgUrl.value
+				},
+				type:'post',//HTTP请求类型
+				dataType:'json',
+				async:true,
+				timeout:5000,//超时时间设置为5秒；             
+				success:function(data){
+					if (data.statusCode == "0000") {
+						mui.alert('反馈成功', function() {
+							window.history.back();
+						});
+					}else if(data.statusCode == "0002"){
+						window.location.href = "${ctx}/page/h5/login.jsp";
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					
+				}
+			});
+	   });
+	</script>
+
+</html>
