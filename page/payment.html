@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a onclick="pay('wxpay')" href="javascript:;">微信支付</a>
+				</li>
+			</ul>
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var channel = null;
+			// 1. 获取支付通道
+			function plusReady() {
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					channel = channels[0];
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+			}
+			document.addEventListener('plusready', plusReady, false);
+			// 2. 发起支付请求
+			function pay(id) {
+				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+				var WXPAYSERVER ='https://celefix.mydrn.cn/celefix/backend/h5/pay/payment?total=1&caseId=7816&claimCode=claimCode';
+				// 从服务器请求支付订单
+				 if(id=='alipay'){  
+                PAYSERVER=ALIPAYSERVER;  
+                channel = aliChannel;  
+            }else if(id=='wxpay'){  
+                    PAYSERVER=WXPAYSERVER;  
+                    channel = wxChannel;  
+                }else{  
+                    plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");  
+                    return;  
+             }  
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					switch(xhr.readyState) {
+						case 4:
+							if(xhr.status == 200) {
+								plus.payment.request(channel, xhr.responseText, function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										back();
+									});
+								}, function(error) {
+									plus.nativeUI.alert("支付失败：" + error.code);
+								});
+							} else {
+								alert("获取订单信息失败！");
+							}
+							break;
+						default:
+							alert(xhr.responseText);
+							break;
+					}
+				}
+				xhr.open('POST', PAYSERVER);
+				xhr.send();
+			}
+		</script>
+	</body>
+
+</html>

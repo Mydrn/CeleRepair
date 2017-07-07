@@ -1,9 +1,10 @@
 # CeleRepair
 CeleRepair开发
 
-#服务器地址获取
-var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "方法名";
+#服务器地址配置以及获取
+配置 	js/app.js
+获取		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "方法名";
 
 #跳转的页面需要读取数据的规范
 //A页面中打开B页面，设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
@@ -26,3 +27,11 @@ window.onload = function(){
     mui.currentWebview.show();
   });
 }
+
+#预加载
+mui.ready(function(){
+console.log(1); 
+}); 
+mui.plusReady(function(){ 
+console.log(2);
+})
