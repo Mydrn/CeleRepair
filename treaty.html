@@ -80,6 +80,7 @@
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
 		<script>
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
@@ -93,17 +94,19 @@
 					});
 				});
 			}
-			var fragment = document.getElementById("content");
-			mui.ajax('${ctx}/backend/h5/list/findAgreementFirst',{
-				type:'get',//HTTP请求类型
-				dataType:'json',
-				cache:false, 
-			    async:false,
-				timeout:5000,//超时时间设置为5秒；
-				success:function(data){
-					fragment.innerHTML=data.content;
-				}
-			});
+			(function($, doc) {
+				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findAgreementFirst";
+				var fragment = document.getElementById("content");
+				$.ajax(url,{
+					type:'POST',//HTTP请求类型
+					dataType:'json',
+					timeout:5000,//超时时间设置为5秒；
+					success:function(data){
+						fragment.innerHTML=data.content;
+					}
+				});
+			})(mui, document);
 			
 //			(function($, doc) {
 //				$.ready(function() {
