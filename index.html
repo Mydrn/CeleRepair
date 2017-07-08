@@ -17,6 +17,27 @@
 			span.mui-icon {
 				font-size: 20px;
 			}
+			#mask{
+				position: fixed;
+				right:0;
+				left: 0;
+				top:0;
+				bottom:0;
+				z-index: 9999;
+				background: #fcfcfc;
+			}
+			#mask img,#mask span{
+				position: absolute;
+				top:50%;
+				left:50%;
+				color:#fff;
+				width:70%;
+				text-align: center;
+				-webkit-transform: translate(-50%,-50%);
+				-moz-transform: translate(-50%,-50%);
+				-ms-transform: translate(-50%,-50%);
+				transform: translate(-50%,-50%);
+			}
 			
 			.mui-off-canvas-left {
 				color: #fff;
@@ -165,29 +186,11 @@
 			.imgWidth {
 				width: 52px
 			}
-			.mask{
-				position: fixed;
-				right:0;
-				left: 0;
-				top:0;
-				bottom:0;
-				z-index: 9999;
-				background: rgb(236, 236, 236);
-			}
-			.mask img,.mask span{
-				position: absolute;
-				top:50%;
-				left:50%;
-				color:#fff;
-				-webkit-transform: translate(-50%,-50%);
-				-moz-transform: translate(-50%,-50%);
-				-ms-transform: translate(-50%,-50%);
-				transform: translate(-50%,-50%);
-			}
 		</style>
 	</head>
 
 	<body>
+		<div id="mask"><img src="./images/3.gif"/><span id="mask-num">0%</span></div>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!--侧滑菜单部分-->
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
@@ -384,10 +387,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="mask"><img src="../img/3.gif"/><span>100%</span></div>
+		<img src="http://img.2222.moe/uploads/2015/07/aoki.JPG"/>
 		<script src="./js/mui.min.js"></script>
 		<script>
 		mui.init();
+		//加载中过度使用
+		mui(function($) {
+			var img=$('img'),num=0;
+			if(img.length==0){
+				$('#mask')[0].style.display='none';
+			}else{
+				img.each(function(i){
+					var oImg=new Image();
+					oImg.onload=function(){
+						oImg.onload=null;num++;
+						$('#mask-num')[0].innerHTML=parseInt(num/img.length*100)+"%";
+						if(parseInt(num/img.length*100)==100){
+							$('#mask')[0].style.display='none';
+						}
+					}
+					oImg.src=img[i].src
+				})
+			}
+		})
 		//侧滑容器父节点
 		var offCanvasWrapper = mui('#offCanvasWrapper');
 		//主界面容器
@@ -448,14 +470,8 @@
 			})
 		}
 		)
-		//
-		mui(function($) {
-			$(".mui-scroll-wrapper").scroll({
-			//bounce: false,//滚动条是否有弹力默认是true
-			//indicators: false, //是否显示滚动条,默认是true
-			});
-
-		});
+		
+		
 		//开启A标签的跳转
 		mui('body').on('tap', 'a', function() {
 			window.top.location.href = this.href;
@@ -482,7 +498,7 @@
 					})
 				}
 			});
-			
+		
 	</script>
 	</body>
 

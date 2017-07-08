@@ -73,26 +73,6 @@
 				margin-left: -6px
 			}
 			
-			.textA {
-				vertical-align: middle
-			}
-			
-			.f-white {
-				color: #fff!important
-			}
-			
-			.f-blank {
-				color: #000!important
-			}
-			
-			.f-14 {
-				font-size: 14px!important;
-			}
-			
-			.bg-orange {
-				background-color: #ff5700!important;
-			}
-			
 			.userImg {
 				position: absolute;
 				top: 0;
@@ -191,21 +171,19 @@
 							<div class="mui-card-footer">
 								<a class="mui-card-link" href="javascript:;">
 									<div class="mui-input-row mui-checkbox mui-left">
-									<c:if test="${ obj.isDefault }">
 										<label class="f-blank">默认地址</label>
-										<input name="checkbox" value="${ obj.id }" class="checkbox" checked="checked" type="checkbox">
-									</c:if>
-									<c:if test="${!obj.isDefault }">
+										<input name="checkbox" class="checkbox" checked="checked" type="checkbox">
+									<div class="mui-input-row mui-checkbox mui-left">
+									</div>
 										<label class="f-blank">设为默认</label>
-										<input name="checkbox" value="${ obj.id }" class="checkbox" type="checkbox">
-									</c:if>
+										<input name="checkbox" class="checkbox" type="checkbox">
 									</div>
 								</a>
 								<div class="mui-card-link">
-									<a class="f-orange" onclick="openpage('address-new','编辑地址',data.id)">
+									<a class="f-orange">
 										<span class="mui-icon mui-icon-compose f-orange"></span> 编辑
 									</a>
-									<a class="f-blank del" id="${ obj.id }">
+									<a class="f-blank del">
 										<span class="mui-icon mui-icon-trash f-blank"></span> 删除
 									</a>
 								</div>
