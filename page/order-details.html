@@ -205,9 +205,6 @@
 							<c:if test="${obj.customerType == 5 }">
 								<p>待接单</p>
 							</c:if>
-							<c:if test="${obj.customerType != 5 }">
-								<p>待审核</p>
-							</c:if>
 							<img src="../images/not-audit.png" />
 						</div>
 						<div class="order-line">
@@ -217,9 +214,6 @@
 						<div class="order-line">
 							<c:if test="${obj.customerType == 5 }">
 								<p>待付款</p>
-							</c:if>
-							<c:if test="${obj.customerType != 5 }">
-								<p>待审批</p>
 							</c:if>
 							<img src="../images/not-pay.png" />
 						</div>
@@ -241,41 +235,36 @@
 								<tbody>
 									<tr>
 										<td style="width:18%">订单编号:</td>
-										<td style="width:80%">${ obj.claimCode }</td>
+										<td style="width:80%" id="claimCode">${ obj.claimCode }</td>
 									</tr>
 									<tr>
 										<td style="width:18%">下单时间:</td>
-										<td style="width:80%">${ obj.createTime }</td>
+										<td style="width:80%" id="createTime">${ obj.createTime }</td>
 									</tr>
 									<tr>
-									<td>名称:</td>
-									<td>名称:</td>
 									<tr>
 										<td>地址:</td>
-										<td>23213</td>
+										<td id="address"></td>
 									</tr>
 									<tr>
 										<td>联系人:</td>
-										<td>
-											<c:if test="${customer.customerType == 5}">222</c:if>
-											<c:if test="${customer.customerType != 5}">2222</c:if>
-										</td>
+										<td id="name"></td>
 									</tr>
 									<tr>
 										<td>联系电话:</td>
-										<td>${ address.mobile }</td>
+										<td id="mobile">${ address.mobile }</td>
 									</tr>
 								</tbody>
 							</table>
 						</li>
 						<li class="mui-table-view-cell mui-media bg-white">
-							报修描述:22222
+							报修描述:<li id="caseDesc"></li>
 						</li>
 						<li class="mui-table-view-cell mui-media bg-white">
 							报修照片:
 							<div class="order-img">
-								<ul>
-									<li><img src="../images/60x60.gif" data-preview-src="${ obj.attachmentUrl }" data-preview-group="1" /></li>
+								<ul id="order-img">
+									
 								</ul>
 							</div>
 						</li>
@@ -309,9 +298,30 @@
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
 		<script src="../js/mui.zoom.js"></script>
 		<script src="../js/mui.previewimage.js"></script>
 		<script>
+			//主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			//实现ios平台原生侧滑关闭页面；
+			if(mui.os.plus && mui.os.ios) {
+				mui.plusReady(function() {
+					//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+			};
+			var token = app.getState().token;
+			var caseId = plus.webview.currentWebview().id;
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			var contactUs = localStorage.getItem('$contactUs');
+			var caseObj;
 			//加载中过度使用
 			mui(function($) {
 				var img=$('img'),num=0;
@@ -330,39 +340,93 @@
 						oImg.src=img[i].src
 					})
 				}
-				var token = app.getState().token;
-				var caseId = plus.webview.currentWebview().id;
-				alert(caseId);
-				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
 				$.ajax(url,{
 					type:'POST',
 					data: {
-						token: token
+						token: token,
+						id : caseId
 					},
 					dataType:'json',
 					timeout:5000,//超时时间设置为5秒；
 					success:function(data){
-						console.log(data);
+						//附件
+						var attList = data.data.attachmentList;
+						var attUl=document.getElementById("order-img");
+						for (var item in attList) {
+							var html = '<li><img src="'+attList[item].attachmentUrl+'" data-preview-src="'+attList[item].attachmentUrl+'" data-preview-group="1" /></li>';
+							attUl.appendChild(html);
+						}
+						//地址
+						var address = data.data.address;
+						document.getElementById("mobile").innerText=address.mobile;
+						document.getElementById("name").innerText=address.name;
+						document.getElementById("address").innerText=address.proName+address.regiontName+address.cityName+address.address;
+						
+						//订单
+						caseObj = data.data.obj;
+						document.getElementById("claimCode").innerText=caseObj.claimCode;
+						document.getElementById("createTime").innerText=caseObj.createTime;
+						document.getElementById("caseDesc").innerText=caseObj.caseDesc;
+						if(caseObj.caseStatus == -1){//待审核
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="${ctx}/backend/h5/case/addCase" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
+							cycle(0);
+						}else if(caseObj.caseStatus == 0 || caseObj.caseStatus == 1 || caseObj.caseStatus == 2){//待上门
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:'+contactUs+'" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
+							cycle(1);
+						}else if(caseObj.caseStatus == 3 && caseObj.customerType != 5 ){//待审批
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:'+contactUs+'" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
+							cycle(2);
+						}else if(caseObj.caseStatus == 3 && caseObj.customerType == 5 ){//待付款
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<div class="text mui-pull-left">应付金额:<span class="f-orange">￥'+ caseObj.caseActualMoney +'</span></div><a href="#picture" id="tel" class="mui-text-center mui-pull-right"><span class="mui-icon-extra mui-icon-extra-gold f-14"> 去支付</span></a>';
+							cycle(2);
+						}else if(caseObj.caseStatus == 4 && caseObj.assessScore==undefined ){//待评价
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a class="doEvaluation" class="mui-text-center bg-orange f-white"><span class="mui-icon-extra mui-icon-extra-like f-14">待评价</span></a>';
+							cycle(3);
+						}else{//完成订单
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:'+contactUs+'" id="submit" class="mui-text-center bg-orange f-white">已完成</a>';
+							cycle(4);
+						}
 					}
+				});
+				//跳转评价
+				$('body').on('tap', 'doEvaluation', function() {
+					mui.openWindow({
+					    url:'evaluation.html',
+					    id:'evaluation',
+					    extras:{
+					        id:this.id,
+					    }
+					});	
 				});
 				
 			})
-			//主界面和侧滑菜单界面均支持区域滚动；
-			mui('#offCanvasSideScroll').scroll();
-			mui('#offCanvasContentScroll').scroll();
-			mui.init({
-				swipeBack: true //启用右滑关闭功能
-			});
-			//实现ios平台原生侧滑关闭页面；
-			if(mui.os.plus && mui.os.ios) {
-				mui.plusReady(function() {
-					//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-					plus.webview.currentWebview().setStyle({
-						'popGesture': 'none'
-					});
-				});
+			
+			//状态的封装
+			function cycle(a,b) {
+				var arr = document.querySelectorAll('.content .order-line img');
+				var arr2 = document.querySelectorAll('.content .order-line');
+				var arr3 = document.querySelectorAll('.bottom_tel');
+				for(var i = 0; i <= a; i++) {
+					document.querySelector('#line-active').style.width = 20 * (i+1) + 10 + "%";
+					arr[i].setAttribute('src', arr[i].getAttribute('src').replace(/not/, "already"));
+					arr[i].parentNode.querySelector('p').innerHTML=	arr[i].parentNode.querySelector('p').innerHTML.replace(/待/, "已");
+				}
+				arr2[i].classList.add('active');
 			};
+			//设置图片的平均分配宽度
+			mui(function($) {
+				var old = document.querySelectorAll('.order-img li');
+				for(var i=0;i<old.length;i++){
+					old[i].style.height=old[i].parentNode.parentNode.scrollWidth/4+"px";
+				}
+			});
+			mui.previewImage();
+			//开启A标签的跳转
+			mui('body').on('tap', 'a', function() {
+				window.top.location.href = this.href;
+			});
+			
 			document.getElementById('weixin').addEventListener('tap',function(){
 				mui.ajax('${ctx}/backend/h5/pay/payment',{
 					data:{
@@ -405,53 +469,6 @@
 					}
 				});
 			});
-			
-			var caseStatus=0;
-			if(caseStatus == -1){//待审核
-				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="${ctx}/backend/h5/case/addCase" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
-				cycle(0);
-			}else if(caseStatus == 0 || obj.caseStatus==1 || obj.caseStatus==2){//待上门
-				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:${contactUs.phone}" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
-				cycle(1);
-			}else if(caseStatus == 3 && obj.customerType != 5 ){//待审批
-				
-				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:${contactUs.phone}" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
-				cycle(2);
-			}else if(caseStatus == 3 && obj.customerType == 5 ){//待付款
-				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<div class="text mui-pull-left">应付金额:<span class="f-orange">￥${ obj.caseActualMoney }</span></div><a href="#picture" id="tel" class="mui-text-center mui-pull-right"><span class="mui-icon-extra mui-icon-extra-gold f-14"> 去支付</span></a>';
-				cycle(2);
-			}else if(caseStatus == 4 && obj.assessScore ){//待评价
-				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="${ctx}/backend/h5/case/doEvaluation?caseId=${ obj.id }" id="submit" class="mui-text-center bg-orange f-white"><span class="mui-icon-extra mui-icon-extra-like f-14">待评价</span></a>';
-				cycle(3);
-			}else{//完成订单
-				document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="JavaScript:;" id="submit" class="mui-text-center bg-orange f-white">已完成</a>';
-				cycle(4);
-			}
-			//状态的封装
-			function cycle(a,b) {
-				var arr = document.querySelectorAll('.content .order-line img');
-				var arr2 = document.querySelectorAll('.content .order-line');
-				var arr3 = document.querySelectorAll('.bottom_tel');
-				for(var i = 0; i <= a; i++) {
-					document.querySelector('#line-active').style.width = 20 * (i+1) + 10 + "%";
-					arr[i].setAttribute('src', arr[i].getAttribute('src').replace(/not/, "already"));
-					arr[i].parentNode.querySelector('p').innerHTML=	arr[i].parentNode.querySelector('p').innerHTML.replace(/待/, "已");
-				}
-				arr2[i].classList.add('active');
-			};
-			//设置图片的平均分配宽度
-			mui(function($) {
-				var old = document.querySelectorAll('.order-img li');
-				for(var i=0;i<old.length;i++){
-					old[i].style.height=old[i].parentNode.parentNode.scrollWidth/4+"px";
-				}
-			});
-			mui.previewImage();
-			//开启A标签的跳转
-			mui('body').on('tap', 'a', function() {
-				window.top.location.href = this.href;
-			});
-			
 		</script>
 	</body>
 

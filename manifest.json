@@ -10,7 +10,7 @@
     "icons": {
         "72": "icon.png"
     },
-    "launch_path": "page/pay.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+    "launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
     "developer": {
         "name": "",/*开发者名称*/
         "email": "",/*开发者邮箱地址*/
@@ -201,9 +201,115 @@
 		"pages": {
 			"index.html": {
 				"href": "index.html",
+				"priority": 0,
+				"resources": [
+					"images/cbd.jpg",
+					"js/app.js",
+					"images/ice-personal.png",
+					"fonts/mui.ttf",
+					"images/5.png",
+					"images/2.png",
+					"images/ice-repair.png",
+					"images/logo.png",
+					"images/1.png",
+					"images/3.png",
+					"js/mui.min.js",
+					"images/4.png",
+					"css/mui.min.css",
+					"images/3.gif",
+					"page/address.html"
+				],
+				"refer": [
+					"login.html"
+				]
+			},
+			"page/address.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"index.html"
+				],
+				"refer": [
+					"page/address-new.html"
+				],
+				"priority": 0
+			},
+			"page/address-new.html": {
+				"resources": [
+					"js/mui.poppicker.js",
+					"css/mui.poppicker.css",
+					"css/mui.picker.css",
+					"js/city.data-3.js",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [
+					"images/celerepair-logo.png"
+				],
+				"refer": [
+					"index.html"
+				],
 				"priority": 0
 			}
 		},
-		"idle": {}
+		"idle": {
+			"resources": [
+				"js/webuploader.js",
+				"css/feedback.css",
+				"js/upload.js",
+				"images/already-visit.png",
+				"images/shuijiao.jpg",
+				"js/icons-extra.css",
+				"fonts/mui-icons-extra.ttf",
+				"js/mui.zoom.js",
+				"page/personal-mobile.html",
+				"images/already-audit.png",
+				"images/60x60.gif",
+				"js/mui.previewimage.js",
+				"js/city.data.js",
+				"css/mui.picker.min.css",
+				"README.md",
+				"images/already-evaluate.png",
+				"page/message.html",
+				"page/order.html",
+				"js/mui.pullToRefresh.material.js",
+				"page/order-new.html",
+				"forget-password.html",
+				"images/not-pay.png",
+				"css/mui.picker.all.css",
+				"js/update.js",
+				"treaty.html",
+				"css/webuploader.css",
+				"page/payment.html",
+				"images/muwu.jpg",
+				"images/already-order.png",
+				"new_file.html",
+				"page/evaluation.html",
+				"register.html",
+				"images/not-evaluate.png",
+				"page/order-details.html",
+				"page/about.html",
+				"page/pay.html",
+				"js/jquery.js",
+				"images/not-visit.png",
+				"js/mui.pullToRefresh.js",
+				"page/personal-password.html",
+				"images/already-pay.png",
+				"images/yuantiao.jpg",
+				"css/app.css",
+				"page/personal.html",
+				"page/feedback.html",
+				"images/not-audit.png",
+				"images/ice-null.png"
+			]
+		}
 	}
 }

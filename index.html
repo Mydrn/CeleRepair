@@ -339,8 +339,8 @@
 							</div>
 							
 							<div class="mui-card transparent" style="margin-bottom: 35px;">
-								<ul id="castList" class="mui-table-view mui-table-view-chevron transparent">
-									<li class="mui-table-view-cell mui-media bg-white">
+								<ul id="caseUl" class="mui-table-view mui-table-view-chevron transparent">
+									<!--<li class="mui-table-view-cell mui-media bg-white">
 										<a href="./page/order-details.html?id=768">
 											<img class="mui-media-object mui-pull-left" src="./images/cbd.jpg">
 											<div class="mui-media-body">
@@ -349,7 +349,7 @@
 											</div>
 											<span class="stateType">待<br />支<br />付</span>
 										</a>
-									</li>
+									</li>-->
 								</ul>
 							</div>
 						</div>
@@ -396,47 +396,56 @@
 			dataType:'json',
 			timeout:5000,//超时时间设置为5秒；
 			success:function(data){
-				//设置客服电话
-				localStorage.setItem('$contactUs', data.data.contactUs);
-				//广告数据
-				var slider = document.getElementById("slider");
-				var html='';
-				var adList = data.data.adList;
-				console.log(adList);
-				/*for (var item in adList) {
-					html +='<div class="mui-slider-item">'+
-									'<a href="'+adList[item].adLink+'">'+
-										'<img src="'+adList[item].adUrl+'">'+
-									'</a>'+
-								'</div>'
-				}*/
-				slider.innerHTML=html;
-				//订单列表
-				var castList = data.data.castList;
-				var castUl = document.getElementById("caseList");
-				if(castList==undefined){
-					var orderList = document.getElementById("orderList")
-					orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
-					return;
-				}
-				for (var item in caseList) {
-					if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5){stateType = state1}
-					else if(caseList[item].caseStatus == -1  && caseList[item].customerType == 5){stateType = state7}
-					else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2){stateType = state2}
-					else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5){stateType = state3}
-					else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5){stateType = state4}
-					else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null){stateType = state5}
-					li = document.createElement('li');
-					li.className = 'mui-table-view-cell mui-media';
-					li.innerHTML = '<a href="javascript:;" id='+ caseList[item].id +'">'+
-									'<img class="mui-media-object mui-pull-left" src="'+ caseList[item].attachmentFile +'">'+
-										'<div class="mui-media-body">'+
-											'<p class="order-title">'+ caseList[item].claimCode +'</p>'+
-												'<p class="mui-ellipsis">'+caseList[item].updateTimeString +'</p>'+
-										'</div>'+
-										'<span class="stateType">'+ stateType +
-									'</a>';
-					caseUl.appendChild(li);
+				if (data.msgCode=="0000"){
+					//设置客服电话
+					localStorage.setItem('$contactUs', data.data.contactUs);
+					//广告数据
+					var slider = document.getElementById("slider");
+					var html='';
+					var adList = data.data.adList;
+					console.log(adList);
+					/*for (var item in adList) {
+						html +='<div class="mui-slider-item">'+
+										'<a href="'+adList[item].adLink+'">'+
+											'<img src="'+adList[item].adUrl+'">'+
+										'</a>'+
+									'</div>'
+					}*/
+					slider.innerHTML=html;
+					//订单列表
+					var caseList = data.data.caseList;
+					var caseUl = document.getElementById("caseUl");
+					if(caseList == undefined){
+						var orderList = document.getElementById("orderList")
+						orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+						return;
+					}
+					for (var item in caseList) {
+						if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5){stateType = state1}
+						else if(caseList[item].caseStatus == -1  && caseList[item].customerType == 5){stateType = state7}
+						else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2){stateType = state2}
+						else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5){stateType = state3}
+						else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5){stateType = state4}
+						else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null){stateType = state5}
+						li = document.createElement('li');
+						li.className = 'mui-table-view-cell mui-media bg-white';
+						li.innerHTML = '<a href="javascript:;" id='+ caseList[item].id +'">'+
+										'<img class="mui-media-object mui-pull-left" src="'+ caseList[item].attachmentFile +'">'+
+											'<div class="mui-media-body">'+
+												'<p class="order-title">'+ caseList[item].claimCode +'</p>'+
+													'<p class="mui-ellipsis">'+caseList[item].updateTimeString +'</p>'+
+											'</div>'+
+											'<span class="stateType">'+ stateType +
+										'</a>';
+						caseUl.appendChild(li);
+					}
+				}else if (data.msgCode=="0002"){
+					mui.alert('请重新登录', function() {
+						mui.openWindow({
+						   url: 'login.html', 
+						   id:'login'
+						});
+					});
 				}
 			}
 		});

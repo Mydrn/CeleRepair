@@ -144,7 +144,7 @@
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
 				<h1 class="mui-title">地址管理</h1>
-				<a onclick="openpage('address-new','新增地址',0)" class="mui-btn mui-btn-link mui-pull-right f-white">新增地址</a>
+				<a onclick="openpage(0);" class="mui-btn mui-btn-link mui-pull-right f-white">新增地址</a>
 			</header>
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper mui-inner-wrap">
 				<div id="addressList" class="mui-scroll">
@@ -202,7 +202,7 @@
 									'</div>' + 
 								'</a>' + 
 								'<div class="mui-card-link">' + 
-									'<a onclick=openpage("address-new","新增地址",'+addressList[item].id+') class="f-orange">' + 
+									'<a onclick="openpage('+addressList[item].id+');" class="f-orange">' + 
 										'<span class="mui-icon mui-icon-compose f-orange"></span> 编辑' + 
 									'</a>' + 
 									'<a href="javascript:;" class="f-blank del" id="'+ addressList[item].id +'">' + 
@@ -219,22 +219,16 @@
 				//初始化单页的区域滚动
 				mui('.mui-scroll-wrapper').scroll();
 				//开启A标签的跳转
-				mui('body').on('tap', 'a', function() {
-					window.top.location.href = this.href;
-				});
+				
 				function back(id) {
 					window.location.href = "${ctx}/backend/h5/user/backOrder?id="+id;
 				}
 				//页面跳转
-				function openpage(page,title,id){
-						mui.openWindow({
-   						url:page+'.html',
-					    id:page,
-					    extras:{
-					        title:title,
-					        id:id
-					    }
+				function openpage(id){
+					var newpage = plus.webview.create("address-new.html", "address-new", {}, {
+						 itemId:id
 					});
+					newpage.show();
 				}
 				mui(function($) {
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/delAddress";

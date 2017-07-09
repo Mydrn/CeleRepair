@@ -74,7 +74,7 @@
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-loading">
-									<c:forEach var="obj" items="${ caseList }">
+									<!--<c:forEach var="obj" items="${ caseList }">
 									<c:if test="${ obj.caseStatus == -1 }">
 										<ul class="mui-table-view">
 											<li class="mui-table-view-cell mui-media">
@@ -88,7 +88,7 @@
 											</li>
 										</ul>
 									</c:if>
-									</c:forEach>
+									</c:forEach>-->
 								</ul>
 							</div>
 						</div>
@@ -97,7 +97,7 @@
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-loading">
-										<c:forEach var="obj" items="${ caseList }">
+										<!--<c:forEach var="obj" items="${ caseList }">
 										<c:if test="${ obj.caseStatus == 0 || obj.caseStatus == 1 || obj.caseStatus == 2 }">
 											<ul class="mui-table-view">
 												<li class="mui-table-view-cell mui-media">
@@ -111,7 +111,7 @@
 												</li>
 											</ul>
 										</c:if>
-										</c:forEach>
+										</c:forEach>-->
 								</ul>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-loading">
-								<c:forEach var="obj" items="${ caseList }">
+								<!--<c:forEach var="obj" items="${ caseList }">
 										<c:if test="${ obj.caseStatus == 7 }">
 											<ul class="mui-table-view">
 												<li class="mui-table-view-cell mui-media">
@@ -134,7 +134,7 @@
 												</li>
 											</ul>
 										</c:if>
-										</c:forEach>
+										</c:forEach>-->
 								</ul>
 							</div>
 						</div>
@@ -143,7 +143,7 @@
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-loading">
-									<c:forEach var="obj" items="${ caseList }">
+									<!--<c:forEach var="obj" items="${ caseList }">
 									
 										<c:if test="${obj.caseStatus == 4 && empty obj.assessScore }">
 											<ul class="mui-table-view">
@@ -158,7 +158,7 @@
 												</li>
 											</ul>
 										</c:if>
-									</c:forEach>
+									</c:forEach>-->
 								</ul>
 							</div>
 						</div>
@@ -167,10 +167,13 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
 		<script src="../js/mui.pullToRefresh.js"></script>
 		<script src="../js/mui.pullToRefresh.material.js"></script>
 		<script>
 			mui.init();
+			var token = app.getState().token;
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			//加载中过度使用
 			mui(function($) {
 				var img=$('img'),num=0;
@@ -249,8 +252,10 @@
 						mui.toast("没有更多数据");
 						return fragment;
 					}
-					mui.ajax('${ctx}/backend/h5/case/doPairCasePage',{
+					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doPairCasePage";
+					mui.ajax(url,{
 						data:{
+							token:token,
 							pages:pages,
 							num:count
 						},
@@ -260,10 +265,12 @@
 					    async:false,
 						timeout:5000,//超时时间设置为5秒；
 						success:function(data){
-							if(data.length == 0){
+							mui.toast(data.msg);
+							if(data.data.length == 0){
 								mui.toast("没有更多数据");
 								numOld = true;
 							}
+							data = data.data;
 							for (var item in data) {
 								if(data[item].caseStatus == -1 && data[item].customerType != 5){stateType = state1}
 								else if(data[item].caseStatus == -1  && data[item].customerType == 5){stateType = state7}
@@ -273,7 +280,7 @@
 								else if(data[item].caseStatus == 4 && data[item].assessScore == null){stateType = state5}
 								li = document.createElement('li');
 								li.className = 'mui-table-view-cell mui-media';
-								li.innerHTML = '<a href="${ctx}/backend/h5/case/doCaseOne?caseId='+ data[item].id +'">'+
+								li.innerHTML = '<a href="javascript:;" class="details" id='+ data[item].id +'">'+
 												'<img class="mui-media-object mui-pull-left" src="'+ data[item].attachmentFile +'">'+
 													'<div class="mui-media-body">'+
 														'<p class="order-title">'+ data[item].claimCode +'</p>'+
@@ -301,6 +308,15 @@
 						ul.appendChild(createFragment(ul,1,10));
 					}, 500);
 				}
+				$('body').on('tap', 'details', function() {
+					mui.openWindow({
+					    url:'order-details.html',
+					    id:'order-details',
+					    extras:{
+					        id:this.id,
+					    }
+					});	
+				});
 				//点击导航栏时的事件
 				/* document.getElementById('slider').addEventListener('slide', function(e) {
 					//第二屏的页面内容

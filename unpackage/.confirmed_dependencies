@@ -1,1 +1,57 @@
-null
+{
+  "page/address.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "index.html"
+    ],
+    "refer": [
+      "page/address-new.html"
+    ]
+  },
+  "page/address-new.html": {
+    "resources": [
+      "js/mui.poppicker.js",
+      "css/mui.poppicker.css",
+      "css/mui.picker.css",
+      "js/city.data-3.js",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "index.html": {
+    "resources": [
+      "images/cbd.jpg",
+      "js/app.js",
+      "images/ice-personal.png",
+      "fonts/mui.ttf",
+      "images/5.png",
+      "images/2.png",
+      "images/ice-repair.png",
+      "images/logo.png",
+      "images/1.png",
+      "images/3.png",
+      "js/mui.min.js",
+      "images/4.png",
+      "css/mui.min.css",
+      "images/3.gif",
+      "page/address.html"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  },
+  "login.html": {
+    "resources": [
+      "images/celerepair-logo.png"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  }
+}
