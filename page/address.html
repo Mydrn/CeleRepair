@@ -148,49 +148,9 @@
 			</header>
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper mui-inner-wrap">
 				<div id="addressList" class="mui-scroll">
-				<c:forEach var="obj" items="${ addressList }">
-					<div class="mui-card">
-						<form class="mui-input-group">
-							<div class="mui-card-content">
-								<div class="mui-card-content-inner">
-									<table border="0" cellspacing="0" cellpadding="0" style="width:100%">
-										<tbody>
-											<tr>
-												<td style="width:50%">联系人：${ obj.name }</td>
-											</tr>
-											<tr>
-												<td style="width:50%">联系电话：${ obj.mobile }</td>
-											</tr>
-											<tr>
-												<td colspan="2">联系地址：${ obj.address }</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="mui-card-footer">
-								<a class="mui-card-link" href="javascript:;">
-									<div class="mui-input-row mui-checkbox mui-left">
-										<label class="f-blank">默认地址</label>
-										<input name="checkbox" class="checkbox" checked="checked" type="checkbox">
-									<div class="mui-input-row mui-checkbox mui-left">
-									</div>
-										<label class="f-blank">设为默认</label>
-										<input name="checkbox" class="checkbox" type="checkbox">
-									</div>
-								</a>
-								<div class="mui-card-link">
-									<a class="f-orange">
-										<span class="mui-icon mui-icon-compose f-orange"></span> 编辑
-									</a>
-									<a class="f-blank del">
-										<span class="mui-icon mui-icon-trash f-blank"></span> 删除
-									</a>
-								</div>
-							</div>
-						</form>
-					</div>
-					</c:forEach>
+				
+					
+					
 				</div>
 			</div>
 			<script src="../js/mui.min.js"></script>
@@ -201,7 +161,57 @@
 					swipeBack: true //启用右滑关闭功能
 				});
 				mui.ready(function(){
-					alert(app.getState().token);
+					var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doAddress";
+					mui.ajax(url,{
+						data: {
+						token: app.getState().token
+					},
+					type:'POST',//HTTP请求类型
+					dataType:'json',
+					timeout:5000,//超时时间设置为5秒；
+					success:function(data){
+						if(data.msgCode=="0000"){
+							var addressList = data.data;
+							for (var item in addressList) {
+								var html = document.getElementById("addressList").innerHTML;
+								
+								var isDefaultHtml = "";
+								if(addressList[item].isDefault){
+									isDefaultHtml = ' checked="checked" ';
+								}
+								
+								document.getElementById("addressList").innerHTML = html +
+								'<div class="mui-card"><form class="mui-input-group"><div class="mui-card-content">'+
+								'<div class="mui-card-content-inner">' + 
+									'<table border="0" cellspacing="0" cellpadding="0" style="width:100%">' +
+										'<tbody><tr>' + 
+												'<td style="width:50%">联系人：'+ addressList[item].name  +
+												'</td></tr><tr><td style="width:50%">联系电话：' +  addressList[item].mobile  +
+												'</td></tr><tr><td colspan="2">联系地址：' +  addressList[item].address  + 
+												'</td></tr></tbody></table></div></div>' +
+								'<div class="mui-card-footer"><a class="mui-card-link" href="javascript:;">' +
+									'<div class="mui-input-row mui-checkbox mui-left">' + 
+										'<label class="f-blank">默认地址</label>' + 
+										'<input name="checkbox" class="checkbox" type="checkbox" '+ isDefaultHtml +'>' +
+									'<div class="mui-input-row mui-checkbox mui-left">' + 
+									'</div>' + 
+										'<label class="f-blank">设为默认</label>' + 
+										'<input name="checkbox" class="checkbox" type="checkbox"'+ isDefaultHtml +'>' + 
+									'</div>' + 
+								'</a>' + 
+								'<div class="mui-card-link">' + 
+									'<a class="f-orange">' + 
+										'<span class="mui-icon mui-icon-compose f-orange"></span> 编辑' + 
+									'</a>' + 
+									'<a class="f-blank del">' + 
+										'<span class="mui-icon mui-icon-trash f-blank"></span> 删除' + 
+									'</a>' + 
+								'</div></div></form></div>' ;
+							}
+						}
+					}
+				});
 				}); 
 				//初始化单页的区域滚动
 				mui('.mui-scroll-wrapper').scroll();
