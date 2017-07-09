@@ -157,11 +157,12 @@
 			<script src="../js/app.js"></script>
 			<!--<script type="text/javascript" src="../js/js/vconsole.min.js"></script>-->
 			<script>
+				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+				
 				mui.init({
 					swipeBack: true //启用右滑关闭功能
 				});
 				mui.ready(function(){
-					var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doAddress";
 					mui.ajax(url,{
 						data: {
@@ -201,14 +202,16 @@
 									'</div>' + 
 								'</a>' + 
 								'<div class="mui-card-link">' + 
-									'<a class="f-orange">' + 
+									'<a href="javascript:;" class="f-orange" id="'+ addressList[item].id +'">' + 
 										'<span class="mui-icon mui-icon-compose f-orange"></span> 编辑' + 
 									'</a>' + 
-									'<a class="f-blank del">' + 
+									'<a href="javascript:;" class="f-blank del" id="'+ addressList[item].id +'">' + 
 										'<span class="mui-icon mui-icon-trash f-blank"></span> 删除' + 
 									'</a>' + 
 								'</div></div></form></div>' ;
 							}
+						}else if (data.msgCode=="0002"){
+							alert("请重新登录");
 						}
 					}
 				});
@@ -223,11 +226,23 @@
 					window.location.href = "${ctx}/backend/h5/user/backOrder?id="+id;
 				}
 				mui(function($) {
+					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/delAddress";
 					$('body').on('tap', '.del', function() {
-						mui.get('${ctx}/backend/h5/user/delAddress',{id:this.id},function(data){
-							console.log(data);
+						
+						mui.ajax(url,{
+						data: {
+							id:this.id
+						},
+						type:'POST',//HTTP请求类型
+						dataType:'json',
+						timeout:5000,//超时时间设置为5秒；
+						success:function(data){
+							if(data.msgCode=="0000"){
+							}else{
+								alert("系统繁忙");
+							}
+						}
 						});
-						this.parentNode.parentNode.parentNode.parentNode.remove();
 					});
 
 					$('body').on('tap', '.checkbox', function() {
