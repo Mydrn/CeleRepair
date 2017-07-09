@@ -326,7 +326,7 @@
 				            	<span class="textA">个人中心</span>
 		        			</button>
 						</div>
-						<div class="order-list">
+						<div id="orderList" class="order-list">
 							<!--订单为空时额样式布局-->
 							<!--<div class="order-null">
 						<img src="../images/ice-null.png" />
@@ -339,7 +339,7 @@
 							</div>
 							
 							<div class="mui-card transparent" style="margin-bottom: 35px;">
-								<ul class="mui-table-view mui-table-view-chevron transparent">
+								<ul id="castList" class="mui-table-view mui-table-view-chevron transparent">
 									<li class="mui-table-view-cell mui-media bg-white">
 										<a href="./page/order-details.html?id=768">
 											<img class="mui-media-object mui-pull-left" src="./images/cbd.jpg">
@@ -348,36 +348,6 @@
 												<p class="mui-ellipsis">2017-06-05 17:50</p>
 											</div>
 											<span class="stateType">待<br />支<br />付</span>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media bg-white">
-										<a href="./page/order-details.html">
-											<img class="mui-media-object mui-pull-left" src="./images/cbd.jpg">
-											<div class="mui-media-body">
-												<p class="order-title">五金件安装</p>
-												<p class="mui-ellipsis">2017-06-05 17:50</p>
-											</div>
-											<span class="stateType">审<br />核<br />中</span>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media bg-white">
-										<a href="./page/order-details.html">
-											<img class="mui-media-object mui-pull-left" src="./images/cbd.jpg">
-											<div class="mui-media-body">
-												<p class="order-title">五金件安装</p>
-												<p class="mui-ellipsis">2017-06-05 17:50</p>
-											</div>
-											<span class="stateType">待<br />上<br />门</span>
-										</a>
-									</li>
-									<li class="mui-table-view-cell mui-media bg-white">
-										<a href="./page/order-details.html">
-											<img class="mui-media-object mui-pull-left" src="./images/cbd.jpg">
-											<div class="mui-media-body">
-												<p class="order-title">五金件安装</p>
-												<p class="mui-ellipsis">2017-06-05 17:50</p>
-											</div>
-											<span class="stateType">待<br />评<br />价</span>
 										</a>
 									</li>
 								</ul>
@@ -394,7 +364,6 @@
 		mui.init();
 		//加载中过度使用
 		mui(function($) {
-			
 			var img=$('img'),num=0;
 			if(img.length==0){
 				$('#mask')[0].style.display='none';
@@ -412,6 +381,69 @@
 				})
 			}
 		})
+		var state1 = "审<br />核<br />中", state2 = "待<br />上<br />门",
+					state3 = "待<br />审<br />批", state4 = "待<br />付<br />款",
+					state5 = "待<br />评<br />价", state6 = "已<br />完<br />成",
+					state7 = "待<br />接<br />单";
+				var stateType = "已<br />完<br />成";
+		var token = app.getState().token;
+		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndexList";
+		mui.ajax(url,{
+			type:'POST',
+			data: {
+				token: token
+			},
+			dataType:'json',
+			timeout:5000,//超时时间设置为5秒；
+			success:function(data){
+				//设置客服电话
+				localStorage.setItem('$contactUs', data.data.contactUs);
+				//广告数据
+				var slider = document.getElementById("slider");
+				var html='';
+				var adList = data.data.adList;
+				/*for (var item in adList) {
+					html +='<div class="mui-slider-item">'+
+									'<a href="'+adList[item].adLink+'">'+
+										'<img src="'+adList[item].adUrl+'">'+
+									'</a>'+
+								'</div>'
+				}*/
+				slider.innerHTML=html;
+				//订单列表
+				var castList = data.data.castList;
+				var castUl = document.getElementById("caseList");
+				if(castList==undefined){
+					var orderList = document.getElementById("orderList")
+					orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+					return;
+				}
+				for (var item in caseList) {
+					if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5){stateType = state1}
+					else if(caseList[item].caseStatus == -1  && caseList[item].customerType == 5){stateType = state7}
+					else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2){stateType = state2}
+					else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5){stateType = state3}
+					else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5){stateType = state4}
+					else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null){stateType = state5}
+					li = document.createElement('li');
+					li.className = 'mui-table-view-cell mui-media';
+					li.innerHTML = '<a href="javascript:;" id='+ caseList[item].id +'">'+
+									'<img class="mui-media-object mui-pull-left" src="'+ caseList[item].attachmentFile +'">'+
+										'<div class="mui-media-body">'+
+											'<p class="order-title">'+ caseList[item].claimCode +'</p>'+
+												'<p class="mui-ellipsis">'+caseList[item].updateTimeString +'</p>'+
+										'</div>'+
+										'<span class="stateType">'+ stateType +
+									'</a>';
+				caseUl.appendChild(li);
+				alert(caseUl);
+				}
+				console.log(data);
+			}
+		});
+		
+		
 		//侧滑容器父节点
 		var offCanvasWrapper = mui('#offCanvasWrapper');
 		//主界面容器

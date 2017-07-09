@@ -54,3 +54,7 @@ mui.openWindow({
 var self = plus.webview.currentWebview();
 var name = self.name;
 var version = self.version;
+
+
+#客服电话
+var contactUs = localStorage.getItem('$contactUs');
