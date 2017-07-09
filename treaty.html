@@ -96,6 +96,7 @@
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findAgreementFirst";
 				var fragment = doc.getElementById("content");
 				$.ajax(url,{
+					data:{token:app.getState().token},
 					type:'POST',//HTTP请求类型
 					dataType:'json',
 					timeout:5000,//超时时间设置为5秒；

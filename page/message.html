@@ -89,6 +89,8 @@
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript">
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			var token = app.getState().token;
+			
 			mui.init();
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
@@ -106,36 +108,38 @@
 			(function($, doc) {
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/tidingsList";
 				var tidings = doc.getElementById("OA_task_1");
-				var id=app.getState().token;
 				$.ajax(url,{
-					data:{token:id},
+					data:{token:token},
 					type:'POST',//HTTP请求类型
 					dataType:'json',
 					timeout:5000,//超时时间设置为5秒；
 					success:function(data){
-					for (var item in data) {
-						var content="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
-						+"<div class='mui-slider-right mui-disabled'>"
-						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
-						+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
-						+"<span class='mui-dot'></span><h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
-						+"</div></div></div></li>";
-						
-						var content1="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
-						+"<div class='mui-slider-right mui-disabled'>"
-						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
-						+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
-						+"<h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
-						+"</div></div></div></li>";
-						if(!data[item].status){
-							tidings.append(content);
-						}else if(data[item].status){
-							tidings.append(content1);
+						if(data.length == 0){
+							tidings.innerHTML="暂无消息";
 						}else{
-							tidings.innerHTML="暂无消息"
+							for (var item in data) {
+								var content="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
+								+"<div class='mui-slider-right mui-disabled'>"
+								+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
+								+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
+								+"<span class='mui-dot'></span><h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
+								+"</div></div></div></li>";
+								
+								var content1="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
+								+"<div class='mui-slider-right mui-disabled'>"
+								+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
+								+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
+								+"<h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
+								+"</div></div></div></li>";
+								var oldhtml=tidings.innerHTML;
+								if(!data[item].status){
+									tidings.innerHTML=oldhtml+content;
+								}else if(data[item].status){
+									tidings.innerHTML=oldhtml+content1;
+								}
+							
+							}
 						}
-					
-					}
 					}
 				});
 			})(mui, document);
@@ -147,7 +151,7 @@
 						if (e.index==1) {
 							mui.ajax(url1,{
 								type:'get',//HTTP请求类型
-								data:{objectId:event},
+								data:{objectId:event,token:app.getState().token},
 								dataType:'json',
 								cache:false, 
 							    async:false,
@@ -166,9 +170,10 @@
 			//点击查看消息内容
 			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findtidingsFirst";
 			function  view(event) {
+			
 				mui.ajax(url,{
 					type:'get',//HTTP请求类型
-					data:{id:event},
+					data:{id:event,token:app.getState().token},
 					dataType:'json',
 					cache:false, 
 				    async:false,
