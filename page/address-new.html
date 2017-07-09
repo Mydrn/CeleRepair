@@ -110,25 +110,25 @@
 			</header>
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 				<form class="mui-input-group">
-					<input type="text" hidden name="state" value="${ choose }" id="state" />
-					<input type="text" hidden name="id" value="${address.id }" id="id" />
-					<input type="text" hidden name="proId" value="${address.proId }" id="proId" />
-					<input type="text" hidden name="cityId" value="${address.cityId }" id="cityId" />
-					<input type="text" hidden name="regionId" value="${address.regionId }" id="regionId" />
+					<input type="text" hidden name="state" value="" id="state" />
+					<input type="text" hidden name="id" value="" id="id" />
+					<input type="text" hidden name="proId" value="" id="proId" />
+					<input type="text" hidden name="cityId" value="" id="cityId" />
+					<input type="text" hidden name="regionId" value="" id="regionId" />
 					<div class="mui-input-row">
 						<label>联系地址:</label>
 						<input type="text" placeholder="请选择地址" class="mui-text-right text-overflow" id="showCityPicker3">
 					</div>
 					<div class="mui-input">
-						<textarea id="address" name="address" placeholder="请输入详细地址" rows="3" cols="2">${ address.address }</textarea>
+						<textarea id="address" name="address" placeholder="请输入详细地址" rows="3" cols="2"></textarea>
 					</div>
 					<div class="mui-input-row">
 						<label>联系人:</label>
-						<input type="text" id="name" name="name" value="${ address.name }" class="mui-input-clear mui-text-right" placeholder="请输入联系人" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+						<input type="text" id="name" name="name" value="" class="mui-input-clear mui-text-right" placeholder="请输入联系人" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
 					</div>
 					<div class="mui-input-row">
 						<label>联系电话:</label>
-						<input type="tel" id="mobile" name="mobile" value="${ address.mobile }" class="mui-input-clear mui-text-right" placeholder="请输入联系电话" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+						<input type="tel" id="mobile" name="mobile" value="" class="mui-input-clear mui-text-right" placeholder="请输入联系电话" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
 					</div>
 					<div class="mui-button-row">
 						<button id="submit" class="mui-btn bg-orange f-white">确认</button>
@@ -142,6 +142,7 @@
 		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
 		<script type="text/javascript" src="../js/city.data-3.js"></script>
 		<script>
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
@@ -153,11 +154,32 @@
 					});
 				});
 			}
-			var self = plus.webview.currentWebview();
-			document.getElementById('title').innerHTML = self.title;
-			var id = self.id;
+			
+			
 			(function($, doc) {
 				$.ready(function() {
+					var self = plus.webview.currentWebview();
+					console.log(self.title);
+					document.getElementById('title').innerHTML = self.title;
+					var id = self.id;
+					alert(id);
+					if(id != 0){
+						alert(id);
+						var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneAddress";
+						mui.ajax(url,{
+							data: {
+								id:id,
+								token: app.getState().token
+						},
+						type:'POST',//HTTP请求类型
+						dataType:'json',
+						timeout:5000,//超时时间设置为5秒；
+						success:function(data){
+							alert(data);
+						}});
+					}
+					
+					
 					//默认选中地区
 					document.getElementById('showCityPicker3').value = seach(1) + " " + seach(5) + " " + seach(6);
 					function seach(a) {

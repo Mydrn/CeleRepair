@@ -183,7 +183,7 @@
 								}
 								
 								document.getElementById("addressList").innerHTML = html +
-								'<div class="mui-card"><form class="mui-input-group"><div class="mui-card-content">'+
+								'<div id="div'+ addressList[item].id  +'" class="mui-card mui-input-group"><div class="mui-card-content">'+
 								'<div class="mui-card-content-inner">' + 
 									'<table border="0" cellspacing="0" cellpadding="0" style="width:100%">' +
 										'<tbody><tr>' + 
@@ -202,13 +202,13 @@
 									'</div>' + 
 								'</a>' + 
 								'<div class="mui-card-link">' + 
-									'<a href="javascript:;" class="f-orange" id="'+ addressList[item].id +'">' + 
+									'<a onclick=openpage("address-new","新增地址",'+addressList[item].id+') class="f-orange">' + 
 										'<span class="mui-icon mui-icon-compose f-orange"></span> 编辑' + 
 									'</a>' + 
 									'<a href="javascript:;" class="f-blank del" id="'+ addressList[item].id +'">' + 
 										'<span class="mui-icon mui-icon-trash f-blank"></span> 删除' + 
 									'</a>' + 
-								'</div></div></form></div>' ;
+								'</div></div></div>' ;
 							}
 						}else if (data.msgCode=="0002"){
 							alert("请重新登录");
@@ -225,21 +225,36 @@
 				function back(id) {
 					window.location.href = "${ctx}/backend/h5/user/backOrder?id="+id;
 				}
+				//页面跳转
+				function openpage(page,title,id){
+						mui.openWindow({
+   						url:page+'.html',
+					    id:page,
+					    extras:{
+					        title:title,
+					        id:id
+					    }
+					});
+				}
 				mui(function($) {
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/delAddress";
 					$('body').on('tap', '.del', function() {
-						
+						var itemId = this.id;
 						mui.ajax(url,{
 						data: {
-							id:this.id
+							id:itemId,
+							token: app.getState().token
 						},
 						type:'POST',//HTTP请求类型
 						dataType:'json',
 						timeout:5000,//超时时间设置为5秒；
 						success:function(data){
 							if(data.msgCode=="0000"){
-							}else{
-								alert("系统繁忙");
+								var itemList = document.getElementById("addressList");
+								var itemDiv = document.getElementById("div"+itemId);
+								itemList.removeChild(itemDiv);
+							}else if (data.msgCode=="0002"){
+								alert("请重新登录");
 							}
 						}
 						});
@@ -262,18 +277,6 @@
 							this.previousElementSibling.innerHTML = "设为默认";
 						}
 					});
-					//页面跳转
-					function openpage(page,title,id){
-						mui.openWindow({
-   						url:page+'.html',
-					    id:page,
-					    extras:{
-					        title:title,
-					        id:id
-					    }
-					});
-					}
-					
 				})
 			</script>
 	</body>
