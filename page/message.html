@@ -68,7 +68,7 @@
 				<!-- <li>
 					<p class="mui-text-center dataTime">2017-06-06 10:00 (周三)</p>
 				</li> -->
-				<li class="mui-table-view-cell" onclick="view(${tidings.id})" >
+				<!--<li class="mui-table-view-cell" onclick="view(${tidings.id})" >
 					<div class="mui-slider-right mui-disabled">
 						<a class="mui-btn mui-btn-red" href="javascript:void(0)" onclick="deleted(${tidings.id})">删除</a>
 					</div>
@@ -81,7 +81,7 @@
 							</div>
 						</div>
 					</div>
-				</li>
+				</li>-->
 			</ul>
 		</div>
 		<script type="text/javascript" src="../js/mui.min.js"></script>
@@ -108,29 +108,29 @@
 				var tidings = doc.getElementById("OA_task_1");
 				var id=app.getState().token;
 				$.ajax(url,{
-					data{token:id}
+					data:{token:id},
 					type:'POST',//HTTP请求类型
 					dataType:'json',
 					timeout:5000,//超时时间设置为5秒；
 					success:function(data){
 					for (var item in data) {
-						var content="<li class='mui-table-view-cell' onclick='view("+data[item].id)+">"
+						var content="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
 						+"<div class='mui-slider-right mui-disabled'>"
-						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id)+")'>删除</a>"
+						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
 						+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
-						+"<span class='mui-dot'></span><h4>"+data[item].title)+"</h4><p class='text-body'>"+data[item].content+"</p>"
-						+"</div></div></div></li>"
+						+"<span class='mui-dot'></span><h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
+						+"</div></div></div></li>";
 						
-						var content1="<li class='mui-table-view-cell' onclick='view("+data[item].id)+">"
+						var content1="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
 						+"<div class='mui-slider-right mui-disabled'>"
-						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id)+")'>删除</a>"
+						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
 						+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
-						+"<h4>"+data[item].title)+"</h4><p class='text-body'>"+data[item].content+"</p>"
-						+"</div></div></div></li>"
-						if(!tidings.status){
-							tidings.appendChild(content)
-						}else if(tidings.status){
-							tidings.appendChild(content1)
+						+"<h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
+						+"</div></div></div></li>";
+						if(!data[item].status){
+							tidings.append(content);
+						}else if(data[item].status){
+							tidings.append(content1);
 						}else{
 							tidings.innerHTML="暂无消息"
 						}
@@ -139,13 +139,13 @@
 					}
 				});
 			})(mui, document);
-			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/deteletidings";
+			var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/deteletidings";
 			function deleted(event) {
 				$("li").removeAttr("onclick");
 				var btnArray = ['取消','确认'];
 				mui.confirm('确认删除该条记录？', '温馨提示',function(e) {
 						if (e.index==1) {
-							mui.ajax(url,{
+							mui.ajax(url1,{
 								type:'get',//HTTP请求类型
 								data:{objectId:event},
 								dataType:'json',

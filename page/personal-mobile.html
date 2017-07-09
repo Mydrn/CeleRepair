@@ -152,6 +152,7 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
 		<!--<script type="text/javascript" src="../js/js/vconsole.min.js"></script>-->
 		<script>
 			mui.init();
@@ -169,40 +170,47 @@
 				}
 			};
 			//发送验证码
-			var phone = document.getElementById("mobile");//手机号码
-			document.getElementById('send').addEventListener('tap', function(event) {
-				event.preventDefault();
-				window.event.returnValue = false;
-				var _this=this;
-				if(phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")){
-					return mui.toast("手机号码有误");
-				}
-				mui.get('${ctx}/backend/h5/user/getMobileCode',{mobile:phone.value},function(data){
-					mui.toast(data.msg);
-					if (data.msgCode == "0000") {
-						//成功
-						//发送验证码倒计时
-						_this.innerHTML='已发送(<span id="count">60</span>)秒';
-						var time=parseInt(document.getElementById("count").innerHTML);
-						var timer=setInterval(function() {
-								time -= 1;
-								if(time == 0 ) {
-									_this.innerHTML='获取验证码';
-									//清除定时器
-									clearInterval(timer);
-								} else {
-									_this.setAttribute("disabled", "disabled");
-									//设置倒计时数字
-									document.getElementById("count").innerHTML=time;
-								}
-						}, 1000);
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			(function($, doc) {
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getMobileCode";
+				var phone = document.getElementById("mobile");//手机号码
+				document.getElementById('send').addEventListener('click', function(event) {
+					event.preventDefault();
+					window.event.returnValue = false;
+					var _this=this;
+					if(phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")){
+						return mui.toast("手机号码有误");
 					}
-				},'json');
-			});
-
+					mui.get(url,{mobile:phone.value},function(data){
+						mui.toast(data.msg);
+						if (data.msgCode == "0000") {
+							//成功
+							//发送验证码倒计时
+							_this.innerHTML='已发送(<span id="count">60</span>)秒';
+							var time=parseInt(document.getElementById("count").innerHTML);
+							var timer=setInterval(function() {
+									time -= 1;
+									if(time == 0 ) {
+										_this.innerHTML='获取验证码';
+										//清除定时器
+										clearInterval(timer);
+									} else {
+										_this.setAttribute("disabled", "disabled");
+										//设置倒计时数字
+										document.getElementById("count").innerHTML=time;
+									}
+							}, 1000);
+						}
+					},'json');
+				});
+			})(mui, document);
+			
+			
+			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doRevisePhone";
 			var code = document.getElementById('code');
 			var password = document.getElementById('password');
-			document.getElementById('submit').addEventListener('tap',function(){
+			var id=app.getState().token;
+			document.getElementById('submit').addEventListener('click',function(){
 				event.preventDefault();
 				window.event.returnValue = false;
 				if(phone.value.replace(/(^s*)|(s*$)/g, "").length == 0){
@@ -212,8 +220,9 @@
 				}if(password.value.replace(/(^s*)|(s*$)/g, "").length < 5){
 					return mui.toast("请填写正确格式的密码");
 				}
-				mui.ajax('${ctx}/backend/h5/user/doRevisePhone',{
+				mui.ajax(url,{
 					data:{
+						token:id,
 						mobile:phone.value,
 						code:code.value,
 						password:password.value
@@ -225,7 +234,13 @@
 					success:function(data){
 						mui.toast(data.msg);
 						if (data.msgCode == "0000") {
-							window.location.href = "${ctx}/page/h5/personal.jsp";
+							mui.alert('修改成功', function() {
+								window.location.href = "page/personal.html";
+							}
+						}else if(data.msgCode == "0001"){
+							return mui.toast("验证码错误");
+						}else if(data.msgCode == "0002"){
+							return mui.toast("原密码错误");
 						}
 					},
 					error:function(xhr,type,errorThrown){
