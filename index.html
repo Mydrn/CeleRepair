@@ -222,7 +222,7 @@
 								</a>
 							</li>
 							<li class="mui-table-view-cell">
-								<a href="address.html" class="mui-navigate-right">
+								<a href="page/address.html" class="mui-navigate-right">
 									地址信息
 								</a>
 							</li>
@@ -389,10 +389,12 @@
 		</div>
 		<img src="http://img.2222.moe/uploads/2015/07/aoki.JPG"/>
 		<script src="./js/mui.min.js"></script>
+		<script src="./js/app.js"></script>
 		<script>
 		mui.init();
 		//加载中过度使用
 		mui(function($) {
+			
 			var img=$('img'),num=0;
 			if(img.length==0){
 				$('#mask')[0].style.display='none';

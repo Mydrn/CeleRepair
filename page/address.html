@@ -194,11 +194,15 @@
 				</div>
 			</div>
 			<script src="../js/mui.min.js"></script>
+			<script src="../js/app.js"></script>
 			<!--<script type="text/javascript" src="../js/js/vconsole.min.js"></script>-->
 			<script>
 				mui.init({
 					swipeBack: true //启用右滑关闭功能
 				});
+				mui.ready(function(){
+					alert(app.getState().token);
+				}); 
 				//初始化单页的区域滚动
 				mui('.mui-scroll-wrapper').scroll();
 				//开启A标签的跳转

@@ -1,14 +1,14 @@
 (function($, owner) {
 	var serviceinfo = {
 			//测试接口
-			app_ip: "https://celefix.mydrn.cn",
-			app_port: "443",
-			path: "/celefix/backend/h5/" //环境路径
+//			app_ip: "https://celefix.mydrn.cn",
+//			app_port: "443",
+//			path: "/celefix/backend/h5/" //环境路径
 			
 			//本地
-			/*app_ip: "http://127.0.0.1",
-			app_port: "8080",
-			path: "/celefix/backend/h5/"*/ //环境路径
+			app_ip: "http://127.0.0.1",
+			app_port: "8000",
+			path: "/celefix/backend/h5/" //环境路径
 		};
 		//服务器地址存储本地
 		localStorage.setItem('$serviceinfo', JSON.stringify(serviceinfo));
@@ -89,8 +89,7 @@
 
 	owner.createState = function(jsonData, callback) {
 		var state = owner.getState();
-		state.name = jsonData.name;
-		state.token = jsonData.id;
+		state.token = jsonData.data;
 		owner.setState(state);
 		return callback();
 	};
