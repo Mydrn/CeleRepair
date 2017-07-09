@@ -291,7 +291,7 @@
 			(function($, doc) {
 				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getMobileCode";
-				doc.getElementById('send').addEventListener('tap', function(event) {
+				doc.getElementById('send').addEventListener('click', function(event) {
 					event.preventDefault();
 					window.event.returnValue = false;
 					var _this=this;
@@ -331,11 +331,11 @@
 						}
 					});
 				})
-	
+				})(mui, document);
 	
 				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findContactUsFirst";
-				var fragment = doc.getElementById("kh");
+				var fragment = document.getElementById("kh");
 				mui.ajax(url,{
 					type:'get',//HTTP请求类型
 					dataType:'json',
@@ -347,7 +347,6 @@
 						fragment.setAttribute('href',"tel:"+data.phone);
 					}
 				});
-			})(mui, document);
 		
 			//注册
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
@@ -355,7 +354,7 @@
 			var phone = document.getElementById("mobile");
 			var customerName = document.getElementById('customerName');
 			var password = document.getElementById('password');
-			document.getElementById('submit').addEventListener('tap',function(){
+			document.getElementById('submit').addEventListener('click',function(){
 				event.preventDefault();
 				window.event.returnValue = false;
 				if(customerName.value.replace(/(^s*)|(s*$)/g, "").length == 0){
