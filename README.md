@@ -6,6 +6,10 @@ CeleRepair开发
 获取		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "方法名";
 
+#token获取方法
+配置 	js/app.js
+获取 	app.getState().token
+
 #跳转的页面需要读取数据的规范
 //A页面中打开B页面，设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；
 mui.openWindow({

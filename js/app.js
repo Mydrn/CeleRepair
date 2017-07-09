@@ -63,7 +63,7 @@
 		console.log(url);
 		$.ajax(url, {
 			data: {
-				customerName: loginInfo.customerName,
+				name: loginInfo.customerName,
 				password: loginInfo.password
 			},
 			dataType: 'json', //服务器返回json格式数据

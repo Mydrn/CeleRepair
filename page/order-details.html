@@ -330,6 +330,24 @@
 						oImg.src=img[i].src
 					})
 				}
+				var token = app.getState().token;
+				var caseId = plus.webview.currentWebview().id;
+				alert(caseId);
+				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
+				$.ajax(url,{
+					type:'POST',
+					data: {
+						token: token,
+						caseId: caseId
+					},
+					dataType:'json',
+					timeout:5000,//超时时间设置为5秒；
+					success:function(data){
+						console.log(data);
+					}
+				});
+				
 			})
 			//主界面和侧滑菜单界面均支持区域滚动；
 			mui('#offCanvasSideScroll').scroll();
