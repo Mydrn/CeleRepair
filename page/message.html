@@ -68,7 +68,6 @@
 				<!-- <li>
 					<p class="mui-text-center dataTime">2017-06-06 10:00 (周三)</p>
 				</li> -->
-				<c:forEach items="${tidingsList}" var="tidings">
 				<li class="mui-table-view-cell" onclick="view(${tidings.id})" >
 					<div class="mui-slider-right mui-disabled">
 						<a class="mui-btn mui-btn-red" href="javascript:void(0)" onclick="deleted(${tidings.id})">删除</a>
@@ -77,18 +76,19 @@
 						<div class="mui-card-content">
 							<div class="mui-card-content-inner">
 							<c:if test="${!tidings.status}"><span class="mui-dot"></span></c:if>	
-								<h4>${tidings.title}</h4>
-								<p class="text-body">${tidings.content}</p>
+								<h4>李静</h4>
+								<p class="text-body">李静李静</p>
 							</div>
 						</div>
 					</div>
 				</li>
-				</c:forEach>
 			</ul>
 		</div>
-		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/app.js" ></script>
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript">
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.init();
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
@@ -102,32 +102,50 @@
 					});
 				});
 			}
-			/* (function($) {
-				var btnArray = ['取消','确认'];
-				//拖拽后显示操作图标，点击操作图标删除元素；
-				$('#OA_task_1').on('tap', '.mui-btn', function(event) {
-					var elem = this;
-					var li = elem.parentNode.parentNode;
-					mui.confirm('确认删除该条记录？', '温馨提示', btnArray, function(e) {
-						if(e.index == 1) {
-							li.parentNode.removeChild(li);
-						} else {
-							setTimeout(function() {
-								$.swipeoutClose(li);
-							}, 0);
+		
+			(function($, doc) {
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/tidingsList";
+				var tidings = doc.getElementById("OA_task_1");
+				var id=app.getState().token;
+				$.ajax(url,{
+					data{token:id}
+					type:'POST',//HTTP请求类型
+					dataType:'json',
+					timeout:5000,//超时时间设置为5秒；
+					success:function(data){
+					for (var item in data) {
+						var content="<li class='mui-table-view-cell' onclick='view("+data[item].id)+">"
+						+"<div class='mui-slider-right mui-disabled'>"
+						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id)+")'>删除</a>"
+						+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
+						+"<span class='mui-dot'></span><h4>"+data[item].title)+"</h4><p class='text-body'>"+data[item].content+"</p>"
+						+"</div></div></div></li>"
+						
+						var content1="<li class='mui-table-view-cell' onclick='view("+data[item].id)+">"
+						+"<div class='mui-slider-right mui-disabled'>"
+						+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id)+")'>删除</a>"
+						+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
+						+"<h4>"+data[item].title)+"</h4><p class='text-body'>"+data[item].content+"</p>"
+						+"</div></div></div></li>"
+						if(!tidings.status){
+							tidings.appendChild(content)
+						}else if(tidings.status){
+							tidings.appendChild(content1)
+						}else{
+							tidings.innerHTML="暂无消息"
 						}
-					});
-				})
-				
-			})(mui); */
-			
+					
+					}
+					}
+				});
+			})(mui, document);
+			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/deteletidings";
 			function deleted(event) {
-				//document.getElementByClassName('mui-table-view-cell').onclick = function(){};
 				$("li").removeAttr("onclick");
 				var btnArray = ['取消','确认'];
 				mui.confirm('确认删除该条记录？', '温馨提示',function(e) {
 						if (e.index==1) {
-							mui.ajax('${ctx}/backend/h5/list/deteletidings',{
+							mui.ajax(url,{
 								type:'get',//HTTP请求类型
 								data:{objectId:event},
 								dataType:'json',
@@ -146,8 +164,9 @@
 				})
 			}
 			//点击查看消息内容
+			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findtidingsFirst";
 			function  view(event) {
-				mui.ajax('${ctx}/backend/h5/list/findtidingsFirst',{
+				mui.ajax(url,{
 					type:'get',//HTTP请求类型
 					data:{id:event},
 					dataType:'json',
