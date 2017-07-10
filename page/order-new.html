@@ -40,7 +40,7 @@
 								         <c:when test="${customer.customerType == 5}">  
 								            <li class="mui-table-view-cell">
 												<a href="${ctx}/backend/h5/user/doAddress?state=true" class="mui-navigate-right iconfont icon-iconfontaddress">
-													报修地址 ：${ address.address }
+													报修地址 ：
 												</a>
 											</li>
 								         </c:when>  
@@ -106,7 +106,6 @@
 								<ul class="mui-table-view">
 									<li class="mui-table-view-cell">
 										<input type="button" id="submit" value="确认下单" class="mui-text-center" />
-										<!-- <a href="javascript:;" id="submit" class="mui-text-center">确认下单</a> -->
 									</li>
 								</ul>
 							</div>
@@ -141,9 +140,54 @@
 		<script type="text/javascript" src="../js/html2canvas.js"></script>
 		<script type="text/javascript" src="../js/upload.js"></script>
 		<script>
+			var token = app.getState().token;
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/addCase";
+					mui.ajax(url,{
+						type:'POST',
+						data: {token: token},
+						dataType:'json',
+						timeout:5000,//超时时间设置为5秒；
+						success:function(data){
+							if(data.msgCode=="0000"){
+								if (data.data.shopList!=undefined) {//品牌用户报修
+									
+								}else if(data.data.address!=undefined){//个人用户
+									
+								} else{
+									
+								}
+								var userPicker = new $.PopPicker();
+								userPicker.setData(${ shopList });
+								var showUserPickerButton = doc.getElementById('showUserPicker');
+								var userResult = doc.getElementById('userResult');
+								showUserPickerButton.addEventListener('tap', function(event) {
+									userPicker.show(function(items) {
+										userResult.innerHTML ="&nbsp;" + items[0].text;
+										doc.getElementById('shopId').value = items[0].value;
+									});
+								}, false);
+							}else if (data.msgCode=="0002"){
+								mui.alert('你已在其它地方登录,请重新登录!', function() {
+									mui.openWindow({
+									   url: '../login.html', 
+									   id:'login'
+									});
+								});
+							}
+						}
+					});
+				});
+			})(mui, document) 
+			
+			
+			
 			//开启A标签的跳转
 			mui('body').on('tap', 'a', function() {
 				window.top.location.href = this.href;
@@ -179,40 +223,34 @@
 				//关闭actionsheet
 				mui('#' + parent.id).popover('toggle');
 			})
-
 			//控制上传图片的自适应宽度
 			mui(function($) {
 				var arr = document.querySelectorAll('.cross');
 				for(var i = 0; i < arr.length; i++) {
 					arr[i].style.padding = "12%";
 				}
-
 			});
-
-	document.getElementById('submit').addEventListener('click',function(){
+			document.getElementById('submit').addEventListener('tap',function(){
 				if(${customer.customerType == 5}){
 					if($("#addressId").val() == ''){
-						mui.toast("请选择地址");
-						return false;
+						return mui.toast("请选择地址");
 					}
 				}else if(${customer.customerType == 3}){
 					if($("#shopId").val()==''){
-						mui.toast("请选择店铺");
-						return false;
+						return mui.toast("请选择店铺");
 					}
 				}
 				if($("#serviceId").val()==''){
-					mui.toast("请选择服务类型");
-					return false;
+					return mui.toast("请选择服务类型");
 				}if($("#imgUrl").val()==''){
-					mui.toast("请先上传照片");
-					return false;
+					return mui.toast("请先上传照片");
 				}
 				/* if($("#servicingTime").val()==''){
 				mui.toast("请选择上门时间");
 				return false;
 				} */
-				mui.ajax('${ctx}/backend/h5/case/saveCase',{
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
+				mui.ajax(url,{
 					data:$('#objectContent').serialize(),
 					type:'post',//HTTP请求类型
 					dataType:'json',
@@ -220,7 +258,20 @@
 					success:function(data){
 						mui.toast(data.msg);
 						if(data.msgCode=="0000"){
-							window.location.href = "${ctx}/backend/h5/case/doCaseOne?caseId="+data.data;
+							mui.openWindow({
+							    url:'order-details.html',
+							    id:'order-details',
+							    extras:{
+							        caseId:data.data
+							    }
+							});	
+						}else if (data.msgCode=="0002"){
+							mui.alert('你已在其它地方登录,请重新登录!', function() {
+								mui.openWindow({
+								   url: '../login.html', 
+								   id:'login'
+								});
+							});
 						}
 					},
 					error:function(xhr,type,errorThrown){
@@ -228,24 +279,6 @@
 					}
 				});
 			});
-			
-			/* (function($, doc) {
-				$.init();
-				$.ready(function() {
-					//普通示例
-					var userPicker = new $.PopPicker();
-					userPicker.setData(${ shopList });
-					var showUserPickerButton = doc.getElementById('showUserPicker');
-					var userResult = doc.getElementById('userResult');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerHTML ="&nbsp;" + items[0].text;
-							doc.getElementById('shopId').value = items[0].value;
-						});
-					}, false);
-					
-				});
-			})(mui, document) */
 		</script>
 	</body>
 

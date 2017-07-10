@@ -1,4 +1,4 @@
-﻿{
+{
     "@platforms": ["android", "iPhone", "iPad"],
     "id": "H5C4201B6",/*应用的标识，创建应用时自动生成，勿手动修改*/
     "name": "CeleRepair",/*应用名称，程序桌面图标名称*/
@@ -217,10 +217,13 @@
 					"images/4.png",
 					"css/mui.min.css",
 					"images/3.gif",
-					"page/address.html"
+					"page/address.html",
+					"login.html",
+					"page/message.html",
+					"page/order-new.html"
 				],
 				"refer": [
-					"login.html"
+					"page/order-details.html"
 				]
 			},
 			"page/address.html": {
@@ -252,62 +255,90 @@
 			},
 			"login.html": {
 				"resources": [
-					"images/celerepair-logo.png"
-				],
-				"refer": [
+					"images/celerepair-logo.png",
 					"index.html"
 				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/order-details.html": {
+				"resources": [
+					"images/not-pay.png",
+					"js/mui.zoom.js",
+					"images/not-evaluate.png",
+					"images/already-order.png",
+					"js/mui.previewimage.js",
+					"images/not-audit.png",
+					"images/not-visit.png",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"images/3.gif",
+					"css/mui.min.css",
+					"images/already-evaluate.png",
+					"images/already-visit.png",
+					"images/already-audit.png",
+					"images/already-pay.png",
+					"index.html"
+				],
+				"refer": [
+					"page/evaluation.html",
+					"login.html"
+				],
+				"priority": 0
+			},
+			"page/message.html": {
+				"resources": [
+					"js/jquery.js",
+					"index.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/order-new.html": {
+				"resources": [
+					"js/webuploader.js",
+					"index.html",
+					"js/upload.js",
+					"js/mui.poppicker.js",
+					"css/mui.picker.min.css",
+					"css/mui.poppicker.css",
+					"css/mui.picker.css",
+					"css/webuploader.css",
+					"js/jquery.js"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
-				"js/webuploader.js",
 				"css/feedback.css",
-				"js/upload.js",
-				"images/already-visit.png",
 				"images/shuijiao.jpg",
 				"js/icons-extra.css",
 				"fonts/mui-icons-extra.ttf",
-				"js/mui.zoom.js",
 				"page/personal-mobile.html",
-				"images/already-audit.png",
 				"images/60x60.gif",
-				"js/mui.previewimage.js",
 				"js/city.data.js",
-				"css/mui.picker.min.css",
 				"README.md",
-				"images/already-evaluate.png",
-				"page/message.html",
 				"page/order.html",
 				"js/mui.pullToRefresh.material.js",
-				"page/order-new.html",
 				"forget-password.html",
-				"images/not-pay.png",
 				"css/mui.picker.all.css",
 				"js/update.js",
 				"treaty.html",
-				"css/webuploader.css",
 				"page/payment.html",
 				"images/muwu.jpg",
-				"images/already-order.png",
 				"new_file.html",
-				"page/evaluation.html",
 				"register.html",
-				"images/not-evaluate.png",
-				"page/order-details.html",
 				"page/about.html",
 				"page/pay.html",
-				"js/jquery.js",
-				"images/not-visit.png",
 				"js/mui.pullToRefresh.js",
 				"page/personal-password.html",
-				"images/already-pay.png",
 				"images/yuantiao.jpg",
 				"css/app.css",
 				"page/personal.html",
 				"page/feedback.html",
-				"images/not-audit.png",
 				"images/ice-null.png"
 			]
 		}

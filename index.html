@@ -333,8 +333,8 @@
 		<script>
 		mui.init();
 		//主界面和侧滑菜单界面均支持区域滚动；
-		mui('#offCanvasSideScroll').scroll();
-		mui('#offCanvasContentScroll').scroll();
+		mui('#offCanvasSideScroll').scroll({indicators: false});
+		mui('#offCanvasContentScroll').scroll({indicators: false});
 		//加载中过度使用
 		mui(function($) {
 			var img=$('img'),num=0;
@@ -413,7 +413,7 @@
 						caseUl.appendChild(li);
 					}
 				}else if (data.msgCode=="0002"){
-					mui.alert('请重新登录', function() {
+					mui.alert('你已在其它地方登录,请重新登录!', function() {
 						mui.openWindow({
 						   url: 'login.html', 
 						   id:'login'
