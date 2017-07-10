@@ -429,11 +429,11 @@
 						else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null){stateType = state5}
 						li = document.createElement('li');
 						li.className = 'mui-table-view-cell mui-media bg-white';
-						li.innerHTML = '<a href="javascript:;" id='+ caseList[item].id +'">'+
+						li.innerHTML = '<a href="javascript:;" class="details" id='+ caseList[item].id +'">'+
 										'<img class="mui-media-object mui-pull-left" src="'+ caseList[item].attachmentFile +'">'+
 											'<div class="mui-media-body">'+
 												'<p class="order-title">'+ caseList[item].claimCode +'</p>'+
-													'<p class="mui-ellipsis">'+caseList[item].updateTimeString +'</p>'+
+													'<p class="mui-ellipsis">'+caseList[item].updateTime +'</p>'+
 											'</div>'+
 											'<span class="stateType">'+ stateType +
 										'</a>';
@@ -481,7 +481,7 @@
 		document.getElementById('offCanvasShow').addEventListener('tap',
 				function() {
 					var token = app.getState().token;
-					if (token == undefined) {
+					if (token == undefined || token == "{}" ) {
 						 mui.openWindow({
 						    url:'login.html', 
 						    id:'login'
@@ -500,7 +500,7 @@
 				});
 			});
 		}
-		if ('${customer}' == undefined) {
+		if (token == undefined) {
 			offCanvasInner.addEventListener('drag', function(event) {
 				mui.toast("您还未登录!");
 			    event.stopPropagation();
@@ -514,7 +514,15 @@
 			})
 		}
 		)
-		
+		mui('body').on('tap', 'details', function() {
+					mui.openWindow({
+					    url:'order-details.html',
+					    id:'order-details',
+					    extras:{
+					        caseId:this.id,
+					    }
+					});	
+				});
 		
 		//开启A标签的跳转
 		mui('body').on('tap', 'a', function() {

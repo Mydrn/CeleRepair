@@ -42,18 +42,13 @@ console.log(2);
 
 #页面传值
 //A
-mui.openWindow({
-    url:'B.html',
-    id:'B',
-    extras:{
-        name:'mui',
-        version:'0.5.8'
-    }
-});
+var newpage = plus.webview.create("mph_map.html","mph_map",{},{
+		mphid: id
+	});
+	newpage.show();
 //B
 var self = plus.webview.currentWebview();
-var name = self.name;
-var version = self.version;
+var mphid = self.mphid;
 
 
 #客服电话
