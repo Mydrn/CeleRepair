@@ -418,6 +418,7 @@
 					formData = new FormData();
 					formData.append("file", this.files[0]);
 					formData.append("attachmentType", 8);
+					formData.append("token",app.getState().token)
 					mui.ajax(url,{
 						type: "post",
 						dataType: 'text',
@@ -477,13 +478,12 @@
 		var title = document.getElementById("contact");
 		var adviceContent = document.getElementById('question');
 		var imgUrl = document.getElementById('imgUrl');
-		var id=app.getState().token;
 		document.getElementById('submit').addEventListener('tap', function() {
 			event.preventDefault();
 			window.event.returnValue = false;
 			mui.ajax(url, {
 				data: {
-					token:id,
+					token:app.getState().token,
 					score: starIndex,
 					title: title.value,
 					adviceContent: adviceContent.value,

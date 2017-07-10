@@ -232,6 +232,7 @@
 					$.ajax(url, {
 						data: {
 							proId: proId.value,
+							token: app.getState().token,
 							cityId: cityId.value,
 							regionId: regionId.value,
 							address: address.value,

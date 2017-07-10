@@ -301,7 +301,8 @@
 					}
 					mui.ajax(url,{
 						data:{
-							mobile : phone
+							mobile : phone,
+							token:app.getState().token
 						},
 						type:'get',//HTTP请求类型
 						dataType:'json',
@@ -333,20 +334,11 @@
 				})
 				})(mui, document);
 	
-				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findContactUsFirst";
+				//客户电话
 				var fragment = document.getElementById("kh");
-				mui.ajax(url,{
-					type:'get',//HTTP请求类型
-					dataType:'json',
-					cache:false, 
-				    async:false,
-					timeout:5000,//超时时间设置为5秒；
-					success:function(data){
-						fragment.innerHTML='客服电话：'+data.phone;
-						fragment.setAttribute('href',"tel:"+data.phone);
-					}
-				});
+				fragment.innerHTML='客服电话：'+localStorage.getItem('$contactUs');
+				fragment.setAttribute('href',"tel:"+localStorage.getItem('$contactUs'));
+				
 		
 			//注册
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
