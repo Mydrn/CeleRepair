@@ -7,34 +7,13 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/app.css">
 		<style>
 			html,body{background-color:#efeff4}.mui-bar~.mui-content .mui-fullscreen{top:44px;height:auto}.mui-pull-top-tips{position:absolute;top:-20px;left:50%;margin-left:-25px;width:40px;height:40px;border-radius:100%;z-index:1}.mui-bar~.mui-pull-top-tips{top:24px}.mui-pull-top-wrapper{width:42px;height:42px;display:block;text-align:center;background-color:#efeff4;border:1px solid #ddd;border-radius:25px;background-clip:padding-box;box-shadow:0 4px 10px #bbb;overflow:hidden}.mui-pull-top-tips.mui-transitioning{-webkit-transition-duration:200ms;transition-duration:200ms}.mui-pull-top-tips .mui-pull-loading{margin:0}.mui-pull-top-wrapper .mui-icon,.mui-pull-top-wrapper .mui-spinner{margin-top:7px}.mui-pull-bottom-tips{text-align:center;background-color:#efeff4;font-size:15px;line-height:40px;color:#777}.mui-pull-top-canvas{overflow:hidden;background-color:#fafafa;border-radius:40px;box-shadow:0 4px 10px #bbb;width:40px;height:40px;margin:0 auto}.mui-pull-top-canvas canvas{width:40px}.mui-slider-indicator.mui-segmented-control{background-color:#efeff4}.mui-scroll-wrapper{overflow:hidden}#sliderSegmentedControl .mui-active{color:#ff5700}.order-title{color:#000;margin-top:6px}.stateType{position:absolute;top:50%;right:15px;border:1px solid #a5a5a5;padding:2px 8px;border-radius:5px;color:#a5a5a5;line-height:20px;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%)}.mui-table-view-cell{margin-bottom:10px;background-color:#fff}.mui-control-content,.mui-table-view{background-color:transparent}.f-white{color:#fff!important}
-			#mask{
-				position: fixed;
-				right:0;
-				left: 0;
-				top:0;
-				bottom:0;
-				z-index: 9999;
-				background: #fcfcfc;
-			}
-			#mask img,#mask span{
-				position: absolute;
-				top:50%;
-				left:50%;
-				color:#fff;
-				width:70%;
-				text-align: center;
-				-webkit-transform: translate(-50%,-50%);
-				-moz-transform: translate(-50%,-50%);
-				-ms-transform: translate(-50%,-50%);
-				transform: translate(-50%,-50%);
-			}
 		</style>
 	</head>
 
 	<body>
-		<div id="mask"><img src="../images/3.gif"/><span id="mask-num">0%</span></div>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
 			<h1 class="mui-title">我的订单</h1>
@@ -174,25 +153,6 @@
 			mui.init();
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-			//加载中过度使用
-			mui(function($) {
-				var img=$('img'),num=0;
-				if(img.length==0){
-					$('#mask')[0].style.display='none';
-				}else{
-					img.each(function(i){
-						var oImg=new Image();
-						oImg.onload=function(){
-							oImg.onload=null;num++;
-							$('#mask-num')[0].innerHTML=parseInt(num/img.length*100)+"%";
-							if(parseInt(num/img.length*100)==100){
-								$('#mask')[0].style.display='none';
-							}
-						}
-						oImg.src=img[i].src
-					})
-				}
-			})
 			mui('body').on('tap', 'a', function() {
 				if(this.href.indexOf('#item')>0){
 					return
