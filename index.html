@@ -264,45 +264,16 @@
 						<header class="mui-bar mui-bar-nav grad">
 							<span class="mui-icon mui-icon-location mui-pull-left f-white"></span>
 							<a class=" mui-btn mui-btn-link mui-pull-left f-white">上海市</a>
-							<a href="message.html" class="mui-pull-right">
+							<a href="page/message.html" class="mui-pull-right">
 								<span class="mui-icon mui-icon-chatbubble"></span>
 							</a>
 						</header>
 						<!--轮播图-->
-						<div id="slider" class="mui-slider">
+						<div  class="mui-slider">
 							<div class="mui-slider-group mui-slider-loop">
 								<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-								<div class="mui-slider-item mui-slider-item-duplicate"></div>
-								<!-- 第一张 -->
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="./images/1.png">
-									</a>
-								</div>
-								<!-- 第二张 -->
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="./images/2.png">
-									</a>
-								</div>
-								<!-- 第三张 -->
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="./images/3.png">
-									</a>
-								</div>
-								<!-- 第四张 -->
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="./images/4.png">
-									</a>
-								</div>
-								<!-- 第五张 -->
-								<div class="mui-slider-item">
-									<a href="#">
-										<img src="./images/5.png">
-									</a>
-								</div>
+								<div id="slider" class="mui-slider-item mui-slider-item-duplicate"></div>
+								
 								<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 								<div class="mui-slider-item mui-slider-item-duplicate"></div>
 							</div>
@@ -315,11 +286,11 @@
 							</div>
 						</div>
 						<div class="mui-content-padded">
-							<a href="order-new.html">
+							<a href="page/order-new.html">
 								<button type="button" class="mui-repair mui-repair-left mui-box-shadow">
-							<img src="images/ice-repair.png" class="imgWidth"/>
-							<span class="textA">我要报修</span>
-						</button>
+									<img src="images/ice-repair.png" class="imgWidth"/>
+									<span class="textA">我要报修</span>
+								</button>
 							</a>
 							<button type="button" id="offCanvasShow" class="mui-repair mui-repair-right mui-box-shadow">
 				            	<img src="images/ice-personal.png" class="imgWidth"/>
@@ -404,14 +375,14 @@
 					var html='';
 					var adList = data.data.adList;
 					console.log(adList);
-					/*for (var item in adList) {
+					for (var item in adList) {
 						html +='<div class="mui-slider-item">'+
-										'<a href="'+adList[item].adLink+'">'+
-											'<img src="'+adList[item].adUrl+'">'+
-										'</a>'+
-									'</div>'
-					}*/
-					slider.innerHTML=html;
+								'<a href="'+adList[item].adLink+'">'+
+									'<img src="'+adList[item].adUrl+'">'+
+								'</a>'+
+							'</div>'
+					}
+					slider.parentNode.innerHTML=html;
 					//订单列表
 					var caseList = data.data.caseList;
 					var caseUl = document.getElementById("caseUl");
@@ -429,7 +400,7 @@
 						else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null){stateType = state5}
 						li = document.createElement('li');
 						li.className = 'mui-table-view-cell mui-media bg-white';
-						li.innerHTML = '<a href="javascript:;" class="details" id='+ caseList[item].id +'">'+
+						li.innerHTML = '<a href="javascript:;" class="details" id="'+ caseList[item].id +'">'+
 										'<img class="mui-media-object mui-pull-left" src="'+ caseList[item].attachmentFile +'">'+
 											'<div class="mui-media-body">'+
 												'<p class="order-title">'+ caseList[item].claimCode +'</p>'+
@@ -480,7 +451,6 @@
 		//主界面‘显示侧滑菜单’按钮的点击事件
 		document.getElementById('offCanvasShow').addEventListener('tap',
 				function() {
-					var token = app.getState().token;
 					if (token == undefined || token == "{}" ) {
 						 mui.openWindow({
 						    url:'login.html', 
@@ -514,9 +484,9 @@
 			})
 		}
 		)
-		mui('body').on('tap', 'details', function() {
+		mui('body').on('tap', '.details', function() {
 					mui.openWindow({
-					    url:'order-details.html',
+					    url:'page/order-details.html',
 					    id:'order-details',
 					    extras:{
 					        caseId:this.id,

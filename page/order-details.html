@@ -202,9 +202,7 @@
 							<p>已下单</p>
 						</div>
 						<div class="order-line">
-							<c:if test="${obj.customerType == 5 }">
 								<p>待接单</p>
-							</c:if>
 							<img src="../images/not-audit.png" />
 						</div>
 						<div class="order-line">
@@ -212,9 +210,7 @@
 							<img src="../images/not-visit.png" />
 						</div>
 						<div class="order-line">
-							<c:if test="${obj.customerType == 5 }">
 								<p>待付款</p>
-							</c:if>
 							<img src="../images/not-pay.png" />
 						</div>
 						<div class="order-line" style="text-align: right;">
@@ -302,12 +298,12 @@
 		<script src="../js/mui.zoom.js"></script>
 		<script src="../js/mui.previewimage.js"></script>
 		<script>
-			//主界面和侧滑菜单界面均支持区域滚动；
-			mui('#offCanvasSideScroll').scroll();
-			mui('#offCanvasContentScroll').scroll();
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			//主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
 			//实现ios平台原生侧滑关闭页面；
 			if(mui.os.plus && mui.os.ios) {
 				mui.plusReady(function() {
@@ -318,7 +314,7 @@
 				});
 			};
 			var token = app.getState().token;
-			var caseId = plus.webview.currentWebview().id;
+			var caseId = plus.webview.currentWebview().caseId;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			var contactUs = localStorage.getItem('$contactUs');
 			var caseObj;
@@ -345,14 +341,16 @@
 					type:'POST',
 					data: {
 						token: token,
-						id : caseId
+						caseId : caseId
 					},
 					dataType:'json',
 					timeout:5000,//超时时间设置为5秒；
 					success:function(data){
 						//附件
+						alert(JSON.stringify(data));
 						var attList = data.data.attachmentList;
 						var attUl=document.getElementById("order-img");
+						console.log(attList);
 						for (var item in attList) {
 							var html = '<li><img src="'+attList[item].attachmentUrl+'" data-preview-src="'+attList[item].attachmentUrl+'" data-preview-group="1" /></li>';
 							attUl.appendChild(html);
@@ -390,12 +388,12 @@
 					}
 				});
 				//跳转评价
-				$('body').on('tap', 'doEvaluation', function() {
+				$('body').on('tap', '.doEvaluation', function() {
 					mui.openWindow({
 					    url:'evaluation.html',
 					    id:'evaluation',
 					    extras:{
-					        id:this.id,
+					        caseId:this.id,
 					    }
 					});	
 				});

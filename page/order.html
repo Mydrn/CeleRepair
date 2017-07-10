@@ -308,12 +308,12 @@
 						ul.appendChild(createFragment(ul,1,10));
 					}, 500);
 				}
-				$('body').on('tap', 'details', function() {
+				$('body').on('tap', '.details', function() {
 					mui.openWindow({
 					    url:'order-details.html',
 					    id:'order-details',
 					    extras:{
-					        id:this.id,
+					        caseId:this.id,
 					    }
 					});	
 				});
