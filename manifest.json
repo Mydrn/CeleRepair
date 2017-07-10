@@ -342,5 +342,14 @@
 				"images/ice-null.png"
 			]
 		}
-	}
+	},
+	"unpackage":[
+	  "css/app.css",
+	  "css/feedback.css",
+	  "css/mui.picker.all.css",
+	  "fonts/mui-icons-extra.ttf",
+	  "images/muwu.jpg",
+	  "images/shuijiao.jpg",
+	  "images/yuantiao.jpg"
+	]
 }

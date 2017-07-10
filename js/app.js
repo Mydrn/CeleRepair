@@ -6,7 +6,7 @@
 //			path: "/celefix/backend/h5/" //环境路径
 			
 			//本地
-			app_ip: "http://127.0.0.1",
+			app_ip: "http://192.168.3.37",
 			app_port: "8000",
 			path: "/celefix/backend/h5/" //环境路径
 		};
@@ -16,26 +16,20 @@
 	 * 首页
 	 **/
 	owner.index = function(loginInfo, callback) {
-		
 		callback = callback || $.noop;
 		loginInfo = loginInfo || {};
 		//首页接口
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndexList";
 		console.log(url);
 		$.ajax(url, {
-			data: {},
+			data: {token: getState().token},
 			dataType: 'json', //服务器返回json格式数据
 			type: 'POST', //HTTP请求类型
 			timeout: 3000, //超时时间设置为3秒；
 			headers: {'Content-Type': 'application/json'},
 			success: function(data) {
-				if(data.result == "0") {
-					mui.toast(data.msg);
-					return;
-				} else {
-					console.log(JSON.stringify(data));
-					return mui.toast(data.msg);
-				}
+				console.log(JSON.stringify(data));
+				return mui.toast(data.msg);
 			},
 			error: function(xhr, type, errorThrown) {
 				if(type == "abort") {
@@ -129,5 +123,29 @@
 		var settingsText = localStorage.getItem('$settings') || "{}";
 		return JSON.parse(settingsText);
 	}
+
+	$.ready(function(){
+		var body=$('body');
+		var div=document.createElement('div');
+		div.setAttribute("id", "mask");
+		div.innerHTML='<img src="images/3.gif"/><span id="mask-num">0%</span>';
+		body[0].appendChild(div);
+		var img=mui('img'),num=0;
+			if(img){
+				img.each(function(i){
+					var oImg=new Image();
+					oImg.onload=function(){
+						oImg.onload=null;num++;
+						mui('#mask-num')[0].innerHTML=parseInt(num/img.length*100)+"%";
+						if(parseInt(num/img.length*100)==100){
+							mui('#mask')[0].style.display='none';
+						}
+					}
+					oImg.src=img[i].src
+				})
+			}else{
+				mui('#mask')[0].style.display='none';
+			} 
+	}); 
 
 }(mui, window.app = {}));

@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 		<link rel="stylesheet" href="./css/mui.min.css">
+		<link rel="stylesheet" href="./css/app.css">
 		<style>
 			html,
 			body {
@@ -17,27 +18,7 @@
 			span.mui-icon {
 				font-size: 20px;
 			}
-			#mask{
-				position: fixed;
-				right:0;
-				left: 0;
-				top:0;
-				bottom:0;
-				z-index: 9999;
-				background: #fcfcfc;
-			}
-			#mask img,#mask span{
-				position: absolute;
-				top:50%;
-				left:50%;
-				color:#fff;
-				width:70%;
-				text-align: center;
-				-webkit-transform: translate(-50%,-50%);
-				-moz-transform: translate(-50%,-50%);
-				-ms-transform: translate(-50%,-50%);
-				transform: translate(-50%,-50%);
-			}
+			
 			
 			.mui-off-canvas-left {
 				color: #fff;
@@ -335,25 +316,7 @@
 		//主界面和侧滑菜单界面均支持区域滚动；
 		mui('#offCanvasSideScroll').scroll({indicators: false});
 		mui('#offCanvasContentScroll').scroll({indicators: false});
-		//加载中过度使用
-		mui(function($) {
-			var img=$('img'),num=0;
-			if(img.length==0){
-				$('#mask')[0].style.display='none';
-			}else{
-				img.each(function(i){
-					var oImg=new Image();
-					oImg.onload=function(){
-						oImg.onload=null;num++;
-						$('#mask-num')[0].innerHTML=parseInt(num/img.length*100)+"%";
-						if(parseInt(num/img.length*100)==100){
-							$('#mask')[0].style.display='none';
-						}
-					}
-					oImg.src=img[i].src
-				})
-			}
-		})
+		
 		var state1 = "审<br />核<br />中", state2 = "待<br />上<br />门",
 					state3 = "待<br />审<br />批", state4 = "待<br />付<br />款",
 					state5 = "待<br />评<br />价", state6 = "已<br />完<br />成",
@@ -461,14 +424,15 @@
 
 		);
 		//实现ios平台原生侧滑关闭页面；
-		if (mui.os.plus && mui.os.ios) {
-			mui.plusReady(function() {
-				//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-				plus.webview.currentWebview().setStyle({
-					'popGesture' : 'none'
-				});
-			});
-		}
+//		if (mui.os.plus && mui.os.ios) {
+//			mui.plusReady(function() {
+//				//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+//				plus.webview.currentWebview().setStyle({
+//					'popGesture' : 'none'
+//				});
+//			});
+//		}
+
 		if (token == undefined) {
 			offCanvasInner.addEventListener('drag', function(event) {
 				mui.toast("您还未登录!");
