@@ -108,7 +108,7 @@
         	"payment":{
         		"alipay":{"description":"阿里支付","scheme":""},
         		"appleiap":{"description":"Apple应用内支付"},
-        		"weixin":{"description":"微信支付","appid":"wxa9dce8c699bc22f5"}}},
+        		"weixin":{"description":"微信支付","appid":"wx2e79ed958a1f46fb"}}},
             "apple": {
                 "appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
                 "mobileprovision": "",/*iOS应用打包配置文件*/
