@@ -168,7 +168,7 @@
 	<body>
 		<div>
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
-				<a href="../index.html" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
 				<h1 class="mui-title">订单详情</h1>
 				<a href="message.html" class="mui-pull-right"></a>
 			</header>
@@ -290,25 +290,9 @@
 			//实现ios平台原生侧滑关闭页面；
 			mui.plusReady(function() {
 				//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-				plus.webview.currentWebview().setStyle({
+				/*plus.webview.currentWebview().setStyle({
 					'popGesture': 'none'
-				});
-				/*var img=mui('img'),num=0;
-				if(img){
-					img.each(function(i){
-						var oImg=new Image();
-						oImg.onload=function(){
-							oImg.onload=null;num++;
-							mui('#mask-num')[0].innerHTML=parseInt(num/img.length*100)+"%";
-							if(parseInt(num/img.length*100)==100){
-								mui('#mask')[0].style.display='none';
-							}
-						}
-						oImg.src=img[i].src
-					})
-				}else{
-					mui('#mask')[0].style.display='none';
-				}*/
+				});*/
 				
 				caseId = plus.webview.currentWebview().caseId;
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";

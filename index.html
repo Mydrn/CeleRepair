@@ -191,11 +191,12 @@
 							<div class="userPic mui-text-center">
 								<img class="userImg" src="./images/logo.png" />
 								<div>ID:<span>99999</span></div>
-								<a href="page/personal.html" class="mui-block mui-navigate-right">
+								<a onclick="openPersonal();" class="mui-block mui-navigate-right">
 									<div>编辑资料</div>
 								</a>
 							</div>
 						</div>
+						<br />
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 							<li class="mui-table-view-cell">
 								<a href="page/order.html" class="mui-navigate-right">
@@ -220,20 +221,21 @@
 									客服热线
 								</a>
 							</li>
-							<li class="mui-table-view-cell">
-								<a href="page/about.html" class="mui-navigate-right">
-									关于快修
-								</a>
-							</li>
+							
 						</ul>
-						<!--<br />
+						<br />
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 							<li class="mui-table-view-cell">
 								<a href="javascript:;" class="mui-navigate-right tel">
 									清除缓存
 								</a>
 							</li>
-						</ul>-->
+							<li class="mui-table-view-cell">
+								<a href="page/about.html" class="mui-navigate-right">
+									关于快修
+								</a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</aside>
@@ -292,16 +294,6 @@
 							
 							<div class="mui-card transparent" style="margin-bottom: 35px;">
 								<ul id="caseUl" class="mui-table-view mui-table-view-chevron transparent">
-									<!--<li class="mui-table-view-cell mui-media bg-white">
-										<a href="./page/order-details.html?id=768">
-											<img class="mui-media-object mui-pull-left" src="./images/cbd.jpg">
-											<div class="mui-media-body">
-												<p class="order-title">五金件安装</p>
-												<p class="mui-ellipsis">2017-06-05 17:50</p>
-											</div>
-											<span class="stateType">待<br />支<br />付</span>
-										</a>
-									</li>-->
 								</ul>
 							</div>
 						</div>
@@ -316,74 +308,75 @@
 		//主界面和侧滑菜单界面均支持区域滚动；
 		mui('#offCanvasSideScroll').scroll({indicators: false});
 		mui('#offCanvasContentScroll').scroll({indicators: false});
-		
 		var state1 = "审<br />核<br />中", state2 = "待<br />上<br />门",
-					state3 = "待<br />审<br />批", state4 = "待<br />付<br />款",
-					state5 = "待<br />评<br />价", state6 = "已<br />完<br />成",
-					state7 = "待<br />接<br />单";
-				var stateType = "已<br />完<br />成";
+			state3 = "待<br />审<br />批", state4 = "待<br />付<br />款",
+			state5 = "待<br />评<br />价", state6 = "已<br />完<br />成",
+			state7 = "待<br />接<br />单";
+		var stateType = "已<br />完<br />成";
 		var token = app.getState().token;
 		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndexList";
-		mui.ajax(url,{
-			type:'POST',
-			data: {
-				token: token
-			},
-			dataType:'json',
-			timeout:5000,//超时时间设置为5秒；
-			success:function(data){
-				if (data.msgCode=="0000"){
-					//设置客服电话
-					localStorage.setItem('$contactUs', data.data.contactUs);
-					//广告数据
-					var slider = document.getElementById("slider");
-					var html='';
-					var adList = data.data.adList;
-					for (var item in adList) {
-						html +='<div class="mui-slider-item">'+
-								'<a href="'+adList[item].adLink+'">'+
-									'<img src="'+adList[item].adUrl+'">'+
-								'</a>'+
-							'</div>'
-					}
-					slider.innerHTML='<div class="mui-slider-item mui-slider-item-duplicate"></div>'+html+'<div class="mui-slider-item mui-slider-item-duplicate"></div>';
-					//订单列表
-					var caseList = data.data.caseList;
-					var caseUl = document.getElementById("caseUl");
-					if(caseList == undefined){
-						var orderList = document.getElementById("orderList")
-						orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
-						return;
-					}
-					for (var item in caseList) {
-						if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5){stateType = state1}
-						else if(caseList[item].caseStatus == -1  && caseList[item].customerType == 5){stateType = state7}
-						else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2){stateType = state2}
-						else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5){stateType = state3}
-						else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5){stateType = state4}
-						else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null){stateType = state5}
-						li = document.createElement('li');
-						li.className = 'mui-table-view-cell mui-media bg-white';
-						li.innerHTML = '<a href="javascript:;" class="details" id="'+ caseList[item].id +'">'+
-										'<img class="mui-media-object mui-pull-left" src="'+ caseList[item].attachmentFile +'">'+
-											'<div class="mui-media-body">'+
-												'<p class="order-title">'+ caseList[item].claimCode +'</p>'+
-													'<p class="mui-ellipsis">'+caseList[item].updateTime +'</p>'+
-											'</div>'+
-											'<span class="stateType">'+ stateType +
-										'</a>';
-						caseUl.appendChild(li);
-					}
-				}else if (data.msgCode=="0002"){
-					mui.alert('你已在其它地方登录,请重新登录!', function() {
-						mui.openWindow({
-						   url: 'login.html', 
-						   id:'login'
+		mui.plusReady(function() {
+			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndexList";
+			mui.ajax(url,{
+				type:'POST',
+				data: {
+					token: token
+				},
+				dataType:'json',
+				timeout:5000,//超时时间设置为5秒；
+				success:function(data){
+					if (data.msgCode=="0000"){
+						//设置客服电话
+						localStorage.setItem('$contactUs', data.data.contactUs);
+						//广告数据
+						var slider = document.getElementById("slider");
+						var html='';
+						var adList = data.data.adList;
+						for (var item in adList) {
+							html +='<div class="mui-slider-item">'+
+									'<a href="'+adList[item].adLink+'">'+
+										'<img src="'+adList[item].adUrl+'">'+
+									'</a>'+
+								'</div>'
+						}
+						slider.innerHTML='<div class="mui-slider-item mui-slider-item-duplicate"></div>'+html+'<div class="mui-slider-item mui-slider-item-duplicate"></div>';
+						//订单列表
+						var caseList = data.data.caseList;
+						var caseUl = document.getElementById("caseUl");
+						if(caseList == undefined){
+							var orderList = document.getElementById("orderList")
+							orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+							return;
+						}
+						for (var item in caseList) {
+							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5){stateType = state1}
+							else if(caseList[item].caseStatus == -1  && caseList[item].customerType == 5){stateType = state7}
+							else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2){stateType = state2}
+							else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5){stateType = state3}
+							else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5){stateType = state4}
+							else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null){stateType = state5}
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell mui-media bg-white';
+							li.innerHTML = '<a href="javascript:;" class="details" id="'+ caseList[item].id +'">'+
+											'<img class="mui-media-object mui-pull-left" src="'+ caseList[item].attachmentFile +'">'+
+												'<div class="mui-media-body">'+
+													'<p class="order-title">'+ caseList[item].claimCode +'</p>'+
+														'<p class="mui-ellipsis">'+caseList[item].updateTime +'</p>'+
+												'</div>'+
+												'<span class="stateType">'+ stateType +
+											'</a>';
+							caseUl.appendChild(li);
+						}
+					}else if (data.msgCode=="0002"){
+						mui.alert('你已在其它地方登录,请重新登录!', function() {
+							mui.openWindow({
+							   url: 'login.html', 
+							   id:'login'
+							});
 						});
-					});
+					}
 				}
-			}
+			});
 		});
 		
 		//侧滑容器父节点
@@ -483,6 +476,15 @@
 					})
 				}
 			});
+		
+		
+		//页面跳转
+		function openpage(){
+			var newpage = plus.webview.create("page/personal.html", "personal", {}, {
+						itemId:token
+			});
+			newpage.show();
+		}
 	</script>
 	</body>
 </html>
