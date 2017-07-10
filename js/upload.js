@@ -684,11 +684,13 @@ var arr = [];
 (function($, doc) {
 	$.init();
 	$.ready(function() {
-		$.ajax('../../h5/user/getAllService',{
+		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getAllService";
+		$.ajax(url,{
 			data:'none',
 			type:'post',//HTTP请求类型
 			//timeout:10000,//超时时间设置为10秒；
-			headers:{'Content-Type':'application/json'},	              
+			//headers:{'Content-Type':'application/json'},	              
 			success:function(data){
 				//级联示例
 				var cityPicker = new $.PopPicker({
@@ -697,11 +699,9 @@ var arr = [];
 				cityPicker.setData(eval("("+data+")"));
 				mui('body').on('tap', '.showCityPicker', function(event) {
 					cityPicker.show(function(items) {
-						//objBig.type = items[0].value + " " +;
+						
 						document.getElementById("serviceId").value = items[1].value;
 						document.getElementById("bxlx").innerHTML ="&nbsp;&nbsp;"+items[0].text+"&nbsp;&nbsp;" +items[1].text;
-						//返回 false 可以阻止选择框的关闭
-						//return false;
 					});
 				}, false);
 			},

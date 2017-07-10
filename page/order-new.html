@@ -8,9 +8,8 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_n5o6ioc4rv8to6r.css"/>
-		<link rel="stylesheet" href="../css/mui.picker.css"  />
-		<link rel="stylesheet" href="../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<link rel="stylesheet" href="../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="../css/webuploader.css" />
 		<style>
 			html,body{background-color:#efeff4}.mui-off-canvas-left{color:#fff}.title{margin:35px 15px 10px}.title+.content{margin:10px 15px 35px;color:#bbb;text-indent:1em;font-size:14px;line-height:24px}#offCanvasSideScroll{padding-top:44px}.f-white{color:#fff!important}.f-14{font-size:14px!important}.bg-orange{background-color:#ff5700!important}.mui-bar{background-color:#ff5700}.f-orange{color:#ff5700!important}.f-blank{color:#000!important}.content{padding:0 15px}.content .about{padding:10px 0 10px}.orderNew{padding:0 15px}.mui-icon{font-size:16PX}.orderNew .mui-table-view-cell:after{left:0}.order_new .mui-table-view-cell{padding:0;background:transparent}#submit{background:#ff5700;margin:0;padding:10px 0;border:transparent;color:#fff;border-radius:5px;width:100%}.mui-opacity{opacity:0}.mui-vertical{position:absolute;left:50%;-webkit-transform:translate(-50%,0);-ms-transform:translate(-50%,0);transform:translate(-50%,0)}.cross:after{position:absolute;content:'';width:45px;height:2px;background:#ccc;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.cross:before{position:absolute;content:'';width:2px;height:45px;background:#ccc;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.orderNew textarea{padding:5px;margin-bottom:0}#picture-list>.mui-btn:nth-child(4n+1){margin:0 -6px 1% 0}#picture-list>.mui-btn{margin:0 -6px 1%;margin-left:1%}#picture-list>a>img{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}.ui-alert{text-align:center;padding:20px 10px;font-size:16px}.mui-table-view{margin-bottom:10px}.iconfont{font-size:16px!important}
@@ -35,31 +34,23 @@
 							<!-- <input type="datetime" hidden id="servicingTime" name="servicingTime" /> -->
 							<p class="about  mui-text-center"><!-- 个人用户可在此报修， -->请填写需求内容<br />我们会尽快安排工作人员上门服务</p>
 							<div class="mui-bar-nav">
-								<ul class="mui-table-view">
-									<c:choose>
-								         <c:when test="${customer.customerType == 5}">  
-								            <li class="mui-table-view-cell">
+								<ul id='customerType' class="mui-table-view">
+								           <!-- <li class="mui-table-view-cell">
 												<a href="${ctx}/backend/h5/user/doAddress?state=true" class="mui-navigate-right iconfont icon-iconfontaddress">
-													报修地址 ：${ address.address }
+													报修地址 ：
 												</a>
 											</li>
-								         </c:when>  
-								         <c:when test="${customer.customerType == 3}">  
 								            <li class="mui-table-view-cell" >
-									            <a href="javascript:;" id="showUserPicker" class="mui-navigate-right mui-icon mui-icon-location">
+									            <a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">
 													选择店铺：<strong id="userResult" ></strong>
 												</a>
 												
 											</li>
-								         </c:when>
-								        <c:otherwise>  
 											 <li class="mui-table-view-cell">
-												<p class="mui-navigate-right mui-icon mui-icon-location">
+												<p class="mui-navigate-right iconfont icon-iconfontaddress">
 													报修店铺:${ customer.customerName }
 												</p>
-											</li>
-								        </c:otherwise>  
-							   		 </c:choose>
+											</li>-->
 								</ul>
 							</div>
 							<div class="mui-bar-nav" id="orderList">
@@ -106,7 +97,6 @@
 								<ul class="mui-table-view">
 									<li class="mui-table-view-cell">
 										<input type="button" id="submit" value="确认下单" class="mui-text-center" />
-										<!-- <a href="javascript:;" id="submit" class="mui-text-center">确认下单</a> -->
 									</li>
 								</ul>
 							</div>
@@ -133,17 +123,84 @@
 			</ul>
 		</div>
 		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/app.js"></script>
 		<script type="text/javascript" src="../js/mui.picker.js"></script>
 		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
-		<script type="text/javascript" src="../js/mui.picker.min.js"></script>
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/webuploader.js"></script>
 		<script type="text/javascript" src="../js/html2canvas.js"></script>
 		<script type="text/javascript" src="../js/upload.js"></script>
 		<script>
+			var token = app.getState().token;
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var customerType = document.getElementById("customerType");
+					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/addCase";
+					mui.ajax(url,{
+						type:'POST',
+						data: {token: token},
+						dataType:'json',
+						timeout:5000,//超时时间设置为5秒；
+						success:function(data){
+							if(data.msgCode=="0000"){
+								if (data.data.shopList!=undefined) {//品牌用户报修
+									var html = '<li class="mui-table-view-cell" >'+
+										            '<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">'+
+														'选择店铺：<strong id="userResult" ></strong>'+
+													'</a>'+
+												'</li>'
+									customerType.innerHTML=html;
+									var userPicker = new $.PopPicker();
+									userPicker.setData(data.data.shopList);
+									var showUserPickerButton = doc.getElementById('showUserPicker');
+									var userResult = doc.getElementById('userResult');
+									showUserPickerButton.addEventListener('tap', function(event) {
+										userPicker.show(function(items) {
+											userResult.innerHTML ="&nbsp;" + items[0].text;
+											doc.getElementById('shopId').value = items[0].value;
+										});
+									}, false);
+								}else if(data.data.address!=undefined){//个人用户
+									var html = '<li class="mui-table-view-cell">'+
+													'<a onclick="openpage();" class="mui-navigate-right iconfont icon-iconfontaddress">'+
+														'报修地址 ：'+data.data.address.address+
+													'</a>'+
+												'</li>'
+									customerType.innerHTML=html;
+								} else{//店铺报修
+									var html = '<li class="mui-table-view-cell">'+
+													'<p class="mui-navigate-right iconfont icon-iconfontaddress">'+
+														'报修店铺: '+ data.data.customer.customerName +
+													'</p>'+
+												'</li>'
+								}
+								
+							}else if (data.msgCode=="0002"){
+								mui.alert('你已在其它地方登录,请重新登录!', function() {
+									mui.openWindow({
+									   url: '../login.html', 
+									   id:'login'
+									});
+								});
+							}
+						}
+					});
+				});
+			})(mui, document) 
+			
+			//页面跳转
+			function openpage(){
+				var newpage = plus.webview.create("address.html", "address", {}, {
+					 item:true
+				});
+				newpage.show();
+			}
+			
 			//开启A标签的跳转
 			mui('body').on('tap', 'a', function() {
 				window.top.location.href = this.href;
@@ -179,40 +236,34 @@
 				//关闭actionsheet
 				mui('#' + parent.id).popover('toggle');
 			})
-
 			//控制上传图片的自适应宽度
 			mui(function($) {
 				var arr = document.querySelectorAll('.cross');
 				for(var i = 0; i < arr.length; i++) {
 					arr[i].style.padding = "12%";
 				}
-
 			});
-
-	document.getElementById('submit').addEventListener('click',function(){
-				if(${customer.customerType == 5}){
+			document.getElementById('submit').addEventListener('tap',function(){
+				/*if(${customer.customerType == 5}){
 					if($("#addressId").val() == ''){
-						mui.toast("请选择地址");
-						return false;
+						return mui.toast("请选择地址");
 					}
 				}else if(${customer.customerType == 3}){
 					if($("#shopId").val()==''){
-						mui.toast("请选择店铺");
-						return false;
+						return mui.toast("请选择店铺");
 					}
 				}
 				if($("#serviceId").val()==''){
-					mui.toast("请选择服务类型");
-					return false;
+					return mui.toast("请选择服务类型");
 				}if($("#imgUrl").val()==''){
-					mui.toast("请先上传照片");
-					return false;
-				}
+					return mui.toast("请先上传照片");
+				}*/
 				/* if($("#servicingTime").val()==''){
 				mui.toast("请选择上门时间");
 				return false;
 				} */
-				mui.ajax('${ctx}/backend/h5/case/saveCase',{
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
+				mui.ajax(url,{
 					data:$('#objectContent').serialize(),
 					type:'post',//HTTP请求类型
 					dataType:'json',
@@ -220,7 +271,20 @@
 					success:function(data){
 						mui.toast(data.msg);
 						if(data.msgCode=="0000"){
-							window.location.href = "${ctx}/backend/h5/case/doCaseOne?caseId="+data.data;
+							mui.openWindow({
+							    url:'order-details.html',
+							    id:'order-details',
+							    extras:{
+							        caseId:data.data
+							    }
+							});	
+						}else if (data.msgCode=="0002"){
+							mui.alert('你已在其它地方登录,请重新登录!', function() {
+								mui.openWindow({
+								   url: '../login.html', 
+								   id:'login'
+								});
+							});
 						}
 					},
 					error:function(xhr,type,errorThrown){
@@ -228,24 +292,6 @@
 					}
 				});
 			});
-			
-			/* (function($, doc) {
-				$.init();
-				$.ready(function() {
-					//普通示例
-					var userPicker = new $.PopPicker();
-					userPicker.setData(${ shopList });
-					var showUserPickerButton = doc.getElementById('showUserPicker');
-					var userResult = doc.getElementById('userResult');
-					showUserPickerButton.addEventListener('tap', function(event) {
-						userPicker.show(function(items) {
-							userResult.innerHTML ="&nbsp;" + items[0].text;
-							doc.getElementById('shopId').value = items[0].value;
-						});
-					}, false);
-					
-				});
-			})(mui, document) */
 		</script>
 	</body>
 

@@ -265,6 +265,15 @@
 					    async:false,
 						timeout:5000,//超时时间设置为5秒；
 						success:function(data){
+							if (data.msgCode=="0002"){
+								mui.alert('你已在其它地方登录,请重新登录!', function() {
+									mui.openWindow({
+									   url: '../login.html', 
+									   id:'login'
+									});
+								});
+								return;
+							}
 							mui.toast(data.msg);
 							if(data.data.length == 0){
 								mui.toast("没有更多数据");
@@ -313,7 +322,7 @@
 					    url:'order-details.html',
 					    id:'order-details',
 					    extras:{
-					        caseId:this.id,
+					        caseId:this.id
 					    }
 					});	
 				});

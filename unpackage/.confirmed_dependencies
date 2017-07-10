@@ -1,57 +1,117 @@
 {
-  "page/address.html": {
-    "resources": [
-      "js/app.js",
-      "js/mui.min.js",
-      "fonts/mui.ttf",
-      "css/mui.min.css",
-      "index.html"
-    ],
-    "refer": [
-      "page/address-new.html"
-    ]
-  },
-  "page/address-new.html": {
-    "resources": [
-      "js/mui.poppicker.js",
-      "css/mui.poppicker.css",
-      "css/mui.picker.css",
-      "js/city.data-3.js",
-      "js/app.js",
-      "js/mui.min.js",
-      "fonts/mui.ttf",
-      "css/mui.min.css"
-    ],
-    "refer": []
-  },
-  "index.html": {
-    "resources": [
-      "images/cbd.jpg",
-      "js/app.js",
-      "images/ice-personal.png",
-      "fonts/mui.ttf",
-      "images/5.png",
-      "images/2.png",
-      "images/ice-repair.png",
-      "images/logo.png",
-      "images/1.png",
-      "images/3.png",
-      "js/mui.min.js",
-      "images/4.png",
-      "css/mui.min.css",
-      "images/3.gif",
-      "page/address.html"
-    ],
-    "refer": [
-      "login.html"
-    ]
-  },
-  "login.html": {
-    "resources": [
-      "images/celerepair-logo.png"
-    ],
-    "refer": [
-      "index.html"
-    ]
-  }
+	"page/address.html": {
+		"resources": [
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"index.html"
+		],
+		"refer": [
+			"page/address-new.html",
+			"index.html"
+		]
+	},
+	"page/address-new.html": {
+		"resources": [
+			"js/mui.poppicker.js",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"js/city.data-3.js",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"index.html": {
+		"resources": [
+			"images/cbd.jpg",
+			"js/app.js",
+			"images/ice-personal.png",
+			"fonts/mui.ttf",
+			"images/5.png",
+			"images/2.png",
+			"images/ice-repair.png",
+			"images/logo.png",
+			"images/1.png",
+			"images/3.png",
+			"js/mui.min.js",
+			"images/4.png",
+			"css/mui.min.css",
+			"images/3.gif",
+			"page/address.html",
+			"login.html",
+			"page/message.html",
+			"page/order-new.html"
+		],
+		"refer": [
+			"login.html",
+			"page/order-details.html",
+			"page/message.html",
+			"page/order-new.html",
+			"page/address.html"
+		]
+	},
+	"login.html": {
+		"resources": [
+			"images/celerepair-logo.png",
+			"index.html"
+		],
+		"refer": [
+			"index.html"
+		]
+	},
+	"page/order-details.html": {
+		"resources": [
+			"images/not-pay.png",
+			"js/mui.zoom.js",
+			"images/not-evaluate.png",
+			"images/already-order.png",
+			"js/mui.previewimage.js",
+			"images/not-audit.png",
+			"images/not-visit.png",
+			"js/app.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"images/3.gif",
+			"css/mui.min.css",
+			"images/already-evaluate.png",
+			"images/already-visit.png",
+			"images/already-audit.png",
+			"images/already-pay.png",
+			"index.html"
+		],
+		"refer": [
+			"index.html",
+			"page/evaluation.html",
+			"login.html"
+		]
+	},
+	"page/message.html": {
+		"resources": [
+			"js/jquery.js",
+			"index.html"
+		],
+		"refer": [
+			"index.html"
+		]
+	},
+	"page/order-new.html": {
+		"resources": [
+			"js/webuploader.js",
+			"index.html",
+			"js/upload.js",
+			"js/mui.poppicker.js",
+			"css/mui.picker.min.css",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"css/webuploader.css",
+			"js/jquery.js"
+		],
+		"refer": [
+			"index.html"
+		]
+	}
 }
