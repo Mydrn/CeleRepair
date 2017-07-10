@@ -24,20 +24,20 @@
 				<div class="mui-scroll">
 					<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 						<li class="mui-table-view-cell">
-							<a href="#picture" class="mui-navigate-right">
+							<a href="#picture" class="mui-navigate-right" id="tx">
 								头像
-								<c:if test="${ empty customer.photoUrl }">
+								<!--<c:if test="${ empty customer.photoUrl }">
 									<img class="userImg" id="userImg" src="../images/ice-repair.png" />
 								</c:if>
 								<c:if test="${ not empty customer.photoUrl }">
 									<img class="userImg" id="userImg" src="${customer.photoUrl}" />
-								</c:if>
+								</c:if>-->
 							</a>
 						</li>
 						<li class="mui-table-view-cell">
 							<a>
 								姓名
-								<span class="mui-position-right">${ customer.customerName }</span>
+								<span class="mui-position-right" id="xm"><!--${ customer.customerName }--></span>
 							</a>
 						</li>
 					</ul>
@@ -46,7 +46,7 @@
 						<li class="mui-table-view-cell">
 							<a href="personal-mobile.html" class="mui-navigate-right">
 								联系电话
-								<span class="mui-position-right">${ customer.mobile }</span>
+								<span class="mui-position-right" id="phone"><!--${ customer.mobile }--></span>
 							</a>
 						</li>
 						<li class="mui-table-view-cell">
@@ -86,11 +86,36 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/app.js" ></script>
 		<!--<script type="text/javascript" src="../js/js/vconsole.min.js"></script>-->
 		<script>
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			
+				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneData";
+				mui.ajax(url,{
+						data: {
+							token: app.getState().token
+						},
+					type:'POST',//HTTP请求类型
+					dataType:'json',
+					timeout:5000,//超时时间设置为5秒；
+					success:function(data){
+						if(data.msgCode=="0000"){
+							var tx=document.getElementById("tx");
+							var tx1=tx.innerHTML;
+							if(data.data.photoUrl==null){
+								tx.innerHTML=tx1+"<img class='userImg' id='userImg' src='../images/ice-repair.png' />";
+							}else{
+									tx.innerHTML=tx1+"<img class='userImg' id='userImg' src='"+data.data.photoUrl+"' />";
+							}
+							document.getElementById("xm").innerHTML=data.data.name;
+							document.getElementById("phone").innerHTML=data.data.mobile;
+							}
+						}});
+				
 			function doLogout() {
 				mui.toast("退出成功");
 				mui.ajax('${ctx}/backend/h5/user/doLogout',{
@@ -108,49 +133,54 @@
 					}
 				});	
 			}
-			//修改头像事件
-			function file(e) {
-				console.log(e.files[0]);
-				formData = new FormData();
-				formData.append("file", e.files[0]);
-				formData.append("attachmentType", 7);
-				mui.ajax('${ctx}/backend/base/saveImg',{
-					data:formData,
-					type:'post',//HTTP请求类型
-					dataType: 'text',
-					contentType: false, //必须 
-					processData: false, //必须
-					cache: false,
-					async: true,
-					timeout:5000,//超时时间设置为5秒；
-					success:function(url){
-						mui.ajax('${ctx}/backend/h5/user/saveUserImg',{
-							data:{
-								photoUrl:url
-							},
-							type:'post',//HTTP请求类型
-							cache: false,
-							async: true,
-							dataType:'json',
-							timeout:5000,//超时时间设置为10秒；
-							success:function(data){
-								document.getElementById("userImg").src = url;
-								mui.toast(data.msg);
-							},
-							error:function(xhr,type,errorThrown){
-								mui.toast("网络繁忙");
-								console.log(type);
-							}
-						});	
-					},
-					error:function(xhr,type,errorThrown){
-						mui.toast("网络繁忙");
-						console.log(type);
-					}
-				});
-				document.querySelector('#picture').style.display='none';
-				document.querySelector('.mui-backdrop-action').style.display='none';
-			}
+				//修改头像事件
+				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
+				var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/saveUserImg";
+				function file(e) {
+					console.log(e.files[0]);
+					formData = new FormData();
+					formData.append("file", e.files[0]);
+					formData.append("attachmentType", 7);
+					formData.append("token",app.getState().token);
+					mui.ajax(url,{
+						data:formData,
+						type:'post',//HTTP请求类型
+						dataType: 'text',
+						contentType: false, //必须 
+						processData: false, //必须
+						cache: false,
+						async: true,
+						timeout:5000,//超时时间设置为5秒；
+						success:function(data){
+							mui.ajax(url1,{
+								data:{
+									photoUrl:url1,
+									token:app.getState().token
+								},
+								type:'post',//HTTP请求类型
+								cache: false,
+								async: true,
+								dataType:'json',
+								timeout:5000,//超时时间设置为10秒；
+								success:function(data){
+									document.getElementById("userImg").src = url;
+									mui.toast(data.msg);
+								},
+								error:function(xhr,type,errorThrown){
+									mui.toast("网络繁忙");
+									console.log(type);
+								}
+							});	
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast("网络繁忙");
+							console.log(type);
+						}
+					});
+					document.querySelector('#picture').style.display='none';
+					document.querySelector('.mui-backdrop-action').style.display='none';
+				}
 		</script>
 	</body>
 

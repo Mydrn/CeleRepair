@@ -208,6 +208,7 @@
 			
 			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doRevisePhone";
 			var code = document.getElementById('code');
+			var phone=document.getElementById("mobile");
 			var password = document.getElementById('password');
 			document.getElementById('submit').addEventListener('click',function(){
 				event.preventDefault();
@@ -234,8 +235,8 @@
 						mui.toast(data.msg);
 						if (data.msgCode == "0000") {
 							mui.alert('修改成功', function() {
-								window.location.href = "page/personal.html";
-							}
+								window.location.href = "personal.html";
+							});
 						}else if(data.msgCode == "0001"){
 							return mui.toast("验证码错误");
 						}else if(data.msgCode == "0002"){

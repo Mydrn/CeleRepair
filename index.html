@@ -210,7 +210,7 @@
 							<div class="userPic mui-text-center">
 								<img class="userImg" src="./images/logo.png" />
 								<div>ID:<span>99999</span></div>
-								<a onclick="openPersonal();" class="mui-block mui-navigate-right">
+								<a href="page/personal.html" class="mui-block mui-navigate-right">
 									<div>编辑资料</div>
 								</a>
 							</div>
@@ -519,15 +519,6 @@
 					})
 				}
 			});
-		
-		
-		//页面跳转
-		function openpage(){
-			var newpage = plus.webview.create("page/personal.html", "personal", {}, {
-						itemId:token
-			});
-			newpage.show();
-		}
 	</script>
 	</body>
 </html>

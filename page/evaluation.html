@@ -101,60 +101,68 @@
 				}
 			}
 			//图片上传事件
-			var  imgs=[];
-			mui(function($) {
-				$("body").on("change", ".file",function() {
-				var _this = this.parentNode;
-				var _that=this;
-				formData = new FormData();
-				formData.append("file", this.files[0]);
-				formData.append("attachmentType", 9);
-				mui.ajax("${ctx}/backend/base/saveImg",{
-					type: "post",
-					dataType: 'text',
-					contentType: false, //必须 
-					processData: false, //必须
-					cache: false,
-					async:true,
-					data: formData,
-					success: function(xhr,status,data) {
-					imgs.push(xhr);
-					document.getElementById("imgUrl").value = imgs;
-					if(window.FileReader) {
-						var reader = new FileReader();
-						reader.readAsDataURL(_that.files[0]);
-						//监听文件读取结束后事件    
-						reader.onloadend = function(e) {
-						//console.log(e.target.result); //e.target.result就是最后的路径地址
-						var img = document.createElement('img');
-						var div = document.createElement('div');
-						img.setAttribute('src', xhr);
-						_this.innerHTML=""
-						_this.appendChild(img);
-						div.setAttribute('class', 'file-box');
-						div.innerHTML = '<input type="file" name="file" class="file" accept="image/*">'
-						_this.parentNode.appendChild(div);
-						src();
-					};
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			(function($, doc) {
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
+				var  imgs=[];
+				mui(function($) {
+					$("body").on("change", ".file",function() {
+					var _this = this.parentNode;
+					var _that=this;
+					formData = new FormData();
+					formData.append("file", this.files[0]);
+					formData.append("attachmentType", 9);
+					formData.append("token",app.getState().token);
+					mui.ajax(url,{
+						type: "post",
+						dataType: 'text',
+						contentType: false, //必须 
+						processData: false, //必须
+						cache: false,
+						async:true,
+						data: formData,
+						success: function(xhr,status,data) {
+						imgs.push(xhr);
+						document.getElementById("imgUrl").value = imgs;
+						if(window.FileReader) {
+							var reader = new FileReader();
+							reader.readAsDataURL(_that.files[0]);
+							//监听文件读取结束后事件    
+							reader.onloadend = function(e) {
+							//console.log(e.target.result); //e.target.result就是最后的路径地址
+							var img = document.createElement('img');
+							var div = document.createElement('div');
+							img.setAttribute('src', xhr);
+							_this.innerHTML=""
+							_this.appendChild(img);
+							div.setAttribute('class', 'file-box');
+							div.innerHTML = '<input type="file" name="file" class="file" accept="image/*">'
+							_this.parentNode.appendChild(div);
+							src();
+						};
+					}
 				}
-			}
-		});
-		
+			});
+			
+		})
 	})
-})
+})(mui, document);
 			//评价
+			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/evaluate";
+			var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
 			var OderId = document.getElementById("OderId");
 			var assess = document.getElementById('assess');
 			var imgUrl=document.getElementById('imgUrl');
 			document.getElementById('submit').addEventListener('tap',function(){
 				event.preventDefault();
 				window.event.returnValue = false;
-				mui.ajax('${ctx}/backend/h5/case/evaluate',{
+				mui.ajax(url,{
 					data:{
 						score:starIndex,
 						objectId:OderId.value,
 						assess:assess.value,
-						imgUrl:imgUrl.value
+						imgUrl:imgUrl.value,
+						token:app.getState().token
 					},
 					type:'post',//HTTP请求类型
 					dataType:'json',
@@ -163,7 +171,7 @@
 					success:function(data){
 						if (data.statusCode == "0000") {
 							mui.alert('评价成功', function() {
-								window.location.href = "${ctx}/backend/h5/case/doCaseOne?caseId="+data.status;
+								window.location.href = url1+"?caseId="+data.status;
 							});
 						}
 					},
