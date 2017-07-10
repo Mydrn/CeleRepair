@@ -195,7 +195,7 @@
 			<!--侧滑菜单部分-->
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
 				<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
-					<a href="login.html" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<a href="index.html" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
 					<h1 class="mui-title">乔布斯</h1>
 					<a href="page/message.html" class="mui-pull-right">
 						<span class="mui-icon mui-icon-chatbubble"></span>
@@ -258,7 +258,7 @@
 			</aside>
 			<!--主界面部分-->
 			<div class="mui-inner-wrap">
-				<div class="mui-scroll-wrapper">
+				<div id="offCanvasContentScroll" class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<!--头部信息-->
 						<header class="mui-bar mui-bar-nav grad">
@@ -328,10 +328,13 @@
 				</div>
 			</div>
 		</div>
-		<script src="./js/mui.min.js"></script>
+		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
 		mui.init();
+		//主界面和侧滑菜单界面均支持区域滚动；
+		mui('#offCanvasSideScroll').scroll();
+		mui('#offCanvasContentScroll').scroll();
 		//加载中过度使用
 		mui(function($) {
 			var img=$('img'),num=0;
@@ -374,7 +377,6 @@
 					var slider = document.getElementById("slider");
 					var html='';
 					var adList = data.data.adList;
-					console.log(adList);
 					for (var item in adList) {
 						html +='<div class="mui-slider-item">'+
 								'<a href="'+adList[item].adLink+'">'+
@@ -445,9 +447,6 @@
 		classList.remove('mui-scalable');
 		classList.add('mui-slide-in');
 		offCanvasWrapper.offCanvas().refresh();
-		//主界面和侧滑菜单界面均支持区域滚动；
-		mui('#offCanvasSideScroll').scroll();
-		mui('#offCanvasContentScroll').scroll();
 		//主界面‘显示侧滑菜单’按钮的点击事件
 		document.getElementById('offCanvasShow').addEventListener('tap',
 				function() {
