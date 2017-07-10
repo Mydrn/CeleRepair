@@ -71,11 +71,11 @@
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
 						<h4 class="mui-vertical">拍照或录像</h4>
-						<input type="file" name="picture" id="camera" onchange="file(this)" class="mui-opacity" capture="camera" accept="image/*" />
+						<input type="file" name="picture" id="camera" class="mui-opacity" capture="camera" accept="image/*" />
 					</li>
 					<li class="mui-table-view-cell">
 						<h4 class="mui-vertical">选取现有的</h4>
-						<input type="file" name="picture" id="picture" onchange="file(this)" class="mui-opacity" accept="image/*" />
+						<input type="file" name="picture" id="picture" class="mui-opacity" accept="image/*" />
 					</li>
 				</ul>
 				<ul class="mui-table-view">
@@ -87,7 +87,6 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/app.js" ></script>
-		<!--<script type="text/javascript" src="../js/js/vconsole.min.js"></script>-->
 		<script>
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
@@ -106,10 +105,12 @@
 						if(data.msgCode=="0000"){
 							var tx=document.getElementById("tx");
 							var tx1=tx.innerHTML;
+							var img="<img class='userImg' id='userImg' src='../images/ice-repair.png' />";
+							var img1="<img class='userImg' id='userImg' src='"+data.data.photoUrl+"' />";
 							if(data.data.photoUrl==null){
-								tx.innerHTML=tx1+"<img class='userImg' id='userImg' src='../images/ice-repair.png' />";
+								tx.innerHTML=tx1+img;
 							}else{
-									tx.innerHTML=tx1+"<img class='userImg' id='userImg' src='"+data.data.photoUrl+"' />";
+									tx.innerHTML=tx1+img1;
 							}
 							document.getElementById("xm").innerHTML=data.data.name;
 							document.getElementById("phone").innerHTML=data.data.mobile;
@@ -134,16 +135,16 @@
 				});	
 			}
 				//修改头像事件
-				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
-				var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/saveUserImg";
-				function file(e) {
-					console.log(e.files[0]);
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			(function($, doc) {
+				mui("body").on('change','.mui-opacity',function(e) {
+					console.log(this.files[0]);
 					formData = new FormData();
-					formData.append("file", e.files[0]);
+					formData.append("file", this.files[0]);
 					formData.append("attachmentType", 7);
 					formData.append("token",app.getState().token);
-					mui.ajax(url,{
+					var url1=serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
+					mui.ajax(url1,{
 						data:formData,
 						type:'post',//HTTP请求类型
 						dataType: 'text',
@@ -152,11 +153,12 @@
 						cache: false,
 						async: true,
 						timeout:5000,//超时时间设置为5秒；
-						success:function(data){
-							mui.ajax(url1,{
+						success:function(url){
+							var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+							var url2 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/saveUserImg";
+							mui.ajax(url2,{
 								data:{
-									photoUrl:url1,
-									token:app.getState().token
+									photoUrl:url
 								},
 								type:'post',//HTTP请求类型
 								cache: false,
@@ -180,8 +182,8 @@
 					});
 					document.querySelector('#picture').style.display='none';
 					document.querySelector('.mui-backdrop-action').style.display='none';
-				}
+				})
+			})(mui, document);
 		</script>
 	</body>
-
 </html>
