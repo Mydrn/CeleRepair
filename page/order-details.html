@@ -293,8 +293,8 @@
 				/*plus.webview.currentWebview().setStyle({
 					'popGesture': 'none'
 				});*/
-				
-				caseId = plus.webview.currentWebview().caseId;
+				var self = plus.webview.currentWebview();
+				caseId =self.caseId;
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
 				mui.ajax(url,{
 					type:'POST',
@@ -308,10 +308,7 @@
 					success:function(data){
 						if (data.msgCode=="0002"){
 							mui.alert('你已在其它地方登录,请重新登录!', function() {
-								mui.openWindow({
-								   url: '../login.html', 
-								   id:'login'
-								});
+								mui.openWindow({url: '../login.html',id:'login'});
 							});
 							return;
 						}

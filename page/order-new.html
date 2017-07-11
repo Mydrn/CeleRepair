@@ -156,7 +156,7 @@
 												'</li>'
 									customerType.innerHTML=html;
 									var userPicker = new $.PopPicker();
-									userPicker.setData(data.data.shopList);
+									userPicker.setData(eval("("+data.data.shopList+")"));
 									var showUserPickerButton = doc.getElementById('showUserPicker');
 									var userResult = doc.getElementById('userResult');
 									showUserPickerButton.addEventListener('tap', function(event) {

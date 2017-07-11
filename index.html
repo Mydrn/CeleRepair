@@ -7,9 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
 		<link rel="stylesheet" href="./css/mui.min.css">
 		<link rel="stylesheet" href="./css/app.css">
+		<link rel="stylesheet" type="text/css" href="./css/icons-extra.css" />
 		<style>
 			html,
 			body {
@@ -18,7 +18,6 @@
 			span.mui-icon {
 				font-size: 20px;
 			}
-			
 			
 			.mui-off-canvas-left {
 				color: #fff;
@@ -171,7 +170,6 @@
 	</head>
 
 	<body>
-		<div id="mask"><img src="./images/3.gif"/><span id="mask-num">0%</span></div>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!--侧滑菜单部分-->
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
@@ -191,7 +189,7 @@
 							<div class="userPic mui-text-center">
 								<img class="userImg" src="./images/logo.png" />
 								<div>ID:<span>99999</span></div>
-								<a onclick="openPersonal();" class="mui-block mui-navigate-right">
+								<a href="page/personal.html" class="mui-block mui-navigate-right">
 									<div>编辑资料</div>
 								</a>
 							</div>
@@ -246,7 +244,7 @@
 						<!--头部信息-->
 						<header class="mui-bar mui-bar-nav grad">
 							<span class="mui-icon mui-icon-location mui-pull-left f-white"></span>
-							<a class=" mui-btn mui-btn-link mui-pull-left f-white">上海市</a>
+							<a href="javascript:;" class=" mui-btn mui-btn-link mui-pull-left f-white">上海市</a>
 							<a href="page/message.html" class="mui-pull-right">
 								<span class="mui-icon mui-icon-chatbubble"></span>
 							</a>
@@ -334,7 +332,7 @@
 						var adList = data.data.adList;
 						for (var item in adList) {
 							html +='<div class="mui-slider-item">'+
-									'<a href="'+adList[item].adLink+'">'+
+									'<a class="adLink" href="javascript:;" id="'+adList[item].adLink+'">'+
 										'<img src="'+adList[item].adUrl+'">'+
 									'</a>'+
 								'</div>'
@@ -369,10 +367,7 @@
 						}
 					}else if (data.msgCode=="0002"){
 						mui.alert('你已在其它地方登录,请重新登录!', function() {
-							mui.openWindow({
-							   url: 'login.html', 
-							   id:'login'
-							});
+							mui.openWindow({url: 'login.html',id:'login'});
 						});
 					}
 				}
@@ -407,10 +402,7 @@
 		document.getElementById('offCanvasShow').addEventListener('tap',
 				function() {
 					if (token == undefined || token == "{}" ) {
-						 mui.openWindow({
-						    url:'login.html', 
-						    id:'login'
-						  });
+						 mui.openWindow({url:'login.html',id:'login'});
 					}
 					offCanvasWrapper.offCanvas('show');
 				}
@@ -441,50 +433,90 @@
 		}
 		)
 		mui('body').on('tap', '.details', function() {
-					mui.openWindow({
-					    url:'page/order-details.html',
-					    id:'order-details',
-					    extras:{
-					        caseId:this.id,
-					    }
-					});	
-				});
+			mui.openWindow({url:'page/order-details.html',id:'order-details',
+			    extras:{
+			        caseId:this.id
+			    }
+			});	
+		});
 		
 		//开启A标签的跳转
 		mui('body').on('tap', 'a', function() {
 			window.top.location.href = this.href;
 		});
 		//电话号码
-			mui('body').on('tap', '.tel', function() {
-				if(this.innerText == "客服热线") {
-					var btnArray = ['取消', '拨打'];
-					mui.confirm(localStorage.getItem('$contactUs'), '您确定拨打电话吗？', btnArray, function(e) {
-						if(e.index == 1) {
-							window.location.href = 'tel:'+localStorage.getItem('$contactUs');
-						} else {
-							//info.innerText = 'MUI没有得到你的认可，继续加油'
-						}
-					})
-				} else if(this.innerText == "清除缓存") {
-					var btnArray = ['取消', '确定'];
-					mui.confirm('您确定清除缓存吗？', '温馨提示', btnArray, function(e) {
-						if(e.index == 1) {
-							//window.location.href = 'tel:400-888-888';
-						} else {
-							//info.innerText = 'MUI没有得到你的认可，继续加油'
-						}
-					})
-				}
-			});
+		mui('body').on('tap', '.tel', function() {
+			if(this.innerText == "客服热线") {
+				var btnArray = ['取消', '拨打'];
+				mui.confirm(localStorage.getItem('$contactUs'), '您确定拨打电话吗？', btnArray, function(e) {
+					if(e.index == 1) {
+						window.location.href = 'tel:'+localStorage.getItem('$contactUs');
+					} else {
+						//info.innerText = 'MUI没有得到你的认可，继续加油'
+					}
+				})
+			} else if(this.innerText == "清除缓存") {
+				var btnArray = ['取消', '确定'];
+				mui.confirm('您确定清除缓存吗？', '温馨提示', btnArray, function(e) {
+					if(e.index == 1) {
+						//window.location.href = 'tel:400-888-888';
+					} else {
+						//info.innerText = 'MUI没有得到你的认可，继续加油'
+					}
+				})
+			}
+		});
+		//广告跳转
+		mui('body').on('tap', '.adLink', function() {
+			mui.openWindowWithTitle({ 
+				url:this.id,
+    			id:'link'
+    			},{
+			    id:"title",//导航栏ID,默认为title,若不指定将会使用WebviewOptions中指定的 [webviewID+ "_title"] 作为id
+			    height:"44px",//导航栏高度值
+			    backgroundColor:"#f7f7f7",//导航栏背景色
+			    bottomBorderColor:"#cccccc",//底部边线颜色
+			    title:{//标题配置
+			        text:"广告",//标题文字
+			        position:{ //绘制文本的目标区域，参考：http://www.html5plus.org/doc/zh_cn/nativeobj.html#plus.nativeObj.Rect
+			            top:0,
+			            left:0,
+			            width:"100%",
+			            height:"100%"
+			        },
+			        styles:{//绘制文本样式，参考：http://www.html5plus.org/doc/zh_cn/nativeobj.html#plus.nativeObj.TextStyles
+			            color:"#000000",
+			            align:"center",
+			            family:"'Helvetica Neue',Helvetica,sans-serif",
+			            size:"17px",
+			            style:"normal",
+			            weight:"normal",
+			            fontSrc:""
+			        }
+			    },
+			    back:{//左上角返回箭头
+			        image:{//图片格式
+			            base64Data:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII=',//加载图片的Base64编码格式数据 base64Data 和 imgSRC 必须指定一个.否则不显示返回箭头
+			            sprite:{//图片源的绘制区域，参考：http://www.html5plus.org/doc/zh_cn/nativeobj.html#plus.nativeObj.Rect
+			                top:'0px',
+			                left:'0px',
+			                width:'100%',
+			                height:'100%'
+			            },
+			            position:{//绘制图片的目标区域，参考：http://www.html5plus.org/doc/zh_cn/nativeobj.html#plus.nativeObj.Rect
+			                top:"10px",
+			                left:"10px",
+			                width:"24px",
+			                height:"24px"
+			            }
+			        },
+			        click:function(){
+			            //重写 点击返回图标时执行的回调函数，默认执行mui.back();
+			        }
+			    }
+			})
+		});
 		
-		
-		//页面跳转
-		function openpage(){
-			var newpage = plus.webview.create("page/personal.html", "personal", {}, {
-						itemId:token
-			});
-			newpage.show();
-		}
 	</script>
 	</body>
 </html>

@@ -149,7 +149,6 @@
 })(mui, document);
 			//评价
 			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/evaluate";
-			var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
 			var OderId = document.getElementById("OderId");
 			var assess = document.getElementById('assess');
 			var imgUrl=document.getElementById('imgUrl');
@@ -171,7 +170,11 @@
 					success:function(data){
 						if (data.statusCode == "0000") {
 							mui.alert('评价成功', function() {
-								window.location.href = url1+"?caseId="+data.status;
+								mui.openWindow({=url:'page/order-details.html',id:'order-details',
+								    extras:{
+								        caseId:data.status
+								    }
+								});
 							});
 						}
 					},

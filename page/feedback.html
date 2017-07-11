@@ -10,6 +10,7 @@
 
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
 		<style>
 			html,
 			body {
@@ -385,7 +386,6 @@
 	<script src="../js/mui.min.js "></script>
 	<script src="../js/app.js"></script>
 	<script>
-		mui.init();
 		mui.init({
 			swipeBack: true //启用右滑关闭功能
 		});
@@ -499,7 +499,9 @@
 							window.history.back();
 						});
 					} else if(data.msgCode == "0002") {
-						window.location.href = "${ctx}/page/h5/login.jsp";
+						mui.alert('你已在其它地方登录,请重新登录!', function() {
+							mui.openWindow({url: 'login.html',id:'login'});
+						});
 					}
 				},
 				error: function(xhr, type, errorThrown) {

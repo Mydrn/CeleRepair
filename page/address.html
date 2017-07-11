@@ -225,10 +225,9 @@
 				}
 				//页面跳转
 				function openpage(id){
-					var newpage = plus.webview.create("address-new.html", "address-new", {}, {
-						 itemId:id
-					});
-					newpage.show();
+					mui.openWindow({url:'address-new.html',id:'address-new',
+					    extras:{itemId:id}
+					});	
 				}
 				mui(function($) {
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/delAddress";
@@ -248,7 +247,9 @@
 								var itemDiv = document.getElementById("div"+itemId);
 								itemList.removeChild(itemDiv);
 							}else if (data.msgCode=="0002"){
-								alert("请重新登录");
+								mui.alert('你已在其它地方登录,请重新登录!', function() {
+									mui.openWindow({url: 'login.html',id:'login'});
+								});
 							}
 						}
 						});
