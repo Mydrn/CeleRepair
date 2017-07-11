@@ -7,7 +7,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_n5o6ioc4rv8to6r.css"/>
+		<link rel="stylesheet" href="https://at.alicdn.com/t/font_l7in8wfz023gnwmi.css">
 		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
 		<link rel="stylesheet" href="../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="../css/webuploader.css" />
@@ -27,7 +27,7 @@
 				<div class="mui-scroll">
 					<div class="content">
 						<form  id="objectContent">
-							<input type="text" hidden id="addressId" name="addressId" value="${ address.id }"/>
+							<input type="text" hidden id="addressId" name="addressId" value=""/>
 							<input type="text" hidden id="serviceId" name="serviceId" value="" />
 							<input type="text" hidden id="imgUrl" name="imgUrl" value="" />
 							<input type="text" hidden id="shopId" name="shopId" value="" />
@@ -35,22 +35,22 @@
 							<p class="about  mui-text-center"><!-- 个人用户可在此报修， -->请填写需求内容<br />我们会尽快安排工作人员上门服务</p>
 							<div class="mui-bar-nav">
 								<ul id='customerType' class="mui-table-view">
-								           <!-- <li class="mui-table-view-cell">
-												<a href="${ctx}/backend/h5/user/doAddress?state=true" class="mui-navigate-right iconfont icon-iconfontaddress">
-													报修地址 ：
-												</a>
-											</li>
-								            <li class="mui-table-view-cell" >
-									            <a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">
-													选择店铺：<strong id="userResult" ></strong>
-												</a>
-												
-											</li>
-											 <li class="mui-table-view-cell">
-												<p class="mui-navigate-right iconfont icon-iconfontaddress">
-													报修店铺:${ customer.customerName }
-												</p>
-											</li>-->
+						           <li class="mui-table-view-cell">
+										<a id="address" href="javascript:;" class="mui-navigate-right iconfont icon-iconfontaddress">
+											报修地址 ：
+										</a>
+									</li>
+						           <!--  <li class="mui-table-view-cell" >
+							            <a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">
+											选择店铺：<strong id="userResult" ></strong>
+										</a>
+										
+									</li>
+									 <li class="mui-table-view-cell">
+										<p class="mui-navigate-right iconfont icon-iconfontaddress">
+											报修店铺:${ customer.customerName }
+										</p>
+									</li>-->
 								</ul>
 							</div>
 							<div class="mui-bar-nav" id="orderList">
@@ -132,23 +132,25 @@
 		<script type="text/javascript" src="../js/upload.js"></script>
 		<script>
 			var token = app.getState().token;
+			var checkId='';
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			(function($, doc) {
-				$.init();
-				$.ready(function() {
+				mui.plusReady(function() {
 					var customerType = document.getElementById("customerType");
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/addCase";
 					mui.ajax(url,{
 						type:'POST',
 						data: {token: token},
 						dataType:'json',
+						async : false,
+						cache : false,
 						timeout:5000,//超时时间设置为5秒；
 						success:function(data){
 							if(data.msgCode=="0000"){
 								if (data.data.shopList!=undefined) {//品牌用户报修
+									checkId = '#shopId';
 									var html = '<li class="mui-table-view-cell" >'+
 										            '<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">'+
 														'选择店铺：<strong id="userResult" ></strong>'+
@@ -165,19 +167,43 @@
 											doc.getElementById('shopId').value = items[0].value;
 										});
 									}, false);
-								}else if(data.data.address!=undefined){//个人用户
-									var html = '<li class="mui-table-view-cell">'+
-													'<a onclick="openpage();" class="mui-navigate-right iconfont icon-iconfontaddress">'+
-														'报修地址 ：'+data.data.address.address+
-													'</a>'+
-												'</li>'
-									customerType.innerHTML=html;
-								} else{//店铺报修
+								} else if(data.data.customer != undefined){//店铺报修
+									checkId = '#serviceId';
 									var html = '<li class="mui-table-view-cell">'+
 													'<p class="mui-navigate-right iconfont icon-iconfontaddress">'+
 														'报修店铺: '+ data.data.customer.customerName +
 													'</p>'+
 												'</li>'
+								} else {//个人用户
+									checkId = '#addressId';
+									var html = '<li class="mui-table-view-cell">'+
+													'<a id="address" href="javascript:;" class="mui-navigate-right iconfont icon-iconfontaddress">'+
+														'报修地址 ：'+ (data.data.address == null?' ' : data.data.address.address) +
+													'</a>'+
+												'</li>'
+									customerType.innerHTML=html;
+									var self = plus.webview.currentWebview();
+								    var itemId = self.itemId;
+								    if(itemId != undefined){
+								    	var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneAddress";
+										$.ajax(url,{
+											data: {
+												id:itemId,
+												token: app.getState().token
+											},
+											type:'POST',//HTTP请求类型
+											dataType:'json',
+											timeout:5000,//超时时间设置为5秒；
+											success:function(data){
+												document.getElementById('address').innerHTML = '报修地址 ：' + data.data.address;
+												document.getElementById('addressId').value = data.data.id;
+											},
+											error: function(xhr, type, errorThrown) {
+												return mui.toast('网络繁忙');
+											}
+										});
+							    	}
+								
 								}
 								
 							}else if (data.msgCode=="0002"){
@@ -188,18 +214,22 @@
 									});
 								});
 							}
+						},
+						error: function(xhr, type, errorThrown) {
+							return mui.toast('网络繁忙');
 						}
 					});
 				});
-			})(mui, document) 
-			
+			 
 			//页面跳转
-			function openpage(){
-				var newpage = plus.webview.create("address.html", "address", {}, {
-					 item:true
-				});
-				newpage.show();
-			}
+			mui('body').on('tap', '#address', function() {
+				mui.openWindow({url:'address.html',id:'address',
+				    extras:{
+				        item:true
+				    }
+				});	
+				 mui.currentWebview.close();
+			});
 			
 			//开启A标签的跳转
 			mui('body').on('tap', 'a', function() {
@@ -225,8 +255,7 @@
 			});
 
 			mui('body').on('tap', '.crossClick', function() {
-				var a = this,
-					parent;
+				var a = this,parent;
 				//根据点击按钮，反推当前是哪个actionsheet
 				for(parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
 					if(parent.classList.contains('mui-popover-action')) {
@@ -244,6 +273,11 @@
 				}
 			});
 			document.getElementById('submit').addEventListener('tap',function(){
+				if($("#checkId").val()=='' || $("#serviceId").val()==''){
+					return mui.toast("请先选择");
+				}if($("#imgUrl").val()==''){
+					return mui.toast("请先上传照片");
+				}
 				/*if(${customer.customerType == 5}){
 					if($("#addressId").val() == ''){
 						return mui.toast("请选择地址");
@@ -253,11 +287,7 @@
 						return mui.toast("请选择店铺");
 					}
 				}
-				if($("#serviceId").val()==''){
-					return mui.toast("请选择服务类型");
-				}if($("#imgUrl").val()==''){
-					return mui.toast("请先上传照片");
-				}*/
+				*/
 				/* if($("#servicingTime").val()==''){
 				mui.toast("请选择上门时间");
 				return false;
@@ -267,7 +297,7 @@
 					data:$('#objectContent').serialize(),
 					type:'post',//HTTP请求类型
 					dataType:'json',
-					//timeout:10000,//超时时间设置为10秒；
+					//timeout:5000,//超时时间设置为5秒；
 					success:function(data){
 						mui.toast(data.msg);
 						if(data.msgCode=="0000"){
@@ -286,8 +316,8 @@
 								});
 							});
 						}
-					},
-					error:function(xhr,type,errorThrown){
+					},error:function(xhr,type,errorThrown){
+						mui.toast("网络繁忙,请重试！");
 						console.log(type);
 					}
 				});

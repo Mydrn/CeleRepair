@@ -303,12 +303,14 @@
 						caseId : caseId
 					},
 					async : false,
+					cache : false,
 					dataType:'json',
 					timeout:5000,//超时时间设置为5秒；
 					success:function(data){
 						if (data.msgCode=="0002"){
 							mui.alert('你已在其它地方登录,请重新登录!', function() {
 								mui.openWindow({url: '../login.html',id:'login'});
+								mui.currentWebview.close();
 							});
 							return;
 						}
@@ -385,7 +387,8 @@
 				    extras:{
 				        caseId:this.id,
 				    }
-				});	
+				});
+				mui.currentWebview.close();
 			});
 			//状态的封装
 			function cycle(a,b) {

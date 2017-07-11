@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>${ title }</title>
+		<title>地址</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -109,10 +109,8 @@
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
 				<h1 id="title" class="mui-title"></h1>
 			</header>
-			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-				<form class="mui-input-group">
-					<input type="text" hidden name="state" value="" id="state" />
-					<input type="text" hidden name="id" value="" id="id" />
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper mui-input-group">
+					<input type="text" hidden name="id" value="" id="addressId" />
 					<input type="text" hidden name="proId" value="" id="proId" />
 					<input type="text" hidden name="cityId" value="" id="cityId" />
 					<input type="text" hidden name="regionId" value="" id="regionId" />
@@ -125,7 +123,7 @@
 					</div>
 					<div class="mui-input-row">
 						<label>联系人:</label>
-						<input type="text" id="name" name="name" value="" class="mui-input-clear mui-text-right" placeholder="请输入联系人" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+						<input type="text" id="addressName" name="name" value="" class="mui-input-clear mui-text-right" placeholder="请输入联系人" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
 					</div>
 					<div class="mui-input-row">
 						<label>联系电话:</label>
@@ -134,7 +132,6 @@
 					<div class="mui-button-row">
 						<button id="submit" class="mui-btn bg-orange f-white">确认</button>
 					</div>
-				</form>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -144,6 +141,13 @@
 		<script type="text/javascript" src="../js/city.data-3.js"></script>
 		<script>
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			var proId = document.getElementById("proId");
+			var cityId = document.getElementById("cityId");
+			var regionId = document.getElementById("regionId");
+			var addressId = document.getElementById("addressId");
+			var address = document.getElementById("address");
+			var addressName = document.getElementById("addressName");
+			var mobile = document.getElementById("mobile");
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
@@ -164,33 +168,20 @@
 						dataType:'json',
 						timeout:5000,//超时时间设置为5秒；
 						success:function(data){
-							
-							alert(JSON.stringify(data));
+							proId.value = data.data.proId;
+							cityId.value = data.data.cityId;
+							regionId.value = data.data.regionId;
+							//默认选中地区
+							document.getElementById('showCityPicker3').value = seach(data.data.proId) + " " + seach(data.data.cityId) + " " + seach(data.data.regionId);
+							address.value = data.data.address;
+							addressId.value = data.data.id;
+							addressName.value = data.data.name;
+							mobile.value = data.data.mobile;
 						}});
 				}
 			});
 			
-			
-			(function($, doc) {
-					//级联示例
-					var cityPicker3 = new $.PopPicker({
-						layer: 3
-					});
-					cityPicker3.setData(cityData3);
-					var showCityPickerButton = doc.getElementById('showCityPicker3');
-					showCityPickerButton.addEventListener('tap', function(event) {
-						cityPicker3.show(function(items) {
-							document.getElementById("proId").value = (items[0] || {}).value;
-							document.getElementById("cityId").value = (items[1] || {}).value;
-							document.getElementById("regionId").value = (items[2] || {}).value;
-							showCityPickerButton.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-					//默认选中地区
-					document.getElementById('showCityPicker3').value = seach(1) + " " + seach(5) + " " + seach(6);
-					function seach(a) {
+			function seach(a) {
 						for(var i = 0; i < cityData3.length; i++) {
 							if(cityData3[i].value == a) {
 								return cityData3[i].text
@@ -209,60 +200,69 @@
 							}
 						}
 					}
-				var proId = doc.getElementById("proId");
-				var cityId = doc.getElementById("cityId");
-				var regionId = doc.getElementById("regionId");
-				var address = doc.getElementById("address");
-				var name = doc.getElementById("name");
-				var mobile = doc.getElementById("mobile");
-				doc.getElementById('submit').addEventListener('tap', function(event) {
+			(function($, doc) {
+					//级联示例
+					var cityPicker3 = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = doc.getElementById('showCityPicker3');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							document.getElementById("proId").value = (items[0] || {}).value;
+							document.getElementById("cityId").value = (items[1] || {}).value;
+							document.getElementById("regionId").value = (items[2] || {}).value;
+							showCityPickerButton.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+			})(mui, document);
+			document.getElementById('submit').addEventListener('tap', function(event) {
 					if(regionId.value == '') {
-						return mui.tosat("请选择地区");
+						return mui.toast("请选择地区");
 					}
 					if(address.value.trim() == '') {
-						return mui.tosat("请输入详细地址");
+						return mui.toast("请输入详细地址");
 					}
-					if(name.value.trim() == '') {
-						return mui.tosat("请输入联系人");
+					if(addressName.value.trim() == '') {
+						return mui.toast("请输入联系人");
 					}
-					var isMob = '(^(\d{3,4}-)?\d{7,8})$|(13[0-9]{9})';
-					if(!isMob.test(mobile.value.trim())) {
-						return mui.tosat("请输入正确的联系电话");
+					if(mobile.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")) {
+						return mui.toast("请输入正确的联系电话");
 					}
-					var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/saveAddress";
-					$.ajax(url, {
+					mui.ajax(url, {
 						data: {
 							proId: proId.value,
 							token: app.getState().token,
 							cityId: cityId.value,
 							regionId: regionId.value,
 							address: address.value,
-							name: name.value,
+							name: addressName.value,
+							id : addressId.value,
 							mobile: mobile.value
 						},
 						dataType: 'json', //服务器返回json格式数据
 						type: 'POST', //HTTP请求类型
-						timeout: 3000, //超时时间设置为3秒；
+						timeout: 5000, //超时时间设置为3秒；
 						success: function(data) {
-							mui.toast(data.msg);
 							if(data.msgCode=="0000"){
-								console.log(JSON.stringify(data));
-								return owner.createState(data, callback);
+								mui.toast('修改成功');
+								mui.openWindow({
+								   url: 'address.html', 
+								   id:'address'
+								});
+								mui.currentWebview.close();
+							}else{
+								mui.toast("系统错误");
 							}
 						},error: function(xhr, type, errorThrown) {
-							if(type == "abort") {
-								mui.toast('服务器连接异常！');
-							} else if(type == "timeout") {
-								mui.toast('服务器连接超时！');
-							}
-							return;
+							return mui.toast('网络繁忙！');
 						}
 					});
 					
 				});
-
-			})(mui, document);
 		</script>
 	</body>
 

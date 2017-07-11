@@ -15,21 +15,27 @@
 	/**
 	 * 首页
 	 **/
-	owner.index = function(loginInfo, callback) {
+	owner.indexList = function(callback) {
 		callback = callback || $.noop;
-		loginInfo = loginInfo || {};
 		//首页接口
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndexList";
-		console.log(url);
 		$.ajax(url, {
-			data: {token: getState().token},
+			data: {token: owner.getState().token},
 			dataType: 'json', //服务器返回json格式数据
 			type: 'POST', //HTTP请求类型
-			timeout: 3000, //超时时间设置为3秒；
-			headers: {'Content-Type': 'application/json'},
+			timeout: 6000, //超时时间设置为6秒；
 			success: function(data) {
-				console.log(JSON.stringify(data));
-				return mui.toast(data.msg);
+				if(data.msgCode=="0000"){
+					//设置客服电话
+					localStorage.setItem('$contactUs', data.data.contactUs);
+					//console.log(JSON.stringify(data));
+					return callback(data);
+				}else if(data.msgCode=="0002"){
+					mui.alert('你已在其它地方登录,请重新登录!', function() {
+						mui.openWindow({url: 'login.html',id:'login'});
+					});
+				} 
+				
 			},
 			error: function(xhr, type, errorThrown) {
 				if(type == "abort") {
@@ -67,7 +73,6 @@
 			success: function(data) {
 				mui.toast(data.msg);
 				if(data.msgCode=="0000"){
-					console.log(JSON.stringify(data));
 					return owner.createState(data, callback);
 				}
 			},error: function(xhr, type, errorThrown) {
