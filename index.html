@@ -250,10 +250,10 @@
 							</a>
 						</header>
 						<!--轮播图-->
-						<div  class="mui-slider">
-							<div class="mui-slider-group mui-slider-loop" id="slider">
+						<div class="mui-slider" id="slider">
+							<div class="mui-slider-group mui-slider-loop" id="slider-list">
 								<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-								<div id="slider" class="mui-slider-item mui-slider-item-duplicate"></div>
+								<div class="mui-slider-item mui-slider-item-duplicate"></div>
 								
 								<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 								<div class="mui-slider-item mui-slider-item-duplicate"></div>
@@ -302,7 +302,6 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
-		mui.init();
 		//主界面和侧滑菜单界面均支持区域滚动；
 		mui('#offCanvasSideScroll').scroll({indicators: false});
 		mui('#offCanvasContentScroll').scroll({indicators: false});
@@ -316,17 +315,18 @@
 			app.indexList(function(data) {
 				if (data.msgCode=="0000"){
 					//广告数据
-					var slider = document.getElementById("slider");
+					var slider = document.getElementById("slider-list");
 					var html='';
 					var adList = data.data.adList;
 					for (var item in adList) {
 						html +='<div class="mui-slider-item">'+
-								'<a class="adLink" href="javascript:;" id="'+adList[item].adLink+'">'+
+								'<a class="adLink" href="javascript:;" id="'+[item].adLink+'">'+
 									'<img src="'+adList[item].adUrl+'">'+
 								'</a>'+
 							'</div>'
 					}
 					slider.innerHTML='<div class="mui-slider-item mui-slider-item-duplicate"></div>'+html+'<div class="mui-slider-item mui-slider-item-duplicate"></div>';
+					//自动播放轮播图
 					//订单列表
 					var caseList = data.data.caseList;
 					var caseUl = document.getElementById("caseUl");
@@ -354,11 +354,18 @@
 										'</a>';
 						caseUl.appendChild(li);
 					}
+					
 				}else if (data.msgCode=="0002"){
 					mui.alert('你已在其它地方登录,请重新登录!', function() {
 						mui.openWindow({url: 'login.html',id:'login'});
 					});
 				}
+				//自动播放轮播图
+				mui(function(e) {
+					mui("#slider").slider({
+						interval: 4000
+					})
+				})
 			});
 		});
 		
@@ -474,12 +481,7 @@
 		mui('body').on('tap', '.adLink', function() {
 			plus.runtime.openURL(this.id);
 		});
-		//自动播放轮播图
-		mui(function(e) {
-			mui("#slider").slider({
-				interval : 3000
-			})
-		})
+		
 	</script>
 	</body>
 </html>
