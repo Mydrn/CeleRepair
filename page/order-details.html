@@ -449,7 +449,7 @@
 			});
 			
 			document.getElementById('zhifubao').addEventListener('tap',function(){
-				return mui.toast("暂不支持！！！");
+				pay('alipay'); 
 				/*mui.ajax('${ctx}/backend/h5/pay/orderQuery',{
 					data:{caseId:'${ obj.id }'},
 					type:'post',//HTTP请求类型
@@ -479,7 +479,7 @@
         var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/payment";
         // 2. 发起支付请求  
         function pay(id){  
-        	var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';  
+        	var ALIPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/alipay?total=';  
         	var WXPAYSERVER = url +'?caseId=' + caseObj.id + '&token=' + token + '&claimCode=claimCode&total=';  
                 // 从服务器请求支付订单  
                 var PAYSERVER='';  

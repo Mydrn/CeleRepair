@@ -170,10 +170,10 @@
                 "ios": {
                     "iphone": {
                         "default": "", /*iPhone3启动图片选，分辨率：320x480*/
-                        "retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-                        "retina40": "",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
-                        "retina47": "",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
-                        "retina55": "",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+                        "retina35": "C:/Users/pssio/Desktop/快修引导页切图/480x800/快修闪屏.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+                        "retina40": "C:/Users/pssio/Desktop/快修引导页切图/640x1136/闪屏.png",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+                        "retina47": "C:/Users/pssio/Desktop/快修引导页切图/750x1334/快修闪屏.png",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+                        "retina55": "C:/Users/pssio/Desktop/快修引导页切图/1242x2208/快修闪屏.png",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
                         "retina55l": ""/*5.5 英寸设备(iPhone6 Plus)横屏启动图片，分辨率：2208x1242*/
                     },
                     "ipad": {
@@ -190,7 +190,7 @@
                 "android": {
                     "mdpi": "", /*普通屏启动图片，分辨率：240x282*/
                     "ldpi": "", /*大屏启动图片，分辨率：320x442*/
-                    "hdpi": "", /*高分屏启动图片，分辨率：480x762*/
+                    "hdpi": "C:/Users/pssio/Desktop/快修引导页切图/480x800/快修闪屏.png", /*高分屏启动图片，分辨率：480x762*/
                     "xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
                     "xxhdpi": ""/*1080P高分屏启动图片，分辨率：1080x1882*/
                 }

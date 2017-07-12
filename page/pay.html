@@ -45,7 +45,7 @@
           
          <div class="mui-content"> 
                 <div class="top" id="testLogin" > 
-                	捐赠金额：<input id="jine" type="number" value="1" /> 元 
+                	支付金额：<input id="jine" type="number" value="1" /> 元 
                     <input type="button" class="weixin" id="weixin1" value="微信支付" /> 
                     <input type="button" class="zhifubao" id="zhifubao" value="支付宝支付" /> 
                 </div> 
@@ -82,7 +82,8 @@
             pay('alipay');   
         })  
   
-        var ALIPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';  
+
+        var ALIPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/alipay?total=';  
         var WXPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/payment?caseId=7816&claimCode=claimCode&total=';  
         
         // 2. 发起支付请求  
