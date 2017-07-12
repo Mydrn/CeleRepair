@@ -212,6 +212,7 @@
 						mui.toast("没有更多数据");
 						return fragment;
 					}
+					
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doPairCasePage";
 					mui.ajax(url,{
 						data:{
@@ -227,37 +228,34 @@
 						success:function(data){
 							if (data.msgCode=="0002"){
 								mui.alert('你已在其它地方登录,请重新登录!', function() {
-									mui.openWindow({
-									   url: '../login.html', 
-									   id:'login'
-									});
+									mui.openWindow({url: '../login.html',id:'login'});
 								});
-								return;
-							}
-							mui.toast(data.msg);
-							if(data.data.length == 0){
-								mui.toast("没有更多数据");
-								numOld = true;
-							}
-							data = data.data;
-							for (var item in data) {
-								if(data[item].caseStatus == -1 && data[item].customerType != 5){stateType = state1}
-								else if(data[item].caseStatus == -1  && data[item].customerType == 5){stateType = state7}
-								else if(data[item].caseStatus == 0 || data[item].caseStatus == 1 || data[item].caseStatus == 2){stateType = state2}
-								else if(data[item].caseStatus == 3 && data[item].customerType != 5){stateType = state3}
-								else if(data[item].caseStatus == 3 && data[item].customerType == 5){stateType = state4}
-								else if(data[item].caseStatus == 4 && data[item].assessScore == null){stateType = state5}
-								li = document.createElement('li');
-								li.className = 'mui-table-view-cell mui-media';
-								li.innerHTML = '<a href="javascript:;" class="details" id='+ data[item].id +'">'+
-												'<img class="mui-media-object mui-pull-left" src="'+ data[item].attachmentFile +'">'+
-													'<div class="mui-media-body">'+
-														'<p class="order-title">'+ data[item].claimCode +'</p>'+
-															'<p class="mui-ellipsis">'+data[item].updateTimeString +'</p>'+
-													'</div>'+
-													'<span class="stateType">'+ stateType +
-												'</a>';
-								fragment.appendChild(li);
+							}else{
+								//mui.toast(data.msg);
+								if(data.data.length == 0){
+									mui.toast("没有更多数据");
+									numOld = true;
+								}
+								data = data.data;
+								for (var item in data) {
+									if(data[item].caseStatus == -1 && data[item].customerType != 5){stateType = state1}
+									else if(data[item].caseStatus == -1  && data[item].customerType == 5){stateType = state7}
+									else if(data[item].caseStatus == 0 || data[item].caseStatus == 1 || data[item].caseStatus == 2){stateType = state2}
+									else if(data[item].caseStatus == 3 && data[item].customerType != 5){stateType = state3}
+									else if(data[item].caseStatus == 3 && data[item].customerType == 5){stateType = state4}
+									else if(data[item].caseStatus == 4 && data[item].assessScore == null){stateType = state5}
+									li = document.createElement('li');
+									li.className = 'mui-table-view-cell mui-media';
+									li.innerHTML = '<a href="javascript:;" class="details" id='+ data[item].id +'">'+
+													'<img class="mui-media-object mui-pull-left" src="'+ data[item].attachmentFile +'">'+
+														'<div class="mui-media-body">'+
+															'<p class="order-title">'+ data[item].claimCode +'</p>'+
+																'<p class="mui-ellipsis">'+data[item].updateTime +'</p>'+
+														'</div>'+
+														'<span class="stateType">'+ stateType +
+													'</a>';
+									fragment.appendChild(li);
+								}
 							}
 						},
 						error:function(xhr,type,errorThrown){
@@ -266,8 +264,6 @@
 					});
 					return fragment;
 				};
-				//切换时的页面内容填充
-				//var html1 = '<ul class="mui-table-view"><li class="mui-table-view-cell mui-media"><a href="order-details.html"><img class="mui-media-object mui-pull-left" src="${obj.attachmentFile}"><div class="mui-media-body"><p class="order-title">五金件安装</p><p class="mui-ellipsis">2017-06-05 17:50</p></div><span class="stateType">审<br />核<br />中</span></a></li></ul>';
 				var item1 = document.getElementById('item1mobile');
 				//打开此页面时第一屏的页面内容
 				if(item1.querySelector('.mui-loading')) {

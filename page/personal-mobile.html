@@ -7,6 +7,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/app.css">
 		<link rel="stylesheet" href="https://at.alicdn.com/t/font_l7in8wfz023gnwmi.css">
 		<style>
 			html,
@@ -155,10 +156,10 @@
 		<script src="../js/app.js"></script>
 		<!--<script type="text/javascript" src="../js/js/vconsole.min.js"></script>-->
 		<script>
-			mui.init();
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			function see(e) {
 				var pass = e.previousElementSibling;
 				if(pass.getAttribute('type') == "password") {
@@ -170,71 +171,67 @@
 				}
 			};
 			//发送验证码
-			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-			(function($, doc) {
+			var phone = document.getElementById("mobile");//手机号码
+			document.getElementById('send').addEventListener('click', function(event) {
+				event.preventDefault();
+				window.event.returnValue = false;
+				var _this=this;
+				if(phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")){
+					return mui.toast("手机号码有误");
+				}
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getMobileCode";
-				var phone = document.getElementById("mobile");//手机号码
-				document.getElementById('send').addEventListener('click', function(event) {
-					event.preventDefault();
-					window.event.returnValue = false;
-					var _this=this;
-					if(phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")){
-						return mui.toast("手机号码有误");
+				mui.get(url,{mobile:phone.value,token:app.getState().token},function(data){
+					mui.toast(data.msg);
+					if (data.msgCode == "0000") {
+						//成功
+						//发送验证码倒计时
+						_this.innerHTML='已发送(<span id="count">60</span>)秒';
+						var time=parseInt(document.getElementById("count").innerHTML);
+						var timer=setInterval(function() {
+								time -= 1;
+								if(time == 0 ) {
+									_this.innerHTML='获取验证码';
+									//清除定时器
+									clearInterval(timer);
+								} else {
+									_this.setAttribute("disabled", "disabled");
+									//设置倒计时数字
+									document.getElementById("count").innerHTML=time;
+								}
+						}, 1000);
+					}else if (data.msgCode=="0002"){
+						mui.alert('你已在其它地方登录,请重新登录!', function() {
+							mui.openWindow({url: 'login.html',id:'login'});
+						});
 					}
-					mui.get(url,{mobile:phone.value,token:app.getState().token},function(data){
-						mui.toast(data.msg);
-						if (data.msgCode == "0000") {
-							//成功
-							//发送验证码倒计时
-							_this.innerHTML='已发送(<span id="count">60</span>)秒';
-							var time=parseInt(document.getElementById("count").innerHTML);
-							var timer=setInterval(function() {
-									time -= 1;
-									if(time == 0 ) {
-										_this.innerHTML='获取验证码';
-										//清除定时器
-										clearInterval(timer);
-									} else {
-										_this.setAttribute("disabled", "disabled");
-										//设置倒计时数字
-										document.getElementById("count").innerHTML=time;
-									}
-							}, 1000);
-						}else if (data.msgCode=="0002"){
-							mui.alert('你已在其它地方登录,请重新登录!', function() {
-								mui.openWindow({url: 'login.html',id:'login'});
-							});
-						}
-					},'json');
-				});
-			})(mui, document);
+				},'json');
+			});
 			
-			
-			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doRevisePhone";
 			var code = document.getElementById('code');
 			var phone=document.getElementById("mobile");
-			var password = document.getElementById('password');
+			var password1 = document.getElementById('password');
 			document.getElementById('submit').addEventListener('click',function(){
 				event.preventDefault();
 				window.event.returnValue = false;
-				if(phone.value.replace(/(^s*)|(s*$)/g, "").length == 0){
+				if(phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")){
 					return mui.toast("请填写正确的手机号");
 				}if(code.value.replace(/(^s*)|(s*$)/g, "").length == 0){
 					return mui.toast("请填写验证码");
-				}if(password.value.replace(/(^s*)|(s*$)/g, "").length < 5){
+				}if(password1.value.replace(/(^s*)|(s*$)/g, "").length < 5){
 					return mui.toast("请填写正确格式的密码");
 				}
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doRevisePhone";
 				mui.ajax(url,{
 					data:{
 						token:app.getState().token,
 						mobile:phone.value,
 						code:code.value,
-						password:password.value
+						password:password1.value
 						},
 					type:'post',//HTTP请求类型
 					dataType:'json',
 					async:true,
-					timeout:5000,//超时时间设置为5秒；             
+					timeout:3000,//超时时间设置为5秒；             
 					success:function(data){
 						mui.toast(data.msg);
 						if (data.msgCode == "0000") {

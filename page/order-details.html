@@ -351,7 +351,7 @@
 							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<div class="text mui-pull-left">应付金额:<span class="f-orange">￥'+ caseObj.caseActualMoney +'</span></div><a href="#picture" id="tel" class="mui-text-center mui-pull-right"><span class="mui-icon-extra mui-icon-extra-gold f-14"> 去支付</span></a>';
 							cycle(2);
 						}else if(caseObj.caseStatus == 4 && caseObj.assessScore==undefined ){//待评价
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a class="mui-text-center bg-orange f-white doEvaluation" class="mui-text-center bg-orange f-white"><span class="mui-icon-extra mui-icon-extra-like f-14">待评价</span></a>';
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="javascript:;" class="mui-text-center bg-orange f-white doEvaluation" class="mui-text-center bg-orange f-white"><span class="mui-icon-extra mui-icon-extra-like f-14">待评价</span></a>';
 							cycle(3);
 						}else{//完成订单
 							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:'+contactUs+'" id="submit" class="mui-text-center bg-orange f-white">已完成</a>';
@@ -363,7 +363,12 @@
 							old[i].style.height=old[i].parentNode.parentNode.scrollWidth/4+"px";
 						}
 						mui.previewImage();
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast("网络繁忙,请重试！");
+						console.log(type);
 					}
+					
 				});
 				// 获取支付通道  
                 plus.payment.getChannels(function(channels){  
@@ -385,10 +390,10 @@
 				    url:'evaluation.html',
 				    id:'evaluation',
 				    extras:{
-				        caseId:this.id,
+				        caseId:caseObj.id
 				    }
 				});
-				mui.currentWebview.close();
+				//mui.currentWebview.close();
 			});
 			//状态的封装
 			function cycle(a,b) {

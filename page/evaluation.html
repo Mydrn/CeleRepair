@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>发布评价</title>
@@ -7,30 +8,189 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/app.css">
 		<style>
-			#offCanvasSideScroll{padding-top:44px}.textA{vertical-align:middle}.f-white{color:#fff!important}.bg-white{background-color:#fff!important}.bg-orange{background-color:#ff5700!important}.f-orange{color:#ff5700!important}.mui-icon-star{font-size:20px}.mui-icon-star-filled{color:#ffb400;font-size:20px}[class^="evaluation-"]{padding:10px 15px}textarea{margin-bottom:0;border:transparent;padding:0}.lines,.line{display:block;border-top:1px solid #ccc;position:relative;margin-bottom:8px}.line:after{position:absolute;z-index:2;top:-8px;left:30px;font-family:"微软雅黑";content:'';width:16px;height:16px;border:1px solid #ccc;border-top-color:transparent;border-right-color:transparent;transform:rotate(135deg);-webkit-transform:rotate(135deg);-moz-transform:rotate(135deg);-ms-transform:rotate(135deg);background-color:#fff}.as{padding:0 0 5px;overflow:hidden}.mui-right{float:right}.file-box{margin-right:2px}.file{opacity:0;position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%}.file-box{display:inline-block;width:24%;position:relative;overflow:hidden;padding:40px;border:1px solid #ccc;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}.file-box img{position:absolute;top:0;left:0;min-height: 100%;width:100%;z-index:1}.file-box:before{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:"微软雅黑";content:'';width:2px;height:50%;background:#ccc}.file-box:after{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:"微软雅黑";content:'';width:50%;height:2px;background:#ccc}.file-box:first-child{margin-right:-2px}.evaluation-head{margin-bottom:10px}.mui-content-padded{margin:0}
+			#offCanvasSideScroll {
+				padding-top: 44px
+			}
+			
+			.textA {
+				vertical-align: middle
+			}
+			
+			.f-white {
+				color: #fff!important
+			}
+			
+			.bg-white {
+				background-color: #fff!important
+			}
+			
+			.bg-orange {
+				background-color: #ff5700!important
+			}
+			
+			.f-orange {
+				color: #ff5700!important
+			}
+			
+			.mui-icon-star {
+				font-size: 20px
+			}
+			
+			.mui-icon-star-filled {
+				color: #ffb400;
+				font-size: 20px
+			}
+			
+			[class^="evaluation-"] {
+				padding: 10px 15px
+			}
+			
+			textarea {
+				margin-bottom: 0;
+				border: transparent;
+				padding: 0
+			}
+			
+			.lines,
+			.line {
+				display: block;
+				border-top: 1px solid #ccc;
+				position: relative;
+				margin-bottom: 8px
+			}
+			
+			.line:after {
+				position: absolute;
+				z-index: 2;
+				top: -8px;
+				left: 30px;
+				font-family: "微软雅黑";
+				content: '';
+				width: 16px;
+				height: 16px;
+				border: 1px solid #ccc;
+				border-top-color: transparent;
+				border-right-color: transparent;
+				transform: rotate(135deg);
+				-webkit-transform: rotate(135deg);
+				-moz-transform: rotate(135deg);
+				-ms-transform: rotate(135deg);
+				background-color: #fff
+			}
+			
+			.as {
+				padding: 0 0 5px;
+				overflow: hidden
+			}
+			
+			.mui-right {
+				float: right
+			}
+			
+			.file-box {
+				margin-right: 2px
+			}
+			
+			.file {
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: 100%;
+				height: 100%
+			}
+			
+			.file-box {
+				display: inline-block;
+				width: 24%;
+				position: relative;
+				overflow: hidden;
+				padding: 40px;
+				border: 1px solid #ccc;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px
+			}
+			
+			.file-box img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				min-height: 100%;
+				width: 100%;
+				z-index: 1
+			}
+			
+			.file-box:before {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: "微软雅黑";
+				content: '';
+				width: 2px;
+				height: 50%;
+				background: #ccc
+			}
+			
+			.file-box:after {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				font-family: "微软雅黑";
+				content: '';
+				width: 50%;
+				height: 2px;
+				background: #ccc
+			}
+			
+			.file-box:first-child {
+				margin-right: -2px
+			}
+			
+			.evaluation-head {
+				margin-bottom: 10px
+			}
+			
+			.mui-content-padded {
+				margin: 0
+			}
+			
+			#submit {
+				display: block;
+				width: 95%;
+				margin: 30px auto 0;
+				background: #ff5700;
+				color: #fff;
+				border: none
+			}
 		</style>
 	</head>
+
 	<body>
 		<div id="">
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
 				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
 				<h1 class="mui-title">发布评价</h1>
-				<button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right f-white">提交</button>
 			</header>
-			<input id="OderId" hidden value="${obj.id}">
+			<input id="OderId" hidden value="">
 			<input type="text" hidden id="imgUrl" name="imgUrl" value="" />
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 				<div class="mui-scroll">
 					<div class="mui-content-padded">
 						<div class="evaluation-head bg-white">
-							<div class="as">  
-								<div class="mui-inline">服务内容:</div>
-								<div class="icons mui-inline" style="margin-left: 6px;">${obj.serviceName }</div>
-							</div>
 							<div class="as">
 								<div class="mui-inline">订单编号:</div>
-								<div class="icons mui-inline" style="margin-left: 6px;">${obj.claimCode }</div>
+								<div class="icons mui-inline" id="claimCode" style="margin-left: 6px;"></div>
+							</div>
+							<div class="as">
+								<div class="mui-inline">服务内容:</div>
+								<div class="icons mui-inline" id="serviceName" style="margin-left: 6px;"></div>
 							</div>
 						</div>
 						<div class="evaluation-content bg-white">
@@ -56,18 +216,58 @@
 								</div>
 							</div>
 						</div>
+						<button id="submit">提交</button>
 					</div>
 				</div>
+
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
 		<script>
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			var caseId,token = app.getState().token;
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				caseId = self.caseId;
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doEvaluationData";
+				mui.ajax(url,{
+					type:'POST',
+					data: {
+						token: token,
+						caseId : caseId
+					},
+					async : false,
+					cache : false,
+					dataType:'json',
+					timeout:5000,//超时时间设置为5秒；
+					success:function(data){
+						if (data.msgCode=="0002"){
+							mui.alert('你已在其它地方登录,请重新登录!', function() {
+								mui.openWindow({url: '../login.html',id:'login'});
+								mui.currentWebview.close();
+							});
+							return;
+						}
+						//订单
+						caseObj = data.data;
+						document.getElementById("OderId").value = caseObj.id;
+						document.getElementById("claimCode").innerHTML = caseObj.claimCode;
+						//document.getElementById("createTime").innerText = caseObj.createTime;
+						document.getElementById("serviceName").innerHTML = caseObj.serviceName;
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast("网络繁忙,请重试！");
+						console.log(type);
+					}
+				});
+			});
 			//主界面和侧滑菜单界面均支持区域滚动；
 			mui('#offCanvasSideScroll').scroll();
-			var starIndex=5;
+			var starIndex = 5;
 			//应用评分点击事件
 			mui('.icons').on('tap', 'i', function() {
 				var index = parseInt(this.getAttribute("data-index"));
@@ -93,6 +293,7 @@
 			});
 			//设置图片的平均分配宽度
 			src();
+
 			function src() {
 				var arr = document.querySelectorAll('.file-box');
 				var old = document.querySelector('.as').scrollWidth;
@@ -101,89 +302,87 @@
 				}
 			}
 			//图片上传事件
-			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			(function($, doc) {
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
-				var  imgs=[];
-				mui(function($) {
-					$("body").on("change", ".file",function() {
+				var imgs = [];
+				$("body").on("change", ".file", function() {
 					var _this = this.parentNode;
-					var _that=this;
+					var _that = this;
 					formData = new FormData();
 					formData.append("file", this.files[0]);
 					formData.append("attachmentType", 9);
-					formData.append("token",app.getState().token);
-					mui.ajax(url,{
+					formData.append("token", app.getState().token);
+					mui.ajax(url, {
 						type: "post",
 						dataType: 'text',
 						contentType: false, //必须 
 						processData: false, //必须
 						cache: false,
-						async:true,
+						async: true,
 						data: formData,
-						success: function(xhr,status,data) {
-						imgs.push(xhr);
-						document.getElementById("imgUrl").value = imgs;
-						if(window.FileReader) {
-							var reader = new FileReader();
-							reader.readAsDataURL(_that.files[0]);
-							//监听文件读取结束后事件    
-							reader.onloadend = function(e) {
-							//console.log(e.target.result); //e.target.result就是最后的路径地址
-							var img = document.createElement('img');
-							var div = document.createElement('div');
-							img.setAttribute('src', xhr);
-							_this.innerHTML=""
-							_this.appendChild(img);
-							div.setAttribute('class', 'file-box');
-							div.innerHTML = '<input type="file" name="file" class="file" accept="image/*">'
-							_this.parentNode.appendChild(div);
-							src();
-						};
-					}
-				}
-			});
-			
-		})
-	})
-})(mui, document);
+						success: function(xhr, status, data) {
+							imgs.push(xhr);
+							document.getElementById("imgUrl").value = imgs;
+							if(window.FileReader) {
+								var reader = new FileReader();
+								reader.readAsDataURL(_that.files[0]);
+								//监听文件读取结束后事件    
+								reader.onloadend = function(e) {
+									//console.log(e.target.result); //e.target.result就是最后的路径地址
+									var img = document.createElement('img');
+									var div = document.createElement('div');
+									img.setAttribute('src', xhr);
+									_this.innerHTML = ""
+									_this.appendChild(img);
+									div.setAttribute('class', 'file-box');
+									div.innerHTML = '<input type="file" name="file" class="file" accept="image/*">'
+									_this.parentNode.appendChild(div);
+									src();
+								};
+							}
+						}
+					});
+
+				})
+			})(mui, document);
 			//评价
-			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/evaluate";
+			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveEvaluate";
 			var OderId = document.getElementById("OderId");
 			var assess = document.getElementById('assess');
-			var imgUrl=document.getElementById('imgUrl');
-			document.getElementById('submit').addEventListener('tap',function(){
+			var imgUrl = document.getElementById('imgUrl');
+			document.getElementById('submit').addEventListener('tap', function() {
 				event.preventDefault();
 				window.event.returnValue = false;
-				mui.ajax(url,{
-					data:{
-						score:starIndex,
-						objectId:OderId.value,
-						assess:assess.value,
-						imgUrl:imgUrl.value,
-						token:app.getState().token
+				mui.ajax(url, {
+					data: {
+						score: starIndex,
+						objectId: OderId.value,
+						assess: assess.value,
+						imgUrl: imgUrl.value,
+						token: token
 					},
-					type:'post',//HTTP请求类型
-					dataType:'json',
-					async:true,
-					timeout:5000,//超时时间设置为5秒；             
-					success:function(data){
-						if (data.statusCode == "0000") {
+					type: 'post', //HTTP请求类型
+					dataType: 'json',
+					async: true,
+					timeout: 5000, //超时时间设置为5秒；             
+					success: function(data) {
+						if(data.statusCode == "0000") {
 							mui.alert('评价成功', function() {
-								mui.openWindow({=url:'page/order-details.html',id:'order-details',
-								    extras:{
-								        caseId:data.status
-								    }
+								mui.openWindow({
+									url: 'order-details.html',
+									id: 'order-details',
+									extras: {
+										caseId: data.status
+									}
 								});
 							});
 						}
 					},
-					error:function(xhr,type,errorThrown){
-						
+					error: function(xhr, type, errorThrown) {
+
 					}
 				});
-		   });
-			
+			});
 		</script>
 	</body>
 

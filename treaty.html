@@ -65,15 +65,14 @@
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div id="content">
-							<!-- <p>adbnsakjdcbhxzbhczxdbcsaj,zbcxzmhbcmzbdxzkj</p> -->
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="treaty-bottom">
 				<span id="treaty-text" class="f-orange f-14">我已仔细阅读，并同意该合约内容</span>
-				<a href="login.jsp">拒绝</a>
-				<a href="register.jsp" class="bg-orange f-white">同意</a>
+				<a href="login.html">拒绝</a>
+				<a href="register.html" class="bg-orange f-white">同意</a>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
@@ -96,7 +95,6 @@
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findAgreementFirst";
 				var fragment = doc.getElementById("content");
 				$.ajax(url,{
-					data:{token:app.getState().token},
 					type:'POST',//HTTP请求类型
 					dataType:'json',
 					timeout:5000,//超时时间设置为5秒；
@@ -105,16 +103,6 @@
 					}
 				});
 			})(mui, document);
-			
-//			(function($, doc) {
-//				$.ready(function() {
-//					var top = $('header');
-//					for(var i = 0; i < top.length; i++) {
-//						top[i].style.paddingTop = (128 / 1334 * window.screen.height - 44).toFixed(2) + 'px';
-//						top[i].style.height=document.getElementById('offCanvasSideScroll').style.paddingTop = (128 / 1334 * window.screen.height).toFixed(2) + 'px';
-//					}
-//				})
-//			})(mui, document);
 		</script>
 	</body>
 

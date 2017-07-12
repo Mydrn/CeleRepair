@@ -4,7 +4,7 @@
 //			app_ip: "https://celefix.mydrn.cn",
 //			app_port: "443",
 //			path: "/celefix/backend/h5/" //环境路径
-			
+//			
 			//本地
 			app_ip: "http://192.168.3.37",
 			app_port: "8000",
@@ -23,7 +23,7 @@
 			data: {token: owner.getState().token},
 			dataType: 'json', //服务器返回json格式数据
 			type: 'POST', //HTTP请求类型
-			timeout: 6000, //超时时间设置为6秒；
+			timeout: 3000, //超时时间设置为6秒；
 			success: function(data) {
 				if(data.msgCode=="0000"){
 					//设置客服电话
@@ -35,15 +35,9 @@
 						mui.openWindow({url: 'login.html',id:'login'});
 					});
 				} 
-				
 			},
 			error: function(xhr, type, errorThrown) {
-				if(type == "abort") {
-					mui.toast('服务器连接异常！');
-				} else if(type == "timeout") {
-					mui.toast('服务器连接超时！');
-				}
-				return;
+				return mui.toast('网络繁忙!');
 			}
 		});
 	};

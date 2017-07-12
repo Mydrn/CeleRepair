@@ -44,7 +44,8 @@
       "page/address.html",
       "login.html",
       "page/message.html",
-      "page/order-new.html"
+      "page/order-new.html",
+      "css/app.css"
     ],
     "refer": [
       "login.html",
@@ -57,7 +58,12 @@
   "login.html": {
     "resources": [
       "images/celerepair-logo.png",
-      "index.html"
+      "index.html",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "images/3.gif",
+      "css/mui.min.css"
     ],
     "refer": [
       "index.html"
