@@ -341,10 +341,9 @@
 				state7 = "待<br />接<br />单";
 			var stateType = "已<br />完<br />成";
 			var token = app.getState().token;
-		window.onload = function(){	
 			mui.plusReady(function() {
+				plus.nativeUI.showWaiting();
 				app.indexList(function(data) {
-					if(data.msgCode == "0000") {
 						//广告数据
 						var slider = document.getElementById("slider-list");
 						var html = '';
@@ -392,15 +391,6 @@
 								'</a>';
 							caseUl.appendChild(li);
 						}
-
-					} else if(data.msgCode == "0002") {
-						mui.alert('你已在其它地方登录,请重新登录!', function() {
-							mui.openWindow({
-								url: 'login.html',
-								id: 'login'
-							});
-						});
-					}
 					//自动播放轮播图
 					mui(function(e) {
 						mui("#slider").slider({
@@ -408,6 +398,7 @@
 						})
 					})
 				});
+				plus.nativeUI.closeWaiting();
 			});
 
 			//侧滑容器父节点
@@ -535,7 +526,6 @@
 			mui('body').on('tap', '.adLink', function() {
 				plus.runtime.openURL(this.id);
 			});
-		}
 		</script>
 	</body>
 

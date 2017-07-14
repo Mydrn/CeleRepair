@@ -3,7 +3,7 @@
     "id": "H59C3D0A1",/*应用的标识，创建应用时自动生成，勿手动修改*/
     "name": "快修",/*应用名称，程序桌面图标名称*/
     "version": {
-        "name": "0.9.2",/*应用版本名称*/
+        "name": "0.9.5",/*应用版本名称*/
         "code": ""
     },
     "description": "“快修”是专业从事全国终端连锁店铺及个人家居测量、安装、维修等。专业技术力量遍布全国各大省市区直辖市，拥有最强的技术服务及完善的售后服务支持。",/*应用描述信息*/
@@ -102,7 +102,7 @@
         },
         "popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
         "runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
-        "signature": "4ba58090c26d11939a38c600fa18bd9d",/*可选，保留给应用签名，暂不使用*/
+        "signature": "68179a943268106e04ba2321db7cceac",/*可选，保留给应用签名，暂不使用*/
         "distribute": {
         	"plugins":{
         	"payment":{
@@ -119,7 +119,7 @@
                 ]/*调用Native.js调用原生Objective-c API需要引用的FrameWork，如需调用GameCenter，则添加"GameKit.framework"*/
             },
             "google": {
-                "packagename": "com.celeRepair",/*Android应用包名，如io.dcloud.HelloH5*/
+                "packagename": "com.celerepair",/*Android应用包名，如io.dcloud.HelloH5*/
                 "keystore": "",/*Android应用打包使用的密钥库文件*/
                 "password": "celerepair",/*Android应用打包使用密钥库中证书的密码*/
                 "aliasname": "celerepair",/*Android应用打包使用密钥库中证书的别名*/
@@ -235,11 +235,11 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"index.html",
-					"page/images/3.gif"
+					"page/images/3.gif",
+					"page/order-new.html"
 				],
 				"refer": [
-					"page/address-new.html",
-					"page/order-new.html"
+					"page/address-new.html"
 				],
 				"priority": 0
 			},
@@ -325,17 +325,27 @@
 					"js/jquery.js",
 					"js/html2canvas.js",
 					"js/mui.picker.js",
-					"page/images/3.gif"
-				],
-				"refer": [
+					"page/images/3.gif",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
 					"page/address.html"
 				],
+				"refer": [],
 				"priority": 0
 			},
 			"page/personal.html": {
 				"resources": [
 					"index.html",
-					"page/images/3.gif"
+					"page/images/3.gif",
+					"js/app.js",
+					"images/ice-repair.png",
+					"page/personal-mobile.html",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"page/personal-password.html"
 				],
 				"refer": [
 					"login.html"
@@ -348,7 +358,11 @@
 					"css/app.css",
 					"js/mui.pullToRefresh.material.js",
 					"page/images/3.gif",
-					"index.html"
+					"index.html",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -360,6 +374,39 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"page/pay.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/app.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/personal-mobile.html": {
+				"resources": [
+					"js/app.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"page/personal.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/personal-password.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"page/personal.html",
+					"js/jquery.js"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
@@ -368,7 +415,6 @@
 				"images/shuijiao.jpg",
 				"js/icons-extra.css",
 				"fonts/mui-icons-extra.ttf",
-				"page/personal-mobile.html",
 				"images/60x60.gif",
 				"js/city.data.js",
 				"README.md",
@@ -380,8 +426,6 @@
 				"images/muwu.jpg",
 				"new_file.html",
 				"register.html",
-				"page/pay.html",
-				"page/personal-password.html",
 				"images/yuantiao.jpg",
 				"page/feedback.html",
 				"images/ice-null.png"

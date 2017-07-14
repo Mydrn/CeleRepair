@@ -51,6 +51,7 @@
                 </div> 
          </div> 
          <script src="../js/mui.min.js"></script>
+         <script src="../js/app.js"></script>
            <script> 
             var wxChannel = null; // 微信支付  
             var aliChannel = null; // 支付宝支付  
@@ -77,16 +78,14 @@
             pay('wxpay');  
         })  
         document.getElementById('zhifubao').addEventListener('tap',function() {  
-            mui.toast("后续开放");
-            //pay('alipay');   
+            pay('alipay');   
         })  
    		//var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
         //var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total='; 
-
-        var ALIPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/alipay?total=';  
+        var ALIPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/alipayold?token=efe4ca31-f89b-4110-af5e-c72b76ff76db&total=';  
         //var ALIPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/alipay?total=';  
         //var WXPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/payment?caseId=7816&claimCode=claimCode&total=';  
-        var WXPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/payment?caseId=7816&claimCode=claimCode&total=';  
+        var WXPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/weixinpay?token=efe4ca31-f89b-4110-af5e-c72b76ff76db&caseId=7816&claimCode=claimCode&total=';  
         
         // 2. 发起支付请求  
         function pay(id){  
@@ -97,7 +96,7 @@
                 channel = aliChannel;  
             }else if(id=='wxpay'){  
                     PAYSERVER=WXPAYSERVER;  
-                    channel = wxChannel;  
+                    channel = wxChannel;
                 }else{
                     plus.nativeUI.alert("不支持此支付通道！",null,"付款");  
                     return;  
@@ -108,7 +107,7 @@
                     switch(xhr.readyState){  
                         case 4:  
                         if(xhr.status==200){  
-                        	//console.log(xhr.responseText);
+                        	alert(xhr.responseText);
                             plus.payment.request(channel,xhr.responseText,function(result){  
                                 plus.nativeUI.alert("支付成功！",function(){  
                                 back();  

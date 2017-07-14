@@ -7,7 +7,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/app.css">
 		<style>
 			html,body{background-color:#efeff4}.mui-bar~.mui-content .mui-fullscreen{top:44px;height:auto}.mui-pull-top-tips{position:absolute;top:-20px;left:50%;margin-left:-25px;width:40px;height:40px;border-radius:100%;z-index:1}.mui-bar~.mui-pull-top-tips{top:24px}.mui-pull-top-wrapper{width:42px;height:42px;display:block;text-align:center;background-color:#efeff4;border:1px solid #ddd;border-radius:25px;background-clip:padding-box;box-shadow:0 4px 10px #bbb;overflow:hidden}.mui-pull-top-tips.mui-transitioning{-webkit-transition-duration:200ms;transition-duration:200ms}.mui-pull-top-tips .mui-pull-loading{margin:0}.mui-pull-top-wrapper .mui-icon,.mui-pull-top-wrapper .mui-spinner{margin-top:7px}.mui-pull-bottom-tips{text-align:center;background-color:#efeff4;font-size:15px;line-height:40px;color:#777}.mui-pull-top-canvas{overflow:hidden;background-color:#fafafa;border-radius:40px;box-shadow:0 4px 10px #bbb;width:40px;height:40px;margin:0 auto}.mui-pull-top-canvas canvas{width:40px}.mui-slider-indicator.mui-segmented-control{background-color:#efeff4}.mui-scroll-wrapper{overflow:hidden}#sliderSegmentedControl .mui-active{color:#ff5700}.order-title{color:#000;margin-top:6px}.stateType{position:absolute;top:50%;right:15px;border:1px solid #a5a5a5;padding:2px 8px;border-radius:5px;color:#a5a5a5;line-height:20px;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%)}.mui-table-view-cell{margin-bottom:10px;background-color:#fff}.mui-control-content,.mui-table-view{background-color:transparent}.f-white{color:#fff!important}
 		</style>
@@ -99,21 +98,6 @@
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-loading">
-								<!--<c:forEach var="obj" items="${ caseList }">
-										<c:if test="${ obj.caseStatus == 7 }">
-											<ul class="mui-table-view">
-												<li class="mui-table-view-cell mui-media">
-													<a href="${ctx}/backend/h5/case/doCaseOne?caseId=${ obj.id }">
-														<img class="mui-media-object mui-pull-left" src="${obj.attachmentFile}">
-														<div class="mui-media-body">
-															<p class="order-title">${ obj.claimCode }</p>
-															<p class="mui-ellipsis">${ obj.createTime }</p>
-														</div><span class="stateType">待<br />支<br />付</span>
-													</a>
-												</li>
-											</ul>
-										</c:if>
-										</c:forEach>-->
 								</ul>
 							</div>
 						</div>
@@ -122,21 +106,6 @@
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-loading">
-									<!--<c:forEach var="obj" items="${ caseList }">
-										<c:if test="${obj.caseStatus == 4 && empty obj.assessScore }">
-											<ul class="mui-table-view">
-												<li class="mui-table-view-cell mui-media">
-													<a href="${ctx}/backend/h5/case/doCaseOne?caseId=${ obj.id }">
-														<img class="mui-media-object mui-pull-left" src="${obj.attachmentFile}">
-														<div class="mui-media-body">
-															<p class="order-title">${ obj.claimCode }</p>
-															<p class="mui-ellipsis">${ obj.createTime }</p>
-														</div><span class="stateType">待<br />评<br />价</span>
-													</a>
-												</li>
-											</ul>
-										</c:if>
-									</c:forEach>-->
 								</ul>
 							</div>
 						</div>
@@ -149,12 +118,14 @@
 		<script src="../js/mui.pullToRefresh.js"></script>
 		<script src="../js/mui.pullToRefresh.material.js"></script>
 		<script>
-			mui.init();
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui('body').on('tap', 'a', function() {
 				if(this.href.indexOf('#item')>0){
-					return
+					return;
 				}else{
 					window.top.location.href = this.href;
 				}
@@ -164,7 +135,7 @@
 				var deceleration = mui.os.ios ? 0.003 : 0.0009;
 				$('.mui-scroll-wrapper').scroll({
 					bounce: false,
-					indicators: true, //是否显示滚动条
+					indicators: false, //是否显示滚动条
 					deceleration: deceleration
 				});
 				var pages = 1;

@@ -152,6 +152,7 @@
 				swipeBack: true //启用右滑关闭功能
 			});
 			mui.plusReady(function() {
+				plus.nativeUI.showWaiting();
 					//级联示例
 					var cityPicker3 = new mui.PopPicker({
 						layer: 3
@@ -171,7 +172,7 @@
 					plus.webview.currentWebview().setStyle({
 						'popGesture': 'none'
 					});
-					var title=document.getElementById("title");
+					var title = document.getElementById("title");
 					var self = plus.webview.currentWebview();
 					var id = self.itemId;
 					if(id != 0){
@@ -195,10 +196,20 @@
 							addressId.value = data.data.id;
 							addressName.value = data.data.name;
 							mobile.value = data.data.mobile;
-						}});
+						},
+						error:function(xhr,type,errorThrown){
+							//关闭等待框
+							mui.toast("网络繁忙,请重试！");
+				    		plus.nativeUI.closeWaiting();
+				    		back();
+						}
+						});
 					}else{
 						title.innerHTML="新增地址";
 					}
+				//关闭等待框
+				
+			    plus.nativeUI.closeWaiting();
 			});
 			
 			/*setTimeout(function(){

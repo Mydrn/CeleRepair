@@ -42,6 +42,7 @@
 				}
 			},
 			error: function(xhr, type, errorThrown) {
+				plus.nativeUI.closeWaiting();
 				return mui.toast('网络繁忙!');
 			}
 		});

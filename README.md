@@ -20,6 +20,11 @@ mui.openWindow({
   });
 
 //B页面onload从服务器获取列表数据；
+plus.nativeUI.showWaiting();
+
+plus.nativeUI.closeWaiting();
+
+
 window.onload = function(){
   //从服务器获取数据
   //业务数据获取完毕，并已插入当前页面DOM；

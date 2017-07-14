@@ -248,9 +248,9 @@
 				<div class="bottom_tel">
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell">
-							<a href="tel:15000946761" id="submit" class="mui-text-center bg-orange f-white">
+							<!--<a href="tel:15000946761" id="submit" class="mui-text-center bg-orange f-white">
 								联系客服
-							</a>
+							</a>-->
 						</li>
 					</ul>
 				</div>
@@ -289,12 +289,14 @@
 			mui('#offCanvasSideScroll').scroll({indicators: false});
 			//实现ios平台原生侧滑关闭页面；
 			mui.plusReady(function() {
+				plus.nativeUI.showWaiting();
 				//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
 				/*plus.webview.currentWebview().setStyle({
 					'popGesture': 'none'
 				});*/
 				var self = plus.webview.currentWebview();
 				caseId =self.caseId;
+				
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
 				mui.ajax(url,{
 					type:'POST',
@@ -363,10 +365,14 @@
 							old[i].style.height=old[i].parentNode.parentNode.scrollWidth/4+"px";
 						}
 						mui.previewImage();
+						//关闭等待框
+			    		plus.nativeUI.closeWaiting();
 					},
 					error:function(xhr,type,errorThrown){
 						mui.toast("网络繁忙,请重试！");
-						console.log(type);
+						//关闭等待框
+			    		plus.nativeUI.closeWaiting();
+			    		back();
 					}
 					
 				});
@@ -415,47 +421,16 @@
 			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/payment";
 			document.getElementById('weixin').addEventListener('tap',function(){
 				 pay('wxpay'); 
-				/*mui.ajax(url,{
-					data:{
-						token: token,
-						total: caseObj.caseActualMoney ,
-						caseId: caseObj.id ,
-						claimCode: caseObj.claimCode
-					},
-					type:'post',//HTTP请求类型
-					dataType:'json',
-					timeout:5000,//超时时间设置为5秒；
-					success:function(data){
-						if (data.msgCode=="0002"){
-							mui.alert('你已在其它地方登录,请重新登录!', function() {
-								mui.openWindow({
-								   url: '../login.html', 
-								   id:'login'
-								});
-							});
-							return;
-						}
-						console.log(JSON.stringify(data));
-						console.log('https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id='+data.reslt.prepayId+'&package='+ data.param.package +'&redirect_url=https%3A%2F%2Fcelefix.mydrn.cn%2Fcelefix%2Fpage%2Fh5%2Forder-details.jsp');
-						window.location.href = 'https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id='+data.reslt.prepayId+'&package='+ data.param.package +'&redirect_url='+data.redirectUrl;
-						if(data.msgCode=="0000"){
-							window.location.href = "${ctx}/backend/h5/user/doIndexList";
-						} 
-					},error:function(xhr,type,errorThrown){
-						mui.toast("网络繁忙,请重试！");
-						console.log(type);
-					}
-				});*/
 			});
 			document.getElementById('zhifubao').addEventListener('tap',function(){
-				//pay('alipay'); 
-				mui.toast("后续开放");
+				pay('alipay'); 
+				//mui.toast("后续开放");
 			});
         var weixinUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/weixinpay";
-        var aliUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/alipay?total=";
+        var aliUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/alipayold";
         // 2. 发起支付请求
         function pay(id){
-        	var ALIPAYSERVER = aliUrl;  
+        	var ALIPAYSERVER = aliUrl +'?caseId=' + caseObj.id + '&token=' + token + '&claimCode='+caseObj.claimCode+'&total=';  
         	var WXPAYSERVER = weixinUrl +'?caseId=' + caseObj.id + '&token=' + token + '&claimCode='+caseObj.claimCode+'&total=';  
                 // 从服务器请求支付订单  
                 var PAYSERVER='';  

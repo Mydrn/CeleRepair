@@ -233,7 +233,7 @@
 					async:true,
 					timeout:3000,//超时时间设置为5秒；             
 					success:function(data){
-						mui.toast(data.msg);
+						//mui.toast(data.msg);
 						if (data.msgCode == "0000") {
 							mui.alert('修改成功', function() {
 								mui.openWindow({url: 'personal.html',id:'personal'});

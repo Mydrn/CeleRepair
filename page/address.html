@@ -160,7 +160,8 @@
 				mui.init({
 					swipeBack: true //启用右滑关闭功能
 				});
-				mui.ready(function() {
+				mui.plusReady(function() {
+					plus.nativeUI.showWaiting();
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doAddress";
 					mui.ajax(url, {
 						data: {
@@ -214,6 +215,7 @@
 							}
 						}
 					});
+				plus.nativeUI.closeWaiting();
 				});
 				mui('body').on('tap', '.addressId', function() {
 					var href = location.href;
@@ -269,6 +271,7 @@
 											id: 'login'
 										});
 									});
+									mui.currentWebview.close();
 								}
 							},
 							error: function(xhr, type, errorThrown) {
