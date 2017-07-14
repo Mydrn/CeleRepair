@@ -1,9 +1,9 @@
 {
     "@platforms": ["android", "iPhone", "iPad"],
-    "id": "H5C4201B6",/*应用的标识，创建应用时自动生成，勿手动修改*/
+    "id": "H59C3D0A1",/*应用的标识，创建应用时自动生成，勿手动修改*/
     "name": "快修",/*应用名称，程序桌面图标名称*/
     "version": {
-        "name": "0.8.8",/*应用版本名称*/
+        "name": "0.9.2",/*应用版本名称*/
         "code": ""
     },
     "description": "“快修”是专业从事全国终端连锁店铺及个人家居测量、安装、维修等。专业技术力量遍布全国各大省市区直辖市，拥有最强的技术服务及完善的售后服务支持。",/*应用描述信息*/
@@ -12,7 +12,7 @@
     },
     "launch_path": "index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
     "developer": {
-        "name": "",/*开发者名称*/
+        "name": "Pssion",/*开发者名称*/
         "email": "",/*开发者邮箱地址*/
         "url": ""/*开发者个人主页地址*/
     },
@@ -98,11 +98,11 @@
     "plus": {
         "splashscreen": {
             "autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
-            "waiting": true/*是否在程序启动界面显示等待雪花，true表示显示，false表示不显示。*/
+            "waiting": true,"delay":"0"/*是否在程序启动界面显示等待雪花，true表示显示，false表示不显示。*/
         },
         "popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
         "runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
-        "signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+        "signature": "4ba58090c26d11939a38c600fa18bd9d",/*可选，保留给应用签名，暂不使用*/
         "distribute": {
         	"plugins":{
         	"payment":{
@@ -126,9 +126,7 @@
                "permissions": ["<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
 				/*使用Native.js调用原生安卓API需要使用到的系统权限*/
             },
-            "orientation": [
-                "portrait-primary"
-            ],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+            "orientation": ["portrait-primary","portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
             "icons": {
                 "ios": {
                     "prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
@@ -221,7 +219,10 @@
 					"login.html",
 					"page/message.html",
 					"page/order-new.html",
-					"css/app.css"
+					"css/app.css",
+					"page/personal.html",
+					"page/order.html",
+					"page/about.html"
 				],
 				"refer": [
 					"page/order-details.html"
@@ -233,10 +234,12 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"index.html"
+					"index.html",
+					"page/images/3.gif"
 				],
 				"refer": [
-					"page/address-new.html"
+					"page/address-new.html",
+					"page/order-new.html"
 				],
 				"priority": 0
 			},
@@ -249,9 +252,14 @@
 					"js/app.js",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"css/app.css",
+					"js/mui.picker.js",
+					"page/images/3.gif"
 				],
-				"refer": [],
+				"refer": [
+					"page/address.html"
+				],
 				"priority": 0
 			},
 			"login.html": {
@@ -285,7 +293,9 @@
 					"images/already-visit.png",
 					"images/already-audit.png",
 					"images/already-pay.png",
-					"index.html"
+					"index.html",
+					"css/app.css",
+					"page/images/3.gif"
 				],
 				"refer": [
 					"page/evaluation.html",
@@ -296,7 +306,8 @@
 			"page/message.html": {
 				"resources": [
 					"js/jquery.js",
-					"index.html"
+					"index.html",
+					"css/app.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -311,7 +322,41 @@
 					"css/mui.poppicker.css",
 					"css/mui.picker.css",
 					"css/webuploader.css",
-					"js/jquery.js"
+					"js/jquery.js",
+					"js/html2canvas.js",
+					"js/mui.picker.js",
+					"page/images/3.gif"
+				],
+				"refer": [
+					"page/address.html"
+				],
+				"priority": 0
+			},
+			"page/personal.html": {
+				"resources": [
+					"index.html",
+					"page/images/3.gif"
+				],
+				"refer": [
+					"login.html"
+				],
+				"priority": 0
+			},
+			"page/order.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"css/app.css",
+					"js/mui.pullToRefresh.material.js",
+					"page/images/3.gif",
+					"index.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"page/about.html": {
+				"resources": [
+					"/images/logo.png",
+					"index.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -327,8 +372,6 @@
 				"images/60x60.gif",
 				"js/city.data.js",
 				"README.md",
-				"page/order.html",
-				"js/mui.pullToRefresh.material.js",
 				"forget-password.html",
 				"css/mui.picker.all.css",
 				"js/update.js",
@@ -337,12 +380,9 @@
 				"images/muwu.jpg",
 				"new_file.html",
 				"register.html",
-				"page/about.html",
 				"page/pay.html",
-				"js/mui.pullToRefresh.js",
 				"page/personal-password.html",
 				"images/yuantiao.jpg",
-				"page/personal.html",
 				"page/feedback.html",
 				"images/ice-null.png"
 			]
@@ -355,6 +395,13 @@
 	  "fonts/mui-icons-extra.ttf",
 	  "images/muwu.jpg",
 	  "images/shuijiao.jpg",
-	  "images/yuantiao.jpg"
+	  "images/yuantiao.jpg",
+	  "js/city.data.js",
+	  "js/icons-extra.css",
+	  "js/mui.pullToRefresh.js",
+	  "js/mui.pullToRefresh.material.js",
+	  "js/update.js",
+	  "images/60x60.gif",
+	  "images/ice-null.png"
 	]
 }

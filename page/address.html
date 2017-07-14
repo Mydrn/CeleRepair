@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>地址管理</title>
@@ -148,7 +149,7 @@
 			</header>
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper mui-inner-wrap">
 				<div id="addressList" class="mui-scroll">
-					
+
 				</div>
 			</div>
 			<script src="../js/mui.min.js"></script>
@@ -159,146 +160,167 @@
 				mui.init({
 					swipeBack: true //启用右滑关闭功能
 				});
-				mui.ready(function(){
+				mui.ready(function() {
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doAddress";
-					mui.ajax(url,{
+					mui.ajax(url, {
 						data: {
-						token: app.getState().token
+							token: app.getState().token
 						},
-						type:'POST',//HTTP请求类型
-						dataType:'json',
-						timeout:5000,//超时时间设置为5秒；
-						success:function(data){
-							if(data.msgCode=="0000"){
+						type: 'POST', //HTTP请求类型
+						dataType: 'json',
+						timeout: 5000, //超时时间设置为5秒；
+						success: function(data) {
+							if(data.msgCode == "0000") {
 								var addressList = data.data;
-								for (var item in addressList) {
+								for(var item in addressList) {
 									var html = document.getElementById("addressList").innerHTML;
 									var isDefaultHtml = "";
-									if(addressList[item].isDefault){
-										isDefaultHtml = '<label class="f-blank">默认地址</label><input name="checkbox" class="checkbox" value="'+addressList[item].id+'" type="checkbox" checked="checked">';
-									}else{
-										isDefaultHtml = '<label class="f-blank">设为默认</label><input name="checkbox" class="checkbox" value="'+addressList[item].id+'" type="checkbox">';
+									if(addressList[item].isDefault) {
+										isDefaultHtml = '<label class="f-blank">默认地址</label><input name="checkbox" disabled="disabled" class="checkbox" value="' + addressList[item].id + '" type="checkbox" checked="checked">';
+									} else {
+										isDefaultHtml = '<label class="f-blank">设为默认</label><input name="checkbox" class="checkbox" value="' + addressList[item].id + '" type="checkbox">';
 									}
 									document.getElementById("addressList").innerHTML = html +
-									'<div class="mui-card mui-input-group">'+
-									'<div class="mui-card-content addressId" id="'+addressList[item].id+'">'+
-									'<div class="mui-card-content-inner">' + 
+										'<div class="mui-card mui-input-group">' +
+										'<div class="mui-card-content addressId" id="' + addressList[item].id + '">' +
+										'<div class="mui-card-content-inner">' +
 										'<table border="0" cellspacing="0" cellpadding="0" style="width:100%">' +
-											'<tbody><tr>' + 
-													'<td style="width:50%">联系人：'+ addressList[item].name  +
-													'</td></tr><tr><td style="width:50%">联系电话：' +  addressList[item].mobile  +
-													'</td></tr><tr><td colspan="2">联系地址：' +  addressList[item].address  + 
-													'</td></tr></tbody></table></div></div>' +
-									'<div class="mui-card-footer"><a class="mui-card-link" href="javascript:;">' +
-										'<div class="mui-input-row mui-checkbox mui-left">' + 
-											isDefaultHtml +
-										'</div>' + 
-									'</a>' + 
-									'<div class="mui-card-link">' + 
-										'<a onclick="openpage('+addressList[item].id+');" class="f-orange">' + 
-											'<span class="mui-icon mui-icon-compose f-orange"></span> 编辑' + 
-										'</a>' + 
-										'<a href="javascript:;" class="f-blank del" id="'+ addressList[item].id +'">' + 
-											'<span class="mui-icon mui-icon-trash f-blank"></span> 删除' + 
-										'</a>' + 
-									'</div></div></div>' ;
+										'<tbody><tr>' +
+										'<td style="width:50%">联系人：' + addressList[item].name +
+										'</td></tr><tr><td style="width:50%">联系电话：' + addressList[item].mobile +
+										'</td></tr><tr><td colspan="2">联系地址：' + addressList[item].address +
+										'</td></tr></tbody></table></div></div>' +
+										'<div class="mui-card-footer"><a class="mui-card-link" href="javascript:;">' +
+										'<div class="mui-checkbox mui-left">' +
+										isDefaultHtml +
+										'</div>' +
+										'</a>' +
+										'<div class="mui-card-link">' +
+										'<a onclick="openpage(' + addressList[item].id + ');" class="f-orange">' +
+										'<span class="mui-icon mui-icon-compose f-orange"></span> 编辑' +
+										'</a>' +
+										'<a href="javascript:;" class="f-blank del" id="' + addressList[item].id + '">' +
+										'<span class="mui-icon mui-icon-trash f-blank"></span> 删除' +
+										'</a>' +
+										'</div></div></div>';
 								}
-							}else if(data.msgCode=="0002"){
+							} else if(data.msgCode == "0002") {
 								mui.alert('你已在其它地方登录,请重新登录!', function() {
-									mui.openWindow({url: '../login.html',id:'login'});
+									mui.openWindow({
+										url: '../login.html',
+										id: 'login'
+									});
 								});
-							} 
+							}
 						}
 					});
-				});  
-				var self;
-				mui.plusReady(function() {
-					self = plus.webview.currentWebview();
 				});
 				mui('body').on('tap', '.addressId', function() {
-				    	if(self.item){//下单页面跳转过来
-				    		mui.openWindow({url:'order-new.html',id:'order',
-							    extras:{itemId:this.id}
-							});	
-							mui.currentWebview.close();
-				    	}
-					});
+					var href = location.href;
+					var item = href.split("?")[1];
+					//alert(this.id);
+					if(item) { //下单页面跳转过来
+						window.location.href='order-new.html?'+this.id;
+//						mui.openWindow({
+//							url: 'order-new.html?'+this.id,
+//							id: 'order',
+//							extras: {
+//								itemId: this.id
+//							}
+//						});
+						//mui.currentWebview.close();
+					}
+				});
 				//初始化单页的区域滚动
 				mui('.mui-scroll-wrapper').scroll();
-				//开启A标签的跳转
-				
-				function back(id) {
-					window.location.href = "${ctx}/backend/h5/user/backOrder?id="+id;
-				}
+
 				//页面跳转
-				function openpage(id){
-					mui.openWindow({url:'address-new.html',id:'address-new',
-					    extras:{itemId:id}
-					});	
+				function openpage(id) {
+					mui.openWindow({
+						url: 'address-new.html',
+						id: 'address-new',
+						extras: {
+							itemId: id
+						}
+					});
 				}
 				mui(function($) {
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/delAddress";
 					$('body').on('tap', '.del', function() {
 						var itemId = this.id;
-						mui.ajax(url,{
-						data: {
-							id:itemId,
-							token: app.getState().token
-						},
-						type:'POST',//HTTP请求类型
-						dataType:'json',
-						timeout:5000,//超时时间设置为5秒；
-						success:function(data){
-							if(data.msgCode=="0000"){
-								var itemList = document.getElementById("addressList");
-								var itemDiv = document.getElementById("div"+itemId);
-								itemList.removeChild(itemDiv);
-							}else if (data.msgCode=="0002"){
-								mui.alert('你已在其它地方登录,请重新登录!', function() {
-									mui.openWindow({url: 'login.html',id:'login'});
-								});
+						mui.ajax(url, {
+							data: {
+								id: itemId,
+								token: app.getState().token
+							},
+							type: 'POST', //HTTP请求类型
+							dataType: 'json',
+							timeout: 3000, //超时时间设置为5秒；
+							success: function(data) {
+								if(data.msgCode == "0000") {
+									mui.toast("删除成功");
+									var itemList = document.getElementById("addressList");
+									var itemDiv = document.getElementById("div" + itemId);
+									itemList.removeChild(itemDiv);
+								} else if(data.msgCode == "0002") {
+									mui.alert('你已在其它地方登录,请重新登录!', function() {
+										mui.openWindow({
+											url: 'login.html',
+											id: 'login'
+										});
+									});
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								return mui.toast('网络繁忙');
 							}
-						}
 						});
 					});
 
 					var urlIs = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/isDefault";
-					$('body').on('tap', '.checkbox', function() {
+					$('body').on('change', '.checkbox', function() {
 						var _this = this;
 						var isdefault = this.checked ? "true" : "false";
-						mui.ajax(urlIs,{
+						mui.ajax(urlIs, {
 							data: {
 								token: app.getState().token,
-								id:this.value,
-								isDefault:isdefault
+								id: this.value,
+								isDefault: isdefault
 							},
-							type:'POST',//HTTP请求类型
-							dataType:'json',
-							timeout:5000,//超时时间设置为5秒；
-							success:function(data){
-								if(data.msgCode=="0000"){
+							type: 'POST', //HTTP请求类型
+							dataType: 'json',
+							timeout: 3000, //超时时间设置为5秒；
+							success: function(data) {
+								if(data.msgCode == "0000") {
 									var checkArr = document.getElementsByClassName('checkbox');
 									if(_this.checked) {
 										for(var i = 0; i < checkArr.length; i++) {
-											checkArr[i].checked=false;
+											checkArr[i].removeAttribute('checked');
+											checkArr[i].checked = false;
+											checkArr[i].removeAttribute('disabled');
 											checkArr[i].previousElementSibling.innerHTML = "设为默认";
-											_this.checked=true;
+											_this.checked = true;
+											_this.setAttribute('disabled','disabled');
 											_this.previousElementSibling.innerHTML = "默认地址";
 										}
-									} else {
-										_this.previousElementSibling.innerHTML = "设为默认";
 									}
-								}else if (data.msgCode=="0002"){
+								} else if(data.msgCode == "0002") {
 									mui.alert('你已在其它地方登录,请重新登录!', function() {
-										mui.openWindow({url: 'login.html',id:'login'});
+										mui.openWindow({
+											url: '../login.html',
+											id: 'login'
+										});
 										mui.currentWebview.close();
 									});
 								}
+							},
+							error: function(xhr, type, errorThrown) {
+								return mui.toast('网络繁忙');
 							}
 						});
-						
 					});
 				})
 			</script>
 	</body>
+
 </html>

@@ -371,7 +371,7 @@
 					
 				});
 				// 获取支付通道  
-                plus.payment.getChannels(function(channels){  
+                plus.payment.getChannels(function(channels){
                 for (var i in channels) { 
                         if (channels[i].id == "wxpay") { 
                              wxChannel=channels[i];  
@@ -380,7 +380,7 @@
                         } 
                     }     
                 },function(e){  
-                 alert("获取支付通道失败："+e.message);  
+                 	alert("获取支付通道失败："+e.message);  
                 });  
 				
 			});
@@ -447,46 +447,22 @@
 					}
 				});*/
 			});
-			
 			document.getElementById('zhifubao').addEventListener('tap',function(){
-				pay('alipay'); 
-				/*mui.ajax('${ctx}/backend/h5/pay/orderQuery',{
-					data:{caseId:'${ obj.id }'},
-					type:'post',//HTTP请求类型
-					dataType:'json',
-					timeout:500,//超时时间设置为5秒；
-					success:function(data){
-						console.log(data);
-						if(data.msgCode == "0000"){
-							mui.alert(data.msg, '提示', function() {
-								  location.reload();
-							});
-						}else if (data.msgCode=="0002"){
-							mui.alert('你已在其它地方登录,请重新登录!', function() {
-								mui.openWindow({
-								   url: '../login.html', 
-								   id:'login'
-								});
-							});
-							return;
-						} 
-					},error:function(xhr,type,errorThrown){
-						mui.toast("网络繁忙,请重试！");
-						console.log(type);
-					}
-				});*/
+				//pay('alipay'); 
+				mui.toast("后续开放");
 			});
-        var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/payment";
-        // 2. 发起支付请求  
-        function pay(id){  
-        	var ALIPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/alipay?total=';  
-        	var WXPAYSERVER = url +'?caseId=' + caseObj.id + '&token=' + token + '&claimCode=claimCode&total=';  
+        var weixinUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/weixinpay";
+        var aliUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/alipay?total=";
+        // 2. 发起支付请求
+        function pay(id){
+        	var ALIPAYSERVER = aliUrl;  
+        	var WXPAYSERVER = weixinUrl +'?caseId=' + caseObj.id + '&token=' + token + '&claimCode='+caseObj.claimCode+'&total=';  
                 // 从服务器请求支付订单  
                 var PAYSERVER='';  
                 if(id=='alipay'){  
-                PAYSERVER=ALIPAYSERVER;  
-                channel = aliChannel;  
-            }else if(id=='wxpay'){  
+               	 	PAYSERVER=ALIPAYSERVER;  
+                	channel = aliChannel;  
+            	}else if(id=='wxpay'){  
                     PAYSERVER=WXPAYSERVER;  
                     channel = wxChannel;  
                 }else{
@@ -501,13 +477,14 @@
                         if(xhr.status==200){  
                             plus.payment.request(channel,xhr.responseText,function(result){  
                                 plus.nativeUI.alert("支付成功！",function(){  
-                                back();  
-                            });  
+                                	document.location.reload();	
+                                	//back();  
+                            	});  
                             },function(error){  
                                 plus.nativeUI.alert("支付失败：" + error.code);  
                             });  
                         }else{  
-                            alert("获取订单信息失败！");  
+                            mui.alert("获取订单信息失败！");  
                         }  
                         break;  
                     default: 

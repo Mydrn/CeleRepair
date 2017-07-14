@@ -49,6 +49,9 @@ mui.openWindow({url:'address-new.html',id:'address-new',
 var self = plus.webview.currentWebview();
 var itemId = self.itemId;
 
+var href = location.href;
+var detailID = href.split("?")[1];
+
 
 #客服电话
 var contactUs = localStorage.getItem('$contactUs');

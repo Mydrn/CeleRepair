@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>个人信息</title>
@@ -8,7 +9,102 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style>
-			html,body{background-color:#efeff4}p{text-indent:22px}span.mui-icon{font-size:20px;color:#fff}.mui-off-canvas-left{color:#fff}.title{margin:35px 15px 10px}.title+.content{margin:10px 15px 35px;color:#bbb;text-indent:1em;font-size:14px;line-height:24px}#offCanvasSideScroll{padding-top:44px}.mui-repair-left{margin-right:4%;background:#e0b6b6}.mui-repair-right{margin-left:-6px}.textA{vertical-align:middle}.f-white{color:#fff!important}.f-14{font-size:14px!important}.bg-orange{background-color:#ff5700!important}.userImg{position:absolute;top:0;right:40px;height:43px;padding:3px 0}.mui-position-right{position:absolute;right:40px}.mui-bar{background-color:#ff5700}.f-orange{color:#ff5700!important}.exit .mui-table-view-cell{padding-right:0}.exit .mui-table-view-cell>a:not(.mui-btn){margin-right:0}[type="file"]{opacity:0;position:absolute;top:0;left:0;bottom:0;width:100%}
+			html,
+			body {
+				background-color: #efeff4
+			}
+			
+			p {
+				text-indent: 22px
+			}
+			
+			span.mui-icon {
+				font-size: 20px;
+				color: #fff
+			}
+			
+			.mui-off-canvas-left {
+				color: #fff
+			}
+			
+			.title {
+				margin: 35px 15px 10px
+			}
+			
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px
+			}
+			
+			#offCanvasSideScroll {
+				padding-top: 44px
+			}
+			
+			.mui-repair-left {
+				margin-right: 4%;
+				background: #e0b6b6
+			}
+			
+			.mui-repair-right {
+				margin-left: -6px
+			}
+			
+			.textA {
+				vertical-align: middle
+			}
+			
+			.f-white {
+				color: #fff!important
+			}
+			
+			.f-14 {
+				font-size: 14px!important
+			}
+			
+			.bg-orange {
+				background-color: #ff5700!important
+			}
+			
+			.userImg {
+				position: absolute;
+				top: 0;
+				right: 40px;
+				height: 43px;
+				padding: 3px 0
+			}
+			
+			.mui-position-right {
+				position: absolute;
+				right: 40px
+			}
+			
+			.mui-bar {
+				background-color: #ff5700
+			}
+			
+			.f-orange {
+				color: #ff5700!important
+			}
+			
+			.exit .mui-table-view-cell {
+				padding-right: 0
+			}
+			
+			.exit .mui-table-view-cell>a:not(.mui-btn) {
+				margin-right: 0
+			}
+			
+			[type="file"] {
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				width: 100%
+			}
 		</style>
 	</head>
 
@@ -80,89 +176,90 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/app.js" ></script>
+		<script type="text/javascript" src="../js/app.js"></script>
 		<script>
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			
-				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneData";
-				mui.ajax(url,{
-						data: {
-							token: app.getState().token
-						},
-					type:'POST',//HTTP请求类型
-					dataType:'json',
-					timeout:5000,//超时时间设置为5秒；
-					success:function(data){
-						if(data.msgCode=="0000"){
-							var tx=document.getElementById("photo");
-							if(data.data.photoUrl==null){
-								tx.innerHTML="头像<img class='userImg' id='userImg' src='../images/logo.png' />";
-							}else{
-								tx.innerHTML="头像<img class='userImg' id='userImg' src='"+data.data.photoUrl+"' />";
-							}
-							document.getElementById("xm").innerHTML=data.data.name;
-							document.getElementById("phone").innerHTML=data.data.mobile;
-							}
-						}});
-				
+			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneData";
+			mui.ajax(url, {
+				data: {
+					token: app.getState().token
+				},
+				type: 'POST', //HTTP请求类型
+				dataType: 'json',
+				timeout: 5000, //超时时间设置为5秒；
+				success: function(data) {
+					if(data.msgCode == "0000") {
+						var tx = document.getElementById("photo");
+						if(data.data.photoUrl == null) {
+							tx.innerHTML = "头像<img class='userImg' id='userImg' src='../images/logo.png' />";
+						} else {
+							tx.innerHTML = "头像<img class='userImg' id='userImg' src='" + data.data.photoUrl + "' />";
+						}
+						document.getElementById("xm").innerHTML = data.data.name;
+						document.getElementById("phone").innerHTML = data.data.mobile;
+					}
+				}
+			});
+
 			function doLogout() {
 				mui.toast("退出成功");
 				app.setState(undefined);
-				mui.openWindow({url:'../login.html',id:'login'});
+				mui.openWindow({
+					url: '../login.html',
+					id: 'login'
+				});
 			}
-				//修改头像事件
-			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+			//修改头像事件
 			(function($, doc) {
-				mui("body").on('change','.mui-opacity',function(e) {
+				mui("body").on('change', '.mui-opacity', function(e) {
 					console.log(this.files[0]);
 					formData = new FormData();
 					formData.append("file", this.files[0]);
 					formData.append("attachmentType", 7);
-					formData.append("token",app.getState().token);
-					var url1=serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
-					mui.ajax(url1,{
-						data:formData,
-						type:'post',//HTTP请求类型
+					//formData.append("token", app.getState().token);
+					var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
+					mui.ajax(url1, {
+						data: formData,
+						type: 'post', //HTTP请求类型
 						dataType: 'text',
 						contentType: false, //必须 
 						processData: false, //必须
 						cache: false,
-						async: true,
-						timeout:5000,//超时时间设置为5秒；
-						success:function(url){
-							var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+						//async: false,
+						timeout: 10000, //超时时间设置为5秒；
+						success: function(url) {
 							var url2 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/saveUserImg";
-							mui.ajax(url2,{
-								data:{
-									photoUrl:url
+							mui.ajax(url2, {
+								data: {
+									token : app.getState().token,
+									photoUrl: url
 								},
-								type:'post',//HTTP请求类型
+								type: 'post', //HTTP请求类型
 								cache: false,
-								async: true,
-								dataType:'json',
-								timeout:5000,//超时时间设置为10秒；
-								success:function(data){
+								//async: true,
+								dataType: 'json',
+								timeout: 3000, //超时时间设置为3秒；
+								success: function(data) {
 									document.getElementById("userImg").src = url;
 									mui.toast(data.msg);
 								},
-								error:function(xhr,type,errorThrown){
+								error: function(xhr, type, errorThrown) {
 									mui.toast("网络繁忙");
-									console.log(type);
 								}
-							});	
+							});
 						},
-						error:function(xhr,type,errorThrown){
+						error: function(xhr, type, errorThrown) {
 							mui.toast("网络繁忙");
-							console.log(type);
 						}
 					});
-					document.querySelector('#picture').style.display='none';
-					document.querySelector('.mui-backdrop-action').style.display='none';
+					document.querySelector('#picture').style.display = 'none';
+					document.querySelector('.mui-backdrop-action').style.display = 'none';
 				})
 			})(mui, document);
 		</script>
 	</body>
+
 </html>

@@ -107,7 +107,7 @@ var arr = [];
 						delete window['expressinstallcallback'];
 					};
 
-					var swf = './expressInstall.swf';
+					var swf = '../images/expressInstall.swf';
 					// insert flash object
 					var html = '<object type="application/' +
 						'x-shockwave-flash" data="' + swf + '" ';
@@ -136,7 +136,7 @@ var arr = [];
 			alert('Web Uploader 不支持您的浏览器！');
 			return;
 		}
-
+		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 		// 实例化
 		uploader = WebUploader.create({
 			pick: {
@@ -154,8 +154,7 @@ var arr = [];
 			auto: false,
 			fileNumLimit: 20,
 			chunkSize: 512 * 1024,
-			server: '../../base/saveImg',
-			//server: 'http://127.0.0.1:8000/celefix/backend/base/saveAttachment',
+			server: serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg",
 			// runtimeOrder: 'flash',
 			accept: {
 				title: 'Images',
@@ -260,8 +259,9 @@ var arr = [];
 						img = $('<img src="' + src + '">');
 						$wrap.empty().append(img);
 					} else {
+						var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
 						//$.ajax('http://116.62.48.143/celefix/backend/base/saveImg', {
-						$.ajax('../../base/saveImg', {
+						$.ajax(url1, {
 							method: 'POST',
 							data: src,
 							dataType: 'json',

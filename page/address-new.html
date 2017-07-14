@@ -8,9 +8,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/app.css">
 		<link rel="stylesheet" type="text/css" href="../css/mui.picker.css" />
 		<link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css" />
+		<link rel="stylesheet" href="../css/app.css">
 		<style>
 			body,
 			html {
@@ -152,12 +152,30 @@
 				swipeBack: true //启用右滑关闭功能
 			});
 			mui.plusReady(function() {
+					//级联示例
+					var cityPicker3 = new mui.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = document.getElementById('showCityPicker3');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							document.getElementById("proId").value = (items[0] || {}).value;
+							document.getElementById("cityId").value = (items[1] || {}).value;
+							document.getElementById("regionId").value = (items[2] || {}).value;
+							showCityPickerButton.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
 					plus.webview.currentWebview().setStyle({
 						'popGesture': 'none'
 					});
+					var title=document.getElementById("title");
 					var self = plus.webview.currentWebview();
 					var id = self.itemId;
 					if(id != 0){
+						title.innerHTML="编辑地址";
 						var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneAddress";
 						mui.ajax(url,{
 							data: {
@@ -178,9 +196,14 @@
 							addressName.value = data.data.name;
 							mobile.value = data.data.mobile;
 						}});
-				}
+					}else{
+						title.innerHTML="新增地址";
+					}
 			});
 			
+			/*setTimeout(function(){
+				document.querySelector('#mask').style.display='none'
+			},1500);*/
 			function seach(a) {
 						for(var i = 0; i < cityData3.length; i++) {
 							if(cityData3[i].value == a) {
@@ -200,24 +223,7 @@
 							}
 						}
 					}
-			(function($, doc) {
-					//级联示例
-					var cityPicker3 = new $.PopPicker({
-						layer: 3
-					});
-					cityPicker3.setData(cityData3);
-					var showCityPickerButton = doc.getElementById('showCityPicker3');
-					showCityPickerButton.addEventListener('tap', function(event) {
-						cityPicker3.show(function(items) {
-							document.getElementById("proId").value = (items[0] || {}).value;
-							document.getElementById("cityId").value = (items[1] || {}).value;
-							document.getElementById("regionId").value = (items[2] || {}).value;
-							showCityPickerButton.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
-							//返回 false 可以阻止选择框的关闭
-							//return false;
-						});
-					}, false);
-			})(mui, document);
+					
 			document.getElementById('submit').addEventListener('tap', function(event) {
 					if(regionId.value == '') {
 						return mui.toast("请选择地区");

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>欢迎登录</title>
@@ -9,9 +10,148 @@
 		<link rel="stylesheet" href="css/mui.min.css">
 		<link rel="stylesheet" href="https://at.alicdn.com/t/font_l7in8wfz023gnwmi.css">
 		<style>
-			body,html{background-color:#efeff4}span.mui-icon{font-size:20px;color:#fff}.mui-off-canvas-left{color:#fff}.title{margin:35px 15px 10px}.title+.content{margin:10px 15px 35px;color:#bbb;text-indent:1em;font-size:14px;line-height:24px}.mui-repair{width:44%;padding:4% 0;margin:0 0 0 4%;color:#fff;border:0;background:#92b0dd;border-radius:10px}.mui-repair-left{margin-right:4%;background:#e0b6b6}.f-white{color:#fff!important}.f-14{font-size:14px!important}.bg-orange{background-color:#ff5700!important}.order-null{text-align:center;padding-top:20%}.icon-left{left:0;font-size:20px;font-weight:400}.mui-filter{-webkit-filter:blur(6px);-moz-filter:blur(6px);-o-filter:blur(6px);-ms-filter:blur(6px);filter:blur(6px)}.login-content{padding-top:30%}.login-content img{margin-bottom:15%}.transparent{background:0 0}.f-blank{color:#000!important}#login{position:fixed;top:0;left:0;right:0;bottom:0;z-index:99;text-align:center;background:rgba(120,120,120,.75)}#login .f-login{background:0 0;box-sizing:border-box;padding:3px 5px 4px}#login .mui-input-group{background:0 0;padding:0 10px}#login .mui-input-row input{border:1px solid #a7a7a7;border-radius:6px;padding:8px 10px 8px 38px}#login .mui-input-row{margin-bottom:10px}#login header a{color:#fff}.mui-box-shadow-none{box-shadow:none}.mui-input-group .mui-input-row:after{background:0 0}.mui-right{float:right}.forget{padding: 8px 0 0;}
+			body,
+			html {
+				background-color: #efeff4
+			}
+			
+			span.mui-icon {
+				font-size: 20px;
+				color: #fff
+			}
+			
+			.mui-off-canvas-left {
+				color: #fff
+			}
+			
+			.title {
+				margin: 35px 15px 10px
+			}
+			
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px
+			}
+			
+			.mui-repair {
+				width: 44%;
+				padding: 4% 0;
+				margin: 0 0 0 4%;
+				color: #fff;
+				border: 0;
+				background: #92b0dd;
+				border-radius: 10px
+			}
+			
+			.mui-repair-left {
+				margin-right: 4%;
+				background: #e0b6b6
+			}
+			
+			.f-white {
+				color: #fff!important
+			}
+			
+			.f-14 {
+				font-size: 14px!important
+			}
+			
+			.bg-orange {
+				background-color: #ff5700!important
+			}
+			
+			.order-null {
+				text-align: center;
+				padding-top: 20%
+			}
+			
+			.icon-left {
+				left: 0;
+				font-size: 20px;
+				font-weight: 400
+			}
+			
+			.mui-filter {
+				-webkit-filter: blur(6px);
+				-moz-filter: blur(6px);
+				-o-filter: blur(6px);
+				-ms-filter: blur(6px);
+				filter: blur(6px)
+			}
+			
+			.login-content {
+				padding-top: 30%
+			}
+			
+			.login-content img {
+				margin-bottom: 15%
+			}
+			
+			.transparent {
+				background: 0 0
+			}
+			
+			.f-blank {
+				color: #000!important
+			}
+			
+			#login {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 99;
+				text-align: center;
+				background: rgba(120, 120, 120, .75)
+			}
+			
+			#login .f-login {
+				background: 0 0;
+				box-sizing: border-box;
+				padding: 3px 5px 4px
+			}
+			
+			#login .mui-input-group {
+				background: 0 0;
+				padding: 0 10px
+			}
+			
+			#login .mui-input-row input {
+				border: 1px solid #a7a7a7;
+				border-radius: 6px;
+				padding: 8px 10px 8px 38px
+			}
+			
+			#login .mui-input-row {
+				margin-bottom: 10px
+			}
+			
+			#login header a {
+				color: #fff
+			}
+			
+			.mui-box-shadow-none {
+				box-shadow: none
+			}
+			
+			.mui-input-group .mui-input-row:after {
+				background: 0 0
+			}
+			
+			.mui-right {
+				float: right
+			}
+			
+			.forget {
+				padding: 8px 0 0;
+			}
 		</style>
 	</head>
+
 	<body>
 		<div id="login">
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
@@ -32,7 +172,7 @@
 						<span class="iconfont icon-off-yanjing" onclick="see(this)"></span>
 					</div>
 					<input type="button" id="submit" value="登录" class="mui-btn mui-btn-block bg-orange f-white" />
-					<a href="treaty.html" class="mui-right f-white f-14 forget">忘记密码</a>
+					<a href="forget-password.html" class="mui-right f-white f-14 forget">忘记密码</a>
 				</form>
 			</div>
 		</div>
@@ -55,6 +195,7 @@
 			mui('body').on('tap', 'a', function() {
 				window.top.location.href = this.href;
 			});
+
 			function see(e) {
 				var pass = e.previousElementSibling;
 				if(pass.getAttribute('type') == "password") {
@@ -67,26 +208,27 @@
 			};
 			var customerName = document.getElementById('customerName');
 			var password = document.getElementById('password');
-			document.getElementById('submit').addEventListener('tap',function(){
-				if(customerName.value.replace(/(^s*)|(s*$)/g, "").length == 0){
+			document.getElementById('submit').addEventListener('tap', function() {
+				if(customerName.value.replace(/(^s*)|(s*$)/g, "").length == 0) {
 					return mui.toast("请填写手机号码或帐号");
 				}
-				if(password.value.replace(/(^s*)|(s*$)/g, "").length < 6){
+				if(password.value.replace(/(^s*)|(s*$)/g, "").length < 6) {
 					return mui.toast("请填写正确格式的密码");
 				}
 				var loginInfo = {
-							customerName: customerName.value,
-							password: password.value
-						};
+					customerName: customerName.value,
+					password: password.value
+				};
 				app.login(loginInfo, function(err) {
+					//var nwaiting = plus.nativeUI.showWaiting();  
+					//webviewShow = plus.webview.create(url);
 					//打开首页
 					mui.openWindow({
 					   url: 'index.html', 
 					   id:'index',
 					   show:{
 					      autoShow:true,//页面loaded事件发生后自动显示，默认为true
-					      aniShow:'slide-in-right',//页面显示动画，默认为”slide-in-right“；
-					      duration:1000//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					      duration:500//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 					    },
 					    waiting:{
 					      autoShow:true,//自动显示等待框，默认为true
@@ -97,13 +239,9 @@
 					      }
 					    }
 					});
-					/*if (err) {
-						plus.nativeUI.toast(err);
-						return;
-					}*/
-				 	
 				});
-		   });
+			});
 		</script>
 	</body>
+
 </html>

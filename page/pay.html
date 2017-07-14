@@ -74,17 +74,19 @@
         })  
   
         document.getElementById('weixin1').addEventListener('tap',function() {  
-            console.log("微信");  
             pay('wxpay');  
         })  
         document.getElementById('zhifubao').addEventListener('tap',function() {  
-            console.log("zhifubao");  
-            pay('alipay');   
+            mui.toast("后续开放");
+            //pay('alipay');   
         })  
-  
+   		//var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+        //var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total='; 
 
-        var ALIPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/alipay?total=';  
-        var WXPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/payment?caseId=7816&claimCode=claimCode&total=';  
+        var ALIPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/alipay?total=';  
+        //var ALIPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/alipay?total=';  
+        //var WXPAYSERVER='https://celefix.mydrn.cn/celefix/backend/h5/pay/payment?caseId=7816&claimCode=claimCode&total=';  
+        var WXPAYSERVER='http://192.168.3.37:8000/celefix/backend/h5/pay/payment?caseId=7816&claimCode=claimCode&total=';  
         
         // 2. 发起支付请求  
         function pay(id){  
@@ -106,11 +108,13 @@
                     switch(xhr.readyState){  
                         case 4:  
                         if(xhr.status==200){  
+                        	//console.log(xhr.responseText);
                             plus.payment.request(channel,xhr.responseText,function(result){  
                                 plus.nativeUI.alert("支付成功！",function(){  
                                 back();  
                             });  
                             },function(error){  
+                            	alert(JSON.stringify(error));
                                 plus.nativeUI.alert("支付失败：" + error.code);  
                             });  
                         }else{  
@@ -118,7 +122,6 @@
                         }  
                         break;  
                     default: 
-                    alert(xhr.responseText);
                     break;  
                 }  
          }  
