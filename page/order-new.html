@@ -198,7 +198,7 @@
 								<ul id='customerType' class="mui-table-view">
 									<li class="mui-table-view-cell">
 										<a id="address" href="javascript:;" class="mui-navigate-right iconfont icon-iconfontaddress">
-											报修地址 ：
+											报修地址：
 										</a>
 									</li>
 									<!--  <li class="mui-table-view-cell" >
@@ -336,19 +336,18 @@
 									checkId = '#serviceId';
 									var html = '<li class="mui-table-view-cell">' +
 										'<p class="mui-navigate-right iconfont icon-iconfontaddress">' +
-										'报修店铺: ' + data.data.customer.customerName +
+										'报修店铺：' + data.data.customer.customerName +
 										'</p>' +
 										'</li>'
 								} else { //个人用户
 									checkId = '#addressId';
 									var html = '<li class="mui-table-view-cell">' +
 										'<a id="address" href="address.html?true" class="mui-navigate-right iconfont icon-iconfontaddress">' +
-										'报修地址 ：' + (data.data.address == null ? ' ' : data.data.address.address) +
+										' 报修地址：' + (data.data.address == null ? ' ' : data.data.address.address) +
 										'</a>' +
 										'</li>'
 									customerType.innerHTML = html;
-									document.getElementById('addressId').value = data.data.address.id;
-									//var self = plus.webview.currentWebview();
+									document.getElementById('addressId').value=(data.data.address == null ? '' : data.data.address.id);
 									var href = location.href;
 									var itemId = href.split("?")[1];
 									//alert(itemId);

@@ -150,7 +150,7 @@
 					<br />
 					<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted exit">
 						<li class="mui-table-view-cell mui-text-center">
-							<a onclick="doLogout();" class="f-orange">
+							<a class="f-orange exitBtn">
 								退出
 							</a>
 						</li>
@@ -211,14 +211,14 @@
 			    		mui.back();
 					}
 			});
-			function doLogout() {
+			mui("body").on('tap', '.exitBtn', function() {
 				mui.toast("退出成功");
 				app.setState(undefined);
 				mui.openWindow({
 					url: '../login.html',
 					id: 'login'
 				});
-			}
+			});
 			//修改头像事件
 			(function($, doc) {
 				mui("body").on('change', '.mui-opacity', function(e) {

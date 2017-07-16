@@ -104,6 +104,11 @@
 					swipeBack: true //启用右滑关闭功能
 				});
 				mui.plusReady(function() {
+					window.addEventListener('refresh', function(msg) {
+				        //自定义方法，刷新数据，不刷新页面
+				        mui.toast("B页面返回并刷新了数据");
+				        location.reload();
+				    });
 					plus.nativeUI.showWaiting();
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doAddress";
 					mui.ajax(url, {
@@ -158,8 +163,9 @@
 							}
 						}
 					});
-				plus.nativeUI.closeWaiting();
+					plus.nativeUI.closeWaiting();
 				});
+				
 				mui('body').on('tap', '.addressId', function() {
 					var href = location.href;
 					var item = href.split("?")[1];
@@ -193,35 +199,38 @@
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/delAddress";
 					$('body').on('tap', '.del', function() {
 						var itemId = this.id;
-						mui.ajax(url, {
-							data: {
-								id: itemId,
-								token: app.getState().token
-							},
-							type: 'POST', //HTTP请求类型
-							dataType: 'json',
-							timeout: 3000, //超时时间设置为5秒；
-							success: function(data) {
-								if(data.msgCode == "0000") {
-									mui.toast("删除成功");
-									var itemList = document.getElementById("addressList");
-									var itemDiv = document.getElementById("div" + itemId);
-									alert(itemDiv);
-									//itemList.removeChild(itemDiv.parentNode.parentNode.parentNode.parentNode.remove());
-								} else if(data.msgCode == "0002") {
-									mui.alert('你已在其它地方登录,请重新登录!', function() {
-										mui.openWindow({
-											url: 'login.html',
-											id: 'login'
+						var check=this.parentNode.parentNode.getElementsByClassName('checkbox')[0];
+						if(check.checked){
+							mui.toast('默认地址不允许删除');
+						}else{
+							mui.ajax(url, {
+								data: {
+									id: itemId,
+									token: app.getState().token
+								},
+								type: 'POST', //HTTP请求类型
+								dataType: 'json',
+								timeout: 3000, //超时时间设置为5秒；
+								success: function(data) {
+									if(data.msgCode == "0000") {
+										mui.toast("删除成功");
+										var itemDiv = document.getElementById("div" + itemId);
+										itemDiv.parentNode.remove();
+									} else if(data.msgCode == "0002") {
+										mui.alert('你已在其它地方登录,请重新登录!', function() {
+											mui.openWindow({
+												url: 'login.html',
+												id: 'login'
+											});
 										});
-									});
-									mui.currentWebview.close();
+										mui.currentWebview.close();
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									return mui.toast('网络繁忙');
 								}
-							},
-							error: function(xhr, type, errorThrown) {
-								return mui.toast('网络繁忙');
-							}
-						});
+							});
+						}
 					});
 
 					var urlIs = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/isDefault";

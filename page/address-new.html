@@ -134,6 +134,14 @@
 				swipeBack: true //启用右滑关闭功能
 			});
 			mui.plusReady(function() {
+				var old_back = mui.back;
+			    mui.back = function() {
+			        var opener = plus.webview.currentWebview().opener();
+			        alert(JSON.stringify(opener.id));
+			        mui.fire(plus.webview.getWebviewById(opener.id), 'refresh', null);
+			        old_back();
+			    }
+    
 				plus.nativeUI.showWaiting();
 					//级联示例
 					var cityPicker3 = new mui.PopPicker({
@@ -190,34 +198,10 @@
 						title.innerHTML="新增地址";
 					}
 				//关闭等待框
-				
 			    plus.nativeUI.closeWaiting();
-			});
-			
-			/*setTimeout(function(){
-				document.querySelector('#mask').style.display='none'
-			},1500);*/
-			function seach(a) {
-						for(var i = 0; i < cityData3.length; i++) {
-							if(cityData3[i].value == a) {
-								return cityData3[i].text
-							} else {
-								for(var m = 0; m < cityData3[i].children.length; m++) {
-									if(cityData3[i].children[m].value == a) {
-										return cityData3[i].children[m].text
-									} else {
-										for(var n = 0; n < cityData3[i].children[m].children.length; n++) {
-											if(cityData3[i].children[m].children[n].value == a) {
-												return cityData3[i].children[m].children[n].text;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					
-			document.getElementById('submit').addEventListener('tap', function(event) {
+			    
+			    
+			    document.getElementById('submit').addEventListener('tap', function(event) {
 					if(regionId.value == '') {
 						return mui.toast("请选择地区");
 					}
@@ -247,11 +231,8 @@
 						timeout: 5000, //超时时间设置为3秒；
 						success: function(data) {
 							if(data.msgCode=="0000"){
-								mui.toast('修改成功');
-								mui.openWindow({
-								   url: 'address.html', 
-								   id:'address'
-								});
+								mui.toast('操作成功');
+								mui.back();
 								mui.currentWebview.close();
 							}else{
 								mui.toast("系统错误");
@@ -261,6 +242,34 @@
 						}
 					});
 				});
+			
+			
+			});
+			
+			/*setTimeout(function(){
+				document.querySelector('#mask').style.display='none'
+			},1500);*/
+			function seach(a) {
+				for(var i = 0; i < cityData3.length; i++) {
+					if(cityData3[i].value == a) {
+						return cityData3[i].text
+					} else {
+						for(var m = 0; m < cityData3[i].children.length; m++) {
+							if(cityData3[i].children[m].value == a) {
+								return cityData3[i].children[m].text
+							} else {
+								for(var n = 0; n < cityData3[i].children[m].children.length; n++) {
+									if(cityData3[i].children[m].children[n].value == a) {
+										return cityData3[i].children[m].children[n].text;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+					
+			
 		</script>
 	</body>
 
