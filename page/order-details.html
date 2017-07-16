@@ -699,7 +699,6 @@
 							if(xhr.status == 200) {
 								plus.payment.request(channel, xhr.responseText, function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										alert(JSON.stringify(result));
 										var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/payStatus";
 										mui.ajax(url, {
 											data: {

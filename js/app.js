@@ -25,7 +25,6 @@
 		} else {
 			data.token = owner.getState().token;
 		}
-		console.log(url);
 		$.ajax(url, {
 			data: data,
 			dataType: 'json', //服务器返回json格式数据
@@ -65,7 +64,6 @@
 			return callback('密码最短为 6 个字符');
 		}
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doLogin";
-		console.log(url);
 		$.ajax(url, {
 			data: {
 				name: loginInfo.customerName,

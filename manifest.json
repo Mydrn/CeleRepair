@@ -225,7 +225,8 @@
 					"page/about.html"
 				],
 				"refer": [
-					"page/order-details.html"
+					"page/order-details.html",
+					"guide.html"
 				]
 			},
 			"page/address.html": {
@@ -271,7 +272,8 @@
 					"fonts/mui.ttf",
 					"images/3.gif",
 					"css/mui.min.css",
-					"treaty.html"
+					"treaty.html",
+					"images/bg.jpg"
 				],
 				"refer": [],
 				"priority": 0
@@ -427,6 +429,39 @@
 					"register.html"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"main.html": {
+				"resources": [
+					"images/5.png",
+					"images/cbd.jpg",
+					"js/app.js",
+					"images/ice-repair.png",
+					"images/2.png",
+					"images/ice-personal.png",
+					"images/3.png",
+					"images/1.png",
+					"images/logo.png",
+					"fonts/mui.ttf",
+					"images/4.png",
+					"images/ice-null.png",
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"login.html"
+				],
+				"priority": 0
+			},
+			"guide.html": {
+				"resources": [
+					"images/index1.png",
+					"images/index2.png",
+					"images/index3.png"
+				],
+				"refer": [
+					"main.html"
+				],
 				"priority": 0
 			}
 		},

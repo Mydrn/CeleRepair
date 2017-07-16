@@ -223,7 +223,8 @@
 					//var nwaiting = plus.nativeUI.showWaiting();  
 					//webviewShow = plus.webview.create(url);
 					//打开首页
-					mui.openWindow({
+					mui.currentWebview.close();
+					/*mui.openWindow({
 					   url: 'main.html', 
 					   id:'main',
 					   show:{
@@ -238,7 +239,7 @@
 					        height:'100px'//等待框背景区域高度，默认根据内容自动计算合适高度
 					      }
 					    }
-					});
+					});*/
 				});
 			});
 		</script>
