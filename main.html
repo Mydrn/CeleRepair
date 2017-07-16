@@ -8,7 +8,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="./css/mui.min.css">
-		<link rel="stylesheet" href="https://at.alicdn.com/t/font_l7in8wfz023gnwmi.css">
+		<link rel="stylesheet" href="./css/animation.css">
+		<link rel="stylesheet" href="https://at.alicdn.com/t/font_t80a2ko6nso47vi.css">
 		<style>
 			html,
 			body {
@@ -169,15 +170,18 @@
 			.imgWidth {
 				width: 52px
 			}
+
 		</style>
 	</head>
+
 	<body>
+		<!--<div id="mask"><span>0%</span></div>-->
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!--侧滑菜单部分-->
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
 				<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
 					<a href="javascript:;" id="back" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
-					<h1 class="mui-title" id="name">快修</h1>
+					<h1 class="mui-title" id="name">乔布斯</h1>
 					<a href="page/message.html" class="mui-pull-right">
 						<span class="mui-icon mui-icon-chatbubble"></span>
 					</a>
@@ -342,15 +346,16 @@
 			mui.plusReady(function() {
 				plus.nativeUI.showWaiting();
 				app.indexList(function(data) {
+					if(data.msgCode == "0000") {
 						//广告数据
 						var slider = document.getElementById("slider-list");
 						var html = '';
 						var adList = data.data.adList;
 						for(var item in adList) {
 							html += '<div class="mui-slider-item">' +
-									'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
-										'<img src="' + adList[item].adUrl + '">' +
-									'</a>' +
+								'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
+								'<img src="' + adList[item].adUrl + '">' +
+								'</a>' +
 								'</div>'
 						}
 						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
@@ -360,11 +365,10 @@
 						var caseUl = document.getElementById("caseUl");
 						if(caseList==undefined || caseList.length<=0 ) {
 							var orderList = document.getElementById("orderList")
-							orderList.innerHTML = '<div class="order-null"><img src="./images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+							orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
 							return;
 						}
 						for(var item in caseList) {
-							stateType = "已<br />完<br />成";
 							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
 								stateType = state1
 							} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
@@ -390,6 +394,15 @@
 								'</a>';
 							caseUl.appendChild(li);
 						}
+						//document.getElementById('mask').style.display='none';
+					} else if(data.msgCode == "0002") {
+						mui.alert('你已在其它地方登录,请重新登录!', function() {
+							mui.openWindow({
+								url: 'login.html',
+								id: 'login'
+							});
+						});
+					}
 					//自动播放轮播图
 					mui(function(e) {
 						mui("#slider").slider({
@@ -412,7 +425,7 @@
 	                        plus.runtime.quit();  
 	                    }  
 	                }  
-             	}
+             	} 
 				
 				plus.nativeUI.closeWaiting();
 			});
@@ -484,7 +497,9 @@
 			}
 
 			mui('body').on('tap', '.details', function() {
-				mui.openWindow({url: 'page/order-details.html',id: 'orderdetails',
+				mui.openWindow({
+					url: 'page/order-details.html',
+					id: 'order-details',
 					extras: {
 						caseId: this.id
 					}
@@ -522,6 +537,7 @@
 						if(e.index == 1) {
 							window.location.href = 'tel:' + localStorage.getItem('$contactUs');
 						} else {
+							//info.innerText = 'MUI没有得到你的认可，继续加油'
 						}
 					})
 				} else if(this.innerText == "清除缓存") {
