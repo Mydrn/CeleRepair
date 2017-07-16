@@ -475,6 +475,19 @@ p {
 	clear: both
 }
 
+.cele-footer {
+	width: 100%;
+	padding: 30px 15px 0;
+}
+
+#submit {
+	display: block;
+	width: 100%;
+	background: #ff5700;
+	color: #fff;
+	border: none
+}
+
 .mui-col-sm-1,
 .mui-col-sm-10,
 .mui-col-sm-11,
@@ -2431,7 +2444,7 @@ textarea {
 	width: 100%;
 	height: 40px;
 	margin-bottom: 15px;
-	padding: 9px 10px;
+	padding: 9px 15px;
 	-webkit-user-select: text;
 	border: 1px solid rgba(0, 0, 0, .1);
 	border-radius: 3px;
@@ -2564,8 +2577,8 @@ select:focus {
 	font-family: 'Helvetica Neue', Helvetica, sans-serif;
 	line-height: 1.1;
 	float: left;
-	width: 35%;
-	padding: 11px 15px
+	width: 30%;
+	padding: 10px 0 10px 15px
 }
 
 .mui-input-row label~input,
@@ -2621,7 +2634,9 @@ select:focus {
 .mui-input-row .mui-input-clear~.mui-icon-clear,
 .icon-left,
 .mui-input-row .mui-input-password~.mui-icon-eye,
-.mui-input-row .mui-input-speech~.mui-icon-speech,.icon-no-yanjing,.icon-off-yanjing {
+.mui-input-row .mui-input-speech~.mui-icon-speech,
+.icon-no-yanjing,
+.icon-off-yanjing {
 	font-size: 20px;
 	position: absolute;
 	z-index: 1;
@@ -4750,12 +4765,15 @@ body>.mui-progressbar {
 .f-orange {
 	color: #ff5700!important
 }
+
 .f-14 {
-				font-size: 14px!important;
-			}
+	font-size: 14px!important;
+}
+
 .bg-white {
-				background-color: #fff!important
-			}
-.iconfont{
+	background-color: #fff!important
+}
+
+.iconfont {
 	font-size: 20px!important;
-}						
+}
