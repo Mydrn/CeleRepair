@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="./css/mui.min.css">
-		<link rel="stylesheet" href="./css/app.css">
 		<link rel="stylesheet" href="https://at.alicdn.com/t/font_l7in8wfz023gnwmi.css">
 		<style>
 			html,
@@ -172,14 +171,13 @@
 			}
 		</style>
 	</head>
-
 	<body>
 		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
 			<!--侧滑菜单部分-->
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
 				<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
 					<a href="javascript:;" id="back" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
-					<h1 class="mui-title" id="name">乔布斯</h1>
+					<h1 class="mui-title" id="name">快修</h1>
 					<a href="page/message.html" class="mui-pull-right">
 						<span class="mui-icon mui-icon-chatbubble"></span>
 					</a>
@@ -350,9 +348,9 @@
 						var adList = data.data.adList;
 						for(var item in adList) {
 							html += '<div class="mui-slider-item">' +
-								'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
-								'<img src="' + adList[item].adUrl + '">' +
-								'</a>' +
+									'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
+										'<img src="' + adList[item].adUrl + '">' +
+									'</a>' +
 								'</div>'
 						}
 						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
@@ -360,12 +358,13 @@
 						//订单列表
 						var caseList = data.data.caseList;
 						var caseUl = document.getElementById("caseUl");
-						if(caseList == undefined) {
+						if(caseList.length<=0) {
 							var orderList = document.getElementById("orderList")
-							orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+							orderList.innerHTML = '<div class="order-null"><img src="./images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
 							return;
 						}
 						for(var item in caseList) {
+							stateType = "已<br />完<br />成";
 							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
 								stateType = state1
 							} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
@@ -468,9 +467,7 @@
 			}
 
 			mui('body').on('tap', '.details', function() {
-				mui.openWindow({
-					url: 'page/order-details.html',
-					id: 'order-details',
+				mui.openWindow({url: 'page/order-details.html',id: 'orderdetails',
 					extras: {
 						caseId: this.id
 					}
@@ -508,7 +505,6 @@
 						if(e.index == 1) {
 							window.location.href = 'tel:' + localStorage.getItem('$contactUs');
 						} else {
-							//info.innerText = 'MUI没有得到你的认可，继续加油'
 						}
 					})
 				} else if(this.innerText == "清除缓存") {

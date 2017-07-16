@@ -9,7 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 		<link rel="stylesheet" href="./css/mui.min.css">
-		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_n5o6ioc4rv8to6r.css"/>
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_n5o6ioc4rv8to6r.css" />
 		<style>
 			html,
 			body {
@@ -20,7 +20,6 @@
 				font-size: 20px;
 				color: #fff;
 			}
-			
 			
 			#register .mui-input-row input {
 				color: #fff;
@@ -117,7 +116,6 @@
 				background: transparent
 			}
 			
-			
 			.file {
 				opacity: 0;
 				position: absolute;
@@ -133,7 +131,7 @@
 				float: left;
 				position: relative;
 				overflow: hidden;
-				margin:0 2px 2px 0;
+				margin: 0 2px 2px 0;
 				border: 1px dotted #ccc;
 				box-sizing: border-box;
 				-webkit-box-sizing: border-box;
@@ -142,8 +140,9 @@
 				-moz-border-radius: 10px;
 				border-radius: 10px;
 			}
-			.file-box:nth-child(4n+4){
-				margin:0;
+			
+			.file-box:nth-child(4n+4) {
+				margin: 0;
 				margin-bottom: 2px;
 			}
 			
@@ -179,16 +178,19 @@
 				height: 2px;
 				background: #ccc;
 			}
-			.business-body{
+			
+			.business-body {
 				border: 1px solid #a7a7a7;
-    			border-radius: 6px;
-    			padding:9px;
+				border-radius: 6px;
+				padding: 9px;
 			}
+			
 			.business {
 				margin-top: 9px;
-				overflow:hidden;
+				overflow: hidden;
 			}
-			.mui-left{
+			
+			.mui-left {
 				float: left;
 			}
 		</style>
@@ -259,7 +261,6 @@
 		<script src="js/app.js"></script>
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript">
-			mui.init();
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
@@ -272,7 +273,6 @@
 					});
 				});
 			}
-
 			//主界面和侧滑菜单界面均支持区域滚动；
 			mui('#offCanvasSideScroll').scroll();
 
@@ -286,108 +286,105 @@
 					e.setAttribute('class', e.getAttribute('class').replace(/no/, "off"));
 				}
 			};
-			
-			//发送验证码
-			(function($, doc) {
-				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getMobileCode";
-				doc.getElementById('send').addEventListener('click', function(event) {
-					event.preventDefault();
-					window.event.returnValue = false;
-					var _this=this;
-					var phone = doc.getElementById("mobile").value;//手机号码
-					if(phone.length!=11){
-						return mui.toast("手机号码有误");
-					}
-					mui.ajax(url,{
-						data:{
-							mobile : phone,
-							token:app.getState().token
-						},
-						type:'get',//HTTP请求类型
-						dataType:'json',
-						timeout:5000,//超时时间设置为5秒；	              
-						success:function(data){
-							if(data.msgCode=="0001"){
-								return mui.toast("该手机已注册");
-							}
-							//发送验证码倒计时
-							_this.innerHTML='已发送(<span id="count">60</span>)秒';
-							var time=parseInt(doc.getElementById("count").innerHTML);
-							var timer=setInterval(function() {
-									time -= 1;
-									if(time == 0 ) {
-										_this.innerHTML='获取验证码';
-										//清除定时器
-										clearInterval(timer);
-									} else {
-										_this.setAttribute("disabled", "disabled");
-										//设置倒计时数字
-										document.getElementById("count").innerHTML=time;
-									}
-							}, 1000);
-						},
-						error:function(xhr,type,errorThrown){
-							
-						}
-					});
-				})
-				})(mui, document);
-	
-				//客户电话
-				var fragment = document.getElementById("kh");
-				fragment.innerHTML='客服电话：'+localStorage.getItem('$contactUs');
-				fragment.setAttribute('href',"tel:"+localStorage.getItem('$contactUs'));
-				
-		
-			//注册
+
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/savePersonalCustomer";
-			var phone = document.getElementById("mobile");
-			var customerName = document.getElementById('customerName');
-			var password = document.getElementById('password');
-			document.getElementById('submit').addEventListener('click',function(){
+			//发送验证码
+			var phone = document.getElementById("mobile"); //手机号码
+			document.getElementById('send').addEventListener('click', function(event) {
 				event.preventDefault();
 				window.event.returnValue = false;
-				if(customerName.value.replace(/(^s*)|(s*$)/g, "").length == 0){
+				var _this = this;
+				if(phone.value== "") {
+					return mui.toast("手机号码有误");
+				}
+				if(phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")) {
+					return mui.toast("手机号码有误");
+				}
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getMobileCode";
+				mui.ajax(url, {
+					data: {
+						mobile: phone.value
+					},
+					type: 'get', //HTTP请求类型
+					dataType: 'json',
+					timeout: 3000, //超时时间设置为5秒；	              
+					success: function(data) {
+						mui.toast(data.msg);
+						if(data.msgCode == "0000") {
+							//发送验证码倒计时
+							_this.innerHTML = '已发送(<span id="count">60</span>)秒';
+							var time = parseInt(document.getElementById("count").innerHTML);
+							var timer = setInterval(function() {
+								time -= 1;
+								if(time == 0) {
+									_this.innerHTML = '获取验证码';
+									_this.removeAttribute("disabled");
+									//清除定时器
+									clearInterval(timer);
+								} else {
+									_this.setAttribute("disabled", "disabled");
+									//设置倒计时数字
+									document.getElementById("count").innerHTML = time;
+								}
+							}, 1000);
+						} else if(data.msgCode == "0001") {
+							return;
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络繁忙,请重试！");
+					}
+				});
+			})
+
+			//客户电话
+			var fragment = document.getElementById("kh");
+			fragment.innerHTML = '客服电话：' + localStorage.getItem('$contactUs');
+			fragment.setAttribute('href', "tel:" + localStorage.getItem('$contactUs'));
+
+			//注册
+			var customerName = document.getElementById('customerName');
+			var password = document.getElementById('password');
+			document.getElementById('submit').addEventListener('click', function() {
+				event.preventDefault();
+				window.event.returnValue = false;
+				if(customerName.value.replace(/(^s*)|(s*$)/g, "").length == 0) {
 					return mui.toast("请填写帐号");
 				}
-				if (phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")) {
+				if(phone.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")) {
 					return mui.toast("请填写正确格式手机号码");
 				}
-				if (phone.value.length!=11) {
+				if(phone.value.length != 11) {
 					return mui.toast("请填写正确格式手机号码");
 				}
-				if(password.value.replace(/(^s*)|(s*$)/g, "").length < 6){
+				if(password.value.replace(/(^s*)|(s*$)/g, "").length < 6) {
 					return mui.toast("请填输入正确格式的密码");
 				}
-				mui.ajax(url,{
-					data:$('#objectContent').serialize(),
-					type:'post',//HTTP请求类型
-					dataType:'json',
-					async:true,
-					timeout:5000,//超时时间设置为5秒；             
-					success:function(data){
-						if (data.msgCode == "0000") {
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/savePersonalCustomer";
+				mui.ajax(url, {
+					data: $('#objectContent').serialize(),
+					type: 'post', //HTTP请求类型
+					dataType: 'json',
+					async: true,
+					timeout: 5000, //超时时间设置为5秒；             
+					success: function(data) {
+						if(data.msgCode == "0000") {
 							mui.alert('注册成功', function() {
 								window.location.href = "login.html";
 							});
-						}else if(data.msgCode == "0002"){
-							return mui.toast("您的账号正在审核，请勿重复注册");
-						}else if(data.msgCode == "0003"){
+						} else if(data.msgCode == "0003") {
 							return mui.toast("账号名称已存在");
-						}else if(data.msgCode == "0004"){
+						} else if(data.msgCode == "0004") {
 							return mui.toast("验证码错误");
-						}else{
+						} else {
 							return mui.toast("系统错误,请稍后再试");
 						}
 					},
-					error:function(xhr,type,errorThrown){
-						
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络繁忙,请重试！");
 					}
 				});
-		   });
-
+			});
 		</script>
 	</body>
 

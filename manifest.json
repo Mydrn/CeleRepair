@@ -3,7 +3,7 @@
     "id": "H59C3D0A1",/*应用的标识，创建应用时自动生成，勿手动修改*/
     "name": "快修",/*应用名称，程序桌面图标名称*/
     "version": {
-        "name": "0.9.5",/*应用版本名称*/
+        "name": "0.9.6",/*应用版本名称*/
         "code": ""
     },
     "description": "“快修”是专业从事全国终端连锁店铺及个人家居测量、安装、维修等。专业技术力量遍布全国各大省市区直辖市，拥有最强的技术服务及完善的售后服务支持。",/*应用描述信息*/
@@ -270,7 +270,8 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"images/3.gif",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"treaty.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -362,7 +363,8 @@
 					"js/app.js",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"images/cbd.jpg"
 				],
 				"refer": [],
 				"priority": 0
@@ -407,45 +409,34 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"register.html": {
+				"resources": [
+					"js/jquery.js",
+					"register.html",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"treaty.html": {
+				"resources": [
+					"register.html"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {
 			"resources": [
-				"css/feedback.css",
-				"images/shuijiao.jpg",
-				"js/icons-extra.css",
-				"fonts/mui-icons-extra.ttf",
-				"images/60x60.gif",
-				"js/city.data.js",
-				"README.md",
-				"forget-password.html",
-				"css/mui.picker.all.css",
-				"js/update.js",
-				"treaty.html",
-				"page/payment.html",
-				"images/muwu.jpg",
-				"new_file.html",
-				"register.html",
-				"images/yuantiao.jpg",
-				"page/feedback.html",
-				"images/ice-null.png"
+				"images/60x60.gif"
 			]
 		}
 	},
 	"unpackage":[
-	  "css/app.css",
-	  "css/feedback.css",
-	  "css/mui.picker.all.css",
-	  "fonts/mui-icons-extra.ttf",
-	  "images/muwu.jpg",
-	  "images/shuijiao.jpg",
-	  "images/yuantiao.jpg",
-	  "js/city.data.js",
-	  "js/icons-extra.css",
-	  "js/mui.pullToRefresh.js",
-	  "js/mui.pullToRefresh.material.js",
-	  "js/update.js",
-	  "images/60x60.gif",
-	  "images/ice-null.png"
+	  "images/60x60.gif"
 	]
 }

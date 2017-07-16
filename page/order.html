@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>我的订单</title>
@@ -8,7 +9,124 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style>
-			html,body{background-color:#efeff4}.mui-bar~.mui-content .mui-fullscreen{top:44px;height:auto}.mui-pull-top-tips{position:absolute;top:-20px;left:50%;margin-left:-25px;width:40px;height:40px;border-radius:100%;z-index:1}.mui-bar~.mui-pull-top-tips{top:24px}.mui-pull-top-wrapper{width:42px;height:42px;display:block;text-align:center;background-color:#efeff4;border:1px solid #ddd;border-radius:25px;background-clip:padding-box;box-shadow:0 4px 10px #bbb;overflow:hidden}.mui-pull-top-tips.mui-transitioning{-webkit-transition-duration:200ms;transition-duration:200ms}.mui-pull-top-tips .mui-pull-loading{margin:0}.mui-pull-top-wrapper .mui-icon,.mui-pull-top-wrapper .mui-spinner{margin-top:7px}.mui-pull-bottom-tips{text-align:center;background-color:#efeff4;font-size:15px;line-height:40px;color:#777}.mui-pull-top-canvas{overflow:hidden;background-color:#fafafa;border-radius:40px;box-shadow:0 4px 10px #bbb;width:40px;height:40px;margin:0 auto}.mui-pull-top-canvas canvas{width:40px}.mui-slider-indicator.mui-segmented-control{background-color:#efeff4}.mui-scroll-wrapper{overflow:hidden}#sliderSegmentedControl .mui-active{color:#ff5700}.order-title{color:#000;margin-top:6px}.stateType{position:absolute;top:50%;right:15px;border:1px solid #a5a5a5;padding:2px 8px;border-radius:5px;color:#a5a5a5;line-height:20px;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%)}.mui-table-view-cell{margin-bottom:10px;background-color:#fff}.mui-control-content,.mui-table-view{background-color:transparent}.f-white{color:#fff!important}
+			html,
+			body {
+				background-color: #efeff4
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				margin: 0
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4
+			}
+			
+			.mui-scroll-wrapper {
+				overflow: hidden
+			}
+			
+			#sliderSegmentedControl .mui-active {
+				color: #ff5700
+			}
+			
+			.order-title {
+				color: #000;
+				margin-top: 6px
+			}
+			
+			.stateType {
+				position: absolute;
+				top: 50%;
+				right: 15px;
+				border: 1px solid #a5a5a5;
+				padding: 2px 8px;
+				border-radius: 5px;
+				color: #a5a5a5;
+				line-height: 20px;
+				-webkit-transform: translate(0, -50%);
+				-ms-transform: translate(0, -50%);
+				transform: translate(0, -50%)
+			}
+			
+			.mui-table-view-cell {
+				margin-bottom: 10px;
+				background-color: #fff
+			}
+			
+			.mui-control-content,
+			.mui-table-view {
+				background-color: transparent
+			}
+			
+			.f-white {
+				color: #fff!important
+			}
 		</style>
 	</head>
 
@@ -24,6 +142,9 @@
 						全部
 					</a>
 					<a class="mui-control-item" href="#item2mobile">
+						进行中
+					</a>
+					<!--<a class="mui-control-item" href="#item2mobile">
 						审核中
 					</a>
 					<a class="mui-control-item" href="#item3mobile">
@@ -34,9 +155,9 @@
 					</a>
 					<a class="mui-control-item" href="#item5mobile">
 						待评价
-					</a>
+					</a>-->
 				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-25 bg-orange"></div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6 bg-orange"></div>
 				<div class="mui-slider-group">
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div class="mui-scroll-wrapper">
@@ -71,11 +192,11 @@
 							</div>
 						</div>
 					</div>
-					<div id="item3mobile" class="mui-slider-item mui-control-content">
+					<!--<div id="item3mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-loading">
-										<!--<c:forEach var="obj" items="${ caseList }">
+									<c:forEach var="obj" items="${ caseList }">
 										<c:if test="${ obj.caseStatus == 0 || obj.caseStatus == 1 || obj.caseStatus == 2 }">
 											<ul class="mui-table-view">
 												<li class="mui-table-view-cell mui-media">
@@ -89,7 +210,7 @@
 												</li>
 											</ul>
 										</c:if>
-										</c:forEach>-->
+										</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -109,7 +230,7 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -124,9 +245,9 @@
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui('body').on('tap', 'a', function() {
-				if(this.href.indexOf('#item')>0){
+				if(this.href.indexOf('#item') > 0) {
 					return;
-				}else{
+				} else {
 					window.top.location.href = this.href;
 				}
 			});
@@ -170,88 +291,139 @@
 				});
 				//在这里创建DOM结构
 				var numOld = false;
-				var state1 = "审<br />核<br />中", state2 = "待<br />上<br />门",
-					state3 = "待<br />审<br />批", state4 = "待<br />付<br />款",
-					state5 = "待<br />评<br />价", state6 = "已<br />完<br />成",
+				var state1 = "审<br />核<br />中",
+					state2 = "待<br />上<br />门",
+					state3 = "待<br />审<br />批",
+					state4 = "待<br />付<br />款",
+					state5 = "待<br />评<br />价",
+					state6 = "已<br />完<br />成",
 					state7 = "待<br />接<br />单";
 				var stateType = "已<br />完<br />成";
 				var createFragment = function(ul, page, count, reverse) {
 					var fragment = document.createDocumentFragment();
 					var li;
-					if(numOld){
+					if(numOld) {
 						mui.toast("没有更多数据");
 						return fragment;
 					}
-					
+
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doPairCasePage";
-					mui.ajax(url,{
-						data:{
-							token:token,
-							pages:pages,
-							num:count
+					mui.ajax(url, {
+						data: {
+							token: token,
+							pages: pages,
+							num: count
 						},
-						type:'post',//HTTP请求类型
-						dataType:'json',
-						cache:false, 
-					    async:false,
-						timeout:5000,//超时时间设置为5秒；
-						success:function(data){
-							if (data.msgCode=="0002"){
+						type: 'post', //HTTP请求类型
+						dataType: 'json',
+						cache: false,
+						async: false,
+						timeout: 5000, //超时时间设置为5秒；
+						success: function(data) {
+							if(data.msgCode == "0002") {
 								mui.alert('你已在其它地方登录,请重新登录!', function() {
-									mui.openWindow({url: '../login.html',id:'login'});
+									mui.openWindow({
+										url: '../login.html',
+										id: 'login'
+									});
 								});
-							}else{
+							} else {
 								//mui.toast(data.msg);
-								if(data.data.length == 0){
+								if(data.data.length == 0) {
 									mui.toast("没有更多数据");
 									numOld = true;
 								}
 								data = data.data;
-								for (var item in data) {
-									if(data[item].caseStatus == -1 && data[item].customerType != 5){stateType = state1}
-									else if(data[item].caseStatus == -1  && data[item].customerType == 5){stateType = state7}
-									else if(data[item].caseStatus == 0 || data[item].caseStatus == 1 || data[item].caseStatus == 2){stateType = state2}
-									else if(data[item].caseStatus == 3 && data[item].customerType != 5){stateType = state3}
-									else if(data[item].caseStatus == 3 && data[item].customerType == 5){stateType = state4}
-									else if(data[item].caseStatus == 4 && data[item].assessScore == null){stateType = state5}
+								for(var item in data) {
+									stateType = "已<br />完<br />成";
+									if(data[item].caseStatus == -1 && data[item].customerType != 5) {
+										stateType = state1
+									} else if(data[item].caseStatus == -1 && data[item].customerType == 5) {
+										stateType = state7
+									} else if(data[item].caseStatus == 0 || data[item].caseStatus == 1 || data[item].caseStatus == 2) {
+										stateType = state2
+									} else if(data[item].caseStatus == 3 && data[item].customerType != 5) {
+										stateType = state3
+									} else if(data[item].caseStatus == 3 && data[item].customerType == 5) {
+										stateType = state4
+									} else if(data[item].caseStatus == 4 && data[item].assessScore == null) {
+										stateType = state5
+									}
+									
 									li = document.createElement('li');
 									li.className = 'mui-table-view-cell mui-media';
-									li.innerHTML = '<a href="javascript:;" class="details" id='+ data[item].id +'">'+
-													'<img class="mui-media-object mui-pull-left" src="'+ data[item].attachmentFile +'">'+
-														'<div class="mui-media-body">'+
-															'<p class="order-title">'+ data[item].claimCode +'</p>'+
-																'<p class="mui-ellipsis">'+data[item].updateTime +'</p>'+
-														'</div>'+
-														'<span class="stateType">'+ stateType +
-													'</a>';
+									li.innerHTML = '<a href="javascript:;" class="details" id="' + data[item].id + '">' +
+										'<img class="mui-media-object mui-pull-left" src="' + data[item].attachmentFile + '">' +
+										'<div class="mui-media-body">' +
+										'<p class="order-title">' + data[item].claimCode + '</p>' +
+										'<p class="mui-ellipsis">' + data[item].updateTime + '</p>' +
+										'</div>' +
+										'<span class="stateType">' + stateType +
+										'</a>';
 									fragment.appendChild(li);
 								}
 							}
 						},
-						error:function(xhr,type,errorThrown){
+						error: function(xhr, type, errorThrown) {
 							mui.toast("网络繁忙");
 						}
 					});
 					return fragment;
 				};
 				var item1 = document.getElementById('item1mobile');
+				var item2 = document.getElementById('item2mobile');
 				//打开此页面时第一屏的页面内容
 				if(item1.querySelector('.mui-loading')) {
 					setTimeout(function() {
 						var ul = document.querySelector('.mui-table-view');
-						ul.innerHTML='';
-						ul.appendChild(createFragment(ul,1,10));
+						ul.innerHTML = '';
+						ul.appendChild(createFragment(ul, 1, 10));
 					}, 500);
 				}
-				$('body').on('tap', '.details', function() {
-					mui.openWindow({
-					    url:'order-details.html',
-					    id:'order-details',
-					    extras:{
-					        caseId:this.id
-					    }
-					});	
+				
+				app.indexList(function(data) {
+					var fragment = document.createDocumentFragment();
+					var li;
+					var caseList = data.data.caseList;
+						if(caseList.length<=0) {
+							item2.querySelector('.mui-table-view').innerHTML = '<div class="order-null"><img src="../images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+							return;
+						}
+						for(var item in caseList) {
+							stateType = "已<br />完<br />成";
+							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
+								stateType = state1
+							} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
+								stateType = state7
+							} else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2) {
+								stateType = state2
+							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5) {
+								stateType = state3
+							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5) {
+								stateType = state4
+							} else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null) {
+								stateType = state5
+							}
+							li = document.createElement('li');
+									li.className = 'mui-table-view-cell mui-media';
+									li.innerHTML = '<a href="javascript:;" class="details" id="' + caseList[item].id + '">' +
+										'<img class="mui-media-object mui-pull-left" src="' + caseList[item].attachmentFile + '">' +
+										'<div class="mui-media-body">' +
+										'<p class="order-title">' + caseList[item].claimCode + '</p>' +
+										'<p class="mui-ellipsis">' + caseList[item].updateTime + '</p>' +
+										'</div>' +
+										'<span class="stateType">' + stateType +
+										'</a>';
+							fragment.appendChild(li);
+						}
+						var ul = item2.querySelector('.mui-table-view');
+						ul.innerHTML = '';
+						ul.appendChild(fragment);
+						//item2.querySelector('.mui-table-view').appendChild = fragment;
+						
 				});
+				
+				
 				//点击导航栏时的事件
 				/* document.getElementById('slider').addEventListener('slide', function(e) {
 					//第二屏的页面内容
@@ -285,6 +457,15 @@
 					}
 				}); */
 			})(mui);
+			mui('body').on('tap', '.details', function() {
+					mui.openWindow({
+						url: 'order-details.html',
+						id: 'orderdetails',
+						extras: {
+							caseId: this.id
+						}
+					});
+				});
 		</script>
 	</body>
 

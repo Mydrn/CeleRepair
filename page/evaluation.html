@@ -8,7 +8,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
-		<link rel="stylesheet" href="../css/app.css">
 		<style>
 			#offCanvasSideScroll {
 				padding-top: 44px
@@ -346,11 +345,11 @@
 				})
 			})(mui, document);
 			//评价
-			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveEvaluate";
 			var OderId = document.getElementById("OderId");
 			var assess = document.getElementById('assess');
 			var imgUrl = document.getElementById('imgUrl');
 			document.getElementById('submit').addEventListener('tap', function() {
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveEvaluate";
 				event.preventDefault();
 				window.event.returnValue = false;
 				mui.ajax(url, {

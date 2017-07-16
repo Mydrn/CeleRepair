@@ -31,7 +31,8 @@
 							<input type="text" hidden id="serviceId" name="serviceId" value="" />
 							<input type="text" hidden id="imgUrl" name="imgUrl" value="" />
 							<input type="text" hidden id="shopId" name="shopId" value="" />
-							<!-- <input type="datetime" hidden id="servicingTime" name="servicingTime" /> -->
+							<input type="text" hidden id="token" name="token" value="" />
+							<input type="datetime" hidden id="servicingTime" name="servicingTime" />
 							<p class="about  mui-text-center"><!-- 个人用户可在此报修， -->请填写需求内容<br />我们会尽快安排工作人员上门服务</p>
 							<div class="mui-bar-nav">
 								<ul id='customerType' class="mui-table-view">
@@ -60,11 +61,11 @@
 											报修类型：<strong id="bxlx" ></strong>
 										</a>
 									</li>
-									<!-- <li class="mui-table-view-cell demo3">
-										<a href="javascript:;" id="demo3" data-options='{"value":"2017-06-10 10:10","beginYear":2017,"endYear":2025}' class="mui-navigate-right mui-icon mui-icon-location">
+									<li class="mui-table-view-cell demo3">
+										<a href="javascript:;" id="demo3" data-options='{"value":"2017-07-10 10:10","beginYear":2017,"endYear":2025}' class="mui-navigate-right mui-icon mui-icon-location">
 											上门时间：<strong id="smsj" ></strong>
 										</a>
-									</li> -->
+									</li>
 									<li class="mui-table-view-cell">
 										<div id="wrapper">
 											<p class="order-title">你可以上传多张报修图片:</p>
@@ -124,7 +125,7 @@
 		</div>
 		<script type="text/javascript" src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/app.js"></script>
-		<script type="text/javascript" src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.picker.min.js"></script>
 		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript" src="../js/webuploader.js"></script>
@@ -132,6 +133,7 @@
 		<script type="text/javascript" src="../js/upload.js"></script>
 		<script>
 			var token = app.getState().token;
+			document.getElementById("token").value=token;
 			var checkId='';
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.init({
@@ -183,6 +185,7 @@
 													'</a>'+
 												'</li>'
 									customerType.innerHTML = html;
+									document.getElementById('addressId').value = data.data.address.id;
 									//var self = plus.webview.currentWebview();
 									var href = location.href;
 									var itemId = href.split("?")[1];
@@ -279,7 +282,7 @@
 				}
 			});
 			document.getElementById('submit').addEventListener('tap',function(){
-				if($("#checkId").val()=='' || $("#serviceId").val()==''){
+				if($(checkId).val()=='' || $("#serviceId").val()==''){
 					return mui.toast("请先选择");
 				}if($("#imgUrl").val()==''){
 					return mui.toast("请先上传照片");
@@ -294,16 +297,15 @@
 					}
 				}
 				*/
-				/* if($("#servicingTime").val()==''){
-				mui.toast("请选择上门时间");
-				return false;
-				} */
+				if($("#servicingTime").val()==''){
+					return mui.toast("请选择上门时间");
+				}
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
 				mui.ajax(url,{
 					data:$('#objectContent').serialize(),
 					type:'post',//HTTP请求类型
 					dataType:'json',
-					//timeout:5000,//超时时间设置为5秒；
+					timeout:5000,//超时时间设置为5秒；
 					success:function(data){
 						mui.toast(data.msg);
 						if(data.msgCode=="0000"){
@@ -313,7 +315,7 @@
 							    extras:{
 							        caseId:data.data
 							    }
-							});	
+							});
 						}else if (data.msgCode=="0002"){
 							mui.alert('你已在其它地方登录,请重新登录!', function() {
 								mui.openWindow({

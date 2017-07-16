@@ -2080,7 +2080,9 @@ input[type=submit]:enabled:active {
 .mui-table-view .mui-media-object {
 	line-height: 42px;
 	max-width: 80px;
-	height: 80px
+	min-width: 80px;
+	height: 80px;
+	min-height: 80px;
 }
 
 .mui-table-view .mui-media-object.mui-pull-left {

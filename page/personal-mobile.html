@@ -180,7 +180,7 @@
 					return mui.toast("手机号码有误");
 				}
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getMobileCode";
-				mui.get(url,{mobile:phone.value,token:app.getState().token},function(data){
+				mui.get(url,{mobile:phone.value},function(data){
 					mui.toast(data.msg);
 					if (data.msgCode == "0000") {
 						//成功
@@ -191,6 +191,7 @@
 								time -= 1;
 								if(time == 0 ) {
 									_this.innerHTML='获取验证码';
+									_this.removeAttribute("disabled");
 									//清除定时器
 									clearInterval(timer);
 								} else {
