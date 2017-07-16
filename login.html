@@ -75,11 +75,11 @@
 			}
 			
 			.mui-filter {
-				-webkit-filter: blur(6px);
-				-moz-filter: blur(6px);
-				-o-filter: blur(6px);
-				-ms-filter: blur(6px);
-				filter: blur(6px)
+				-webkit-filter: blur(5px);
+				-moz-filter: blur(5px);
+				-o-filter: blur(5px);
+				-ms-filter: blur(5px);
+				filter: blur(5px)
 			}
 			
 			.login-content {
@@ -133,7 +133,15 @@
 			#login header a {
 				color: #fff
 			}
-			
+			.bg{
+				position: fixed;
+				top:0;
+				left:0;
+				right:0;
+				bottom: 0;
+				width:100%;
+				z-index: -99;
+			}
 			.mui-box-shadow-none {
 				box-shadow: none
 			}
@@ -176,6 +184,7 @@
 				</form>
 			</div>
 		</div>
+		<img src="images/bg.jpg" class="bg mui-filter"/>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
@@ -225,8 +234,8 @@
 					      autoShow:true,//自动显示等待框，默认为true
 					      title:'正在加载...',//等待对话框上显示的提示内容
 					      options:{
-					        width:'waiting-dialog-widht',//等待框背景区域宽度，默认根据内容自动计算合适宽度
-					        height:'waiting-dialog-height'//等待框背景区域高度，默认根据内容自动计算合适高度
+					        width:'100px',//等待框背景区域宽度，默认根据内容自动计算合适宽度
+					        height:'100px'//等待框背景区域高度，默认根据内容自动计算合适高度
 					      }
 					    }
 					});

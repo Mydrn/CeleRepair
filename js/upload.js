@@ -662,7 +662,7 @@ var arr = [];
 				 * rs.h 时，用法同年
 				 * rs.i 分（minutes 的第二个字母），用法同年
 				 */
-				document.getElementById("smsj").innerHTML =" &nbsp;" + rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + "时";
+				document.getElementById("smsj").innerHTML =rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + "时";
 				document.getElementById("servicingTime").value = rs.y.text + rs.m.text + rs.d.text + rs.h.text;
 				/* 
 				 * 返回 false 可以阻止选择框的关闭
@@ -701,7 +701,7 @@ var arr = [];
 					cityPicker.show(function(items) {
 						
 						document.getElementById("serviceId").value = items[1].value;
-						document.getElementById("bxlx").innerHTML ="&nbsp;&nbsp;"+items[0].text+"&nbsp;&nbsp;" +items[1].text;
+						document.getElementById("bxlx").innerHTML =items[0].text+"&nbsp;&nbsp;" +items[1].text;
 					});
 				}, false);
 			},

@@ -181,6 +181,7 @@
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			mui.plusReady(function() {
 			plus.nativeUI.showWaiting();
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneData";
@@ -265,6 +266,7 @@
 				})
 			})(mui, document);
 			plus.nativeUI.closeWaiting();
+			})
 		</script>
 	</body>
 

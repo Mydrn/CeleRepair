@@ -98,7 +98,6 @@
 			</div>
 			<script src="../js/mui.min.js"></script>
 			<script src="../js/app.js"></script>
-			<!--<script type="text/javascript" src="../js/js/vconsole.min.js"></script>-->
 			<script>
 				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 				mui.init({
@@ -207,7 +206,8 @@
 									mui.toast("删除成功");
 									var itemList = document.getElementById("addressList");
 									var itemDiv = document.getElementById("div" + itemId);
-									itemList.removeChild(itemDiv);
+									alert(itemDiv);
+									//itemList.removeChild(itemDiv.parentNode.parentNode.parentNode.parentNode.remove());
 								} else if(data.msgCode == "0002") {
 									mui.alert('你已在其它地方登录,请重新登录!', function() {
 										mui.openWindow({
