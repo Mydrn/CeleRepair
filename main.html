@@ -358,7 +358,7 @@
 						//订单列表
 						var caseList = data.data.caseList;
 						var caseUl = document.getElementById("caseUl");
-						if(caseList.length<=0) {
+						if(caseList==undefined || caseList.length<=0 ) {
 							var orderList = document.getElementById("orderList")
 							orderList.innerHTML = '<div class="order-null"><img src="./images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
 							return;

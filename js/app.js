@@ -1,14 +1,14 @@
 (function($, owner) {
 	var serviceinfo = {
 		//测试接口
-		app_ip: "https://celefix.mydrn.cn",
-		app_port: "443",
-		path: "/celefix/backend/h5/" //环境路径
+		//		app_ip: "https://celefix.mydrn.cn",
+		//		app_port: "443",
+		//		path: "/celefix/backend/h5/" //环境路径
 
 		//本地
-//		app_ip: "http://192.168.3.37",
-//		app_port: "8000",
-//		path: "/celefix/backend/h5/" //环境路径
+		app_ip: "http://192.168.3.37",
+		app_port: "8000",
+		path: "/celefix/backend/h5/" //环境路径
 	};
 	//服务器地址存储本地
 	localStorage.setItem('$serviceinfo', JSON.stringify(serviceinfo));
@@ -19,10 +19,15 @@
 		callback = callback || $.noop;
 		//首页接口
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndex";
+		var data = {};
+		if(owner.getState().token == undefined) {
+		}else{
+			data.token = owner.getState().token;
+			alert(data.token);
+		}
+		console.log(url);
 		$.ajax(url, {
-			data: {
-				token: owner.getState().token
-			},
+			data:data,
 			dataType: 'json', //服务器返回json格式数据
 			type: 'POST', //HTTP请求类型
 			timeout: 3000, //超时时间设置为6秒；
@@ -161,9 +166,8 @@
 		return JSON.parse(settingsText);
 	}
 
-	$.ready(function() {
-		
-		/*document.onreadystatechange = function() {
+	/*$.ready(function() {
+		document.onreadystatechange = function() {
 			if(document.readyState == "complete") {
 				var body = document.getElementsByTagName('body');
 				var div = document.createElement('div');
@@ -171,7 +175,7 @@
 				div.innerHTML = '<img src="./images/3.gif"/><span id="mask-num">0%</span>';
 				body[0].appendChild(div);
 			}
-		}*/
-	})
+		}
+	})*/
 
 }(mui, window.app = {}));
