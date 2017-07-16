@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>消息中心</title>
@@ -44,13 +45,18 @@
 				margin: 11px 10px;
 				padding: 0;
 			}
-			.mui-table-view,.mui-table-view:after,.mui-table-view:before{
+			
+			.mui-table-view,
+			.mui-table-view:after,
+			.mui-table-view:before {
 				background-color: transparent;
 			}
-			.mui-btn{
+			
+			.mui-btn {
 				margin-bottom: 0;
 			}
-			.text-body{
+			
+			.text-body {
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -85,7 +91,7 @@
 			</ul>
 		</div>
 		<script type="text/javascript" src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/app.js" ></script>
+		<script type="text/javascript" src="../js/app.js"></script>
 		<script type="text/javascript" src="../js/jquery.js"></script>
 		<script type="text/javascript">
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
@@ -102,80 +108,101 @@
 					});
 				});
 			}
-		
+
 			(function($, doc) {
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/tidingsList";
 				var tidings = doc.getElementById("OA_task_1");
-				$.ajax(url,{
-					data:{token:token},
-					type:'POST',//HTTP请求类型
-					dataType:'json',
-					timeout:5000,//超时时间设置为5秒；
-					success:function(data){
-						if(data.length == 0){
-							tidings.innerHTML='<p class="mui-text-center dataTime">暂无消息</p>';
-						}else{
-							for (var item in data) {
-								var content="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
-								+"<div class='mui-slider-right mui-disabled'>"
-								+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
-								+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
-								+"<span class='mui-dot'></span><h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
-								+"</div></div></div></li>";
-								
-								var content1="<li class='mui-table-view-cell' onclick='view("+data[item].id+")'>"
-								+"<div class='mui-slider-right mui-disabled'>"
-								+"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted("+data[item].id+")'>删除</a>"
-								+"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>"
-								+"<h4>"+data[item].title+"</h4><p class='text-body'>"+data[item].content+"</p>"
-								+"</div></div></div></li>";
-								var oldhtml=tidings.innerHTML;
-								if(!data[item].status){
-									tidings.innerHTML=oldhtml+content;
-								}else if(data[item].status){
-									tidings.innerHTML=oldhtml+content1;
+				$.ajax(url, {
+					data: {
+						token: token
+					},
+					type: 'POST', //HTTP请求类型
+					dataType: 'json',
+					timeout: 5000, //超时时间设置为5秒；
+					success: function(data) {
+						if(data.msgCode == "0002") {
+							mui.alert('你已在其它地方登录,请重新登录!', function() {
+								mui.openWindow({
+									url: 'login.html',
+									id: 'login'
+								});
+							});
+						}
+						if(data.length == 0) {
+							tidings.innerHTML = '<p class="mui-text-center dataTime">暂无消息</p>';
+						} else {
+							for(var item in data) {
+								var content = "<li class='mui-table-view-cell' onclick='view(" + data[item].id + ")'>" +
+									"<div class='mui-slider-right mui-disabled'>" +
+									"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted(" + data[item].id + ")'>删除</a>" +
+									"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>" +
+									"<span class='mui-dot'></span><h4>" + data[item].title + "</h4><p class='text-body'>" + data[item].content + "</p>" +
+									"</div></div></div></li>";
+
+								var content1 = "<li class='mui-table-view-cell' onclick='view(" + data[item].id + ")'>" +
+									"<div class='mui-slider-right mui-disabled'>" +
+									"<a class='mui-btn mui-btn-red' href='javascript:void(0)' onclick='deleted(" + data[item].id + ")'>删除</a>" +
+									"</div><div class='mui-slider-handle'><div class='mui-card-content'><div class='mui-card-content-inner'>" +
+									"<h4>" + data[item].title + "</h4><p class='text-body'>" + data[item].content + "</p>" +
+									"</div></div></div></li>";
+								var oldhtml = tidings.innerHTML;
+								if(!data[item].status) {
+									tidings.innerHTML = oldhtml + content;
+								} else if(data[item].status) {
+									tidings.innerHTML = oldhtml + content1;
 								}
-							
+
 							}
 						}
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络繁忙");
 					}
 				});
 			})(mui, document);
 			var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/deteletidings";
+
 			function deleted(event) {
 				$("li").removeAttr("onclick");
-				var btnArray = ['取消','确认'];
-				mui.confirm('确认删除该条记录？', '温馨提示',function(e) {
-						if (e.index==1) {
-							mui.ajax(url1,{
-								type:'get',//HTTP请求类型
-								data:{objectId:event,token:app.getState().token},
-								dataType:'json',
-								cache:false, 
-							    async:false,
-								timeout:5000,//超时时间设置为5秒；
-								success:function(data){
-									document.location.reload();	
-								}
-							});
-						}
+				var btnArray = ['取消', '确认'];
+				mui.confirm('确认删除该条记录？', '温馨提示', function(e) {
+					if(e.index == 1) {
+						mui.ajax(url1, {
+							type: 'get', //HTTP请求类型
+							data: {
+								objectId: event,
+								token: app.getState().token
+							},
+							dataType: 'json',
+							cache: false,
+							async: false,
+							timeout: 5000, //超时时间设置为5秒；
+							success: function(data) {
+								document.location.reload();
+							}
+						});
+					}
 				})
 			}
 			//点击查看消息内容
 			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findtidingsFirst";
-			function  view(event) {
-			
-				mui.ajax(url,{
-					type:'get',//HTTP请求类型
-					data:{id:event,token:app.getState().token},
-					dataType:'json',
-					cache:false, 
-				    async:false,
-					timeout:5000,//超时时间设置为5秒；
-					success:function(data){
-						var h1=data.title;
-						var p=data.content;
-						mui.confirm(p, h1,function(e) {
+
+			function view(event) {
+
+				mui.ajax(url, {
+					type: 'get', //HTTP请求类型
+					data: {
+						id: event,
+						token: app.getState().token
+					},
+					dataType: 'json',
+					cache: false,
+					async: false,
+					timeout: 5000, //超时时间设置为5秒；
+					success: function(data) {
+						var h1 = data.title;
+						var p = data.content;
+						mui.confirm(p, h1, function(e) {
 							if(e.index == 1) {
 								document.location.reload();
 							} else {
