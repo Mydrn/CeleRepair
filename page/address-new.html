@@ -137,7 +137,6 @@
 				var old_back = mui.back;
 			    mui.back = function() {
 			        var opener = plus.webview.currentWebview().opener();
-			        alert(JSON.stringify(opener.id));
 			        mui.fire(plus.webview.getWebviewById(opener.id), 'refresh', null);
 			        old_back();
 			    }
