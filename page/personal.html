@@ -121,13 +121,13 @@
 					<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 						<li class="mui-table-view-cell">
 							<a href="#picture" class="mui-navigate-right" id="photo">
-								头像<img class="userImg" id="userImg" src="../images/ice-repair.png" />
+								<!--头像<img class="userImg" id="userImg" src="../images/ice-repair.png" />-->
 							</a>
 						</li>
 						<li class="mui-table-view-cell">
 							<a>
 								姓名
-								<span class="mui-position-right" id="xm">name</span>
+								<span class="mui-position-right" id="xm"></span>
 							</a>
 						</li>
 					</ul>
@@ -136,7 +136,7 @@
 						<li class="mui-table-view-cell">
 							<a href="personal-mobile.html" class="mui-navigate-right">
 								联系电话
-								<span class="mui-position-right" id="phone">mobile</span>
+								<span class="mui-position-right" id="phone"></span>
 							</a>
 						</li>
 						<li class="mui-table-view-cell">
@@ -181,6 +181,7 @@
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
+			plus.nativeUI.showWaiting();
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneData";
 			mui.ajax(url, {
@@ -201,9 +202,14 @@
 						document.getElementById("xm").innerHTML = data.data.name;
 						document.getElementById("phone").innerHTML = data.data.mobile;
 					}
-				}
+				},
+				error:function(xhr,type,errorThrown){
+						mui.toast("网络繁忙,请重试！");
+						//关闭等待框
+			    		plus.nativeUI.closeWaiting();
+			    		mui.back();
+					}
 			});
-
 			function doLogout() {
 				mui.toast("退出成功");
 				app.setState(undefined);
@@ -219,7 +225,6 @@
 					formData = new FormData();
 					formData.append("file", this.files[0]);
 					formData.append("attachmentType", 7);
-					//formData.append("token", app.getState().token);
 					var url1 = serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg";
 					mui.ajax(url1, {
 						data: formData,
@@ -259,6 +264,7 @@
 					document.querySelector('.mui-backdrop-action').style.display = 'none';
 				})
 			})(mui, document);
+			plus.nativeUI.closeWaiting();
 		</script>
 	</body>
 

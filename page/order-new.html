@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>我要报修</title>
@@ -12,13 +13,171 @@
 		<link rel="stylesheet" href="../css/mui.poppicker.css" />
 		<link rel="stylesheet" type="text/css" href="../css/webuploader.css" />
 		<style>
-			html,body{background-color:#efeff4}.mui-off-canvas-left{color:#fff}.title{margin:35px 15px 10px}.title+.content{margin:10px 15px 35px;color:#bbb;text-indent:1em;font-size:14px;line-height:24px}#offCanvasSideScroll{padding-top:44px}.f-white{color:#fff!important}.f-14{font-size:14px!important}.bg-orange{background-color:#ff5700!important}.mui-bar{background-color:#ff5700}.f-orange{color:#ff5700!important}.f-blank{color:#000!important}.content{padding:0 15px}.content .about{padding:10px 0 10px}.orderNew{padding:0 15px}.mui-icon{font-size:16PX}.orderNew .mui-table-view-cell:after{left:0}.order_new .mui-table-view-cell{padding:0;background:transparent}#submit{background:#ff5700;margin:0;padding:10px 0;border:transparent;color:#fff;border-radius:5px;width:100%}.mui-opacity{opacity:0}.mui-vertical{position:absolute;left:50%;-webkit-transform:translate(-50%,0);-ms-transform:translate(-50%,0);transform:translate(-50%,0)}.cross:after{position:absolute;content:'';width:45px;height:2px;background:#ccc;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.cross:before{position:absolute;content:'';width:2px;height:45px;background:#ccc;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.orderNew textarea{padding:5px;margin-bottom:0}#picture-list>.mui-btn:nth-child(4n+1){margin:0 -6px 1% 0}#picture-list>.mui-btn{margin:0 -6px 1%;margin-left:1%}#picture-list>a>img{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}.ui-alert{text-align:center;padding:20px 10px;font-size:16px}.mui-table-view{margin-bottom:10px}.iconfont{font-size:16px!important}
+			html,
+			body {
+				background-color: #efeff4
+			}
+			
+			.mui-off-canvas-left {
+				color: #fff
+			}
+			
+			.title {
+				margin: 35px 15px 10px
+			}
+			
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px
+			}
+			
+			#offCanvasSideScroll {
+				padding-top: 44px
+			}
+			
+			.f-white {
+				color: #fff!important
+			}
+			
+			.f-14 {
+				font-size: 14px!important
+			}
+			
+			.bg-orange {
+				background-color: #ff5700!important
+			}
+			
+			.mui-bar {
+				background-color: #ff5700
+			}
+			
+			.f-orange {
+				color: #ff5700!important
+			}
+			
+			.f-blank {
+				color: #000!important
+			}
+			
+			.content {
+				padding: 0 15px
+			}
+			
+			.content .about {
+				padding: 10px 0 10px
+			}
+			
+			.orderNew {
+				padding: 0 15px
+			}
+			
+			.mui-icon {
+				font-size: 16PX
+			}
+			
+			.orderNew .mui-table-view-cell:after {
+				left: 0
+			}
+			
+			.order_new .mui-table-view-cell {
+				padding: 0;
+				background: transparent
+			}
+			
+			#submit {
+				background: #ff5700;
+				margin: 0;
+				padding: 10px 0;
+				border: transparent;
+				color: #fff;
+				border-radius: 5px;
+				width: 100%
+			}
+			
+			.mui-opacity {
+				opacity: 0
+			}
+			
+			.mui-vertical {
+				position: absolute;
+				left: 50%;
+				-webkit-transform: translate(-50%, 0);
+				-ms-transform: translate(-50%, 0);
+				transform: translate(-50%, 0)
+			}
+			
+			.cross:after {
+				position: absolute;
+				content: '';
+				width: 45px;
+				height: 2px;
+				background: #ccc;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%)
+			}
+			
+			.cross:before {
+				position: absolute;
+				content: '';
+				width: 2px;
+				height: 45px;
+				background: #ccc;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%)
+			}
+			
+			.orderNew textarea {
+				padding: 5px;
+				margin-bottom: 0
+			}
+			
+			#picture-list>.mui-btn:nth-child(4n+1) {
+				margin: 0 -6px 1% 0
+			}
+			
+			#picture-list>.mui-btn {
+				margin: 0 -6px 1%;
+				margin-left: 1%
+			}
+			
+			#picture-list>a>img {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 1
+			}
+			
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px
+			}
+			
+			.mui-table-view {
+				margin-bottom: 10px
+			}
+			
+			.iconfont {
+				font-size: 16px!important
+			}
 		</style>
 	</head>
+
 	<body>
 		<div class="orderNew">
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
-				<a href="../index.html" class="mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left f-white"></a>
 				<h1 class="mui-title">我要报修</h1>
 				<a href="message.html" class="mui-pull-right">
 				</a>
@@ -26,22 +185,23 @@
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper mui-inner-wrap">
 				<div class="mui-scroll">
 					<div class="content">
-						<form  id="objectContent">
-							<input type="text" hidden id="addressId" name="addressId" value=""/>
+						<form id="objectContent">
+							<input type="text" hidden id="addressId" name="addressId" value="" />
 							<input type="text" hidden id="serviceId" name="serviceId" value="" />
 							<input type="text" hidden id="imgUrl" name="imgUrl" value="" />
 							<input type="text" hidden id="shopId" name="shopId" value="" />
 							<input type="text" hidden id="token" name="token" value="" />
 							<input type="datetime" hidden id="servicingTime" name="servicingTime" />
-							<p class="about  mui-text-center"><!-- 个人用户可在此报修， -->请填写需求内容<br />我们会尽快安排工作人员上门服务</p>
+							<p class="about  mui-text-center">
+								<!-- 个人用户可在此报修， -->请填写需求内容<br />我们会尽快安排工作人员上门服务</p>
 							<div class="mui-bar-nav">
 								<ul id='customerType' class="mui-table-view">
-						           <li class="mui-table-view-cell">
+									<li class="mui-table-view-cell">
 										<a id="address" href="javascript:;" class="mui-navigate-right iconfont icon-iconfontaddress">
 											报修地址 ：
 										</a>
 									</li>
-						           <!--  <li class="mui-table-view-cell" >
+									<!--  <li class="mui-table-view-cell" >
 							            <a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">
 											选择店铺：<strong id="userResult" ></strong>
 										</a>
@@ -58,12 +218,12 @@
 								<ul class="mui-table-view list-0">
 									<li class="mui-table-view-cell">
 										<a href="javascript:;" class="mui-navigate-right iconfont icon-leixing showCityPicker">
-											报修类型：<strong id="bxlx" ></strong>
+											报修类型：<strong id="bxlx"></strong>
 										</a>
 									</li>
 									<li class="mui-table-view-cell demo3">
 										<a href="javascript:;" id="demo3" data-options='{"value":"2017-07-10 10:10","beginYear":2017,"endYear":2025}' class="mui-navigate-right mui-icon mui-icon-location">
-											上门时间：<strong id="smsj" ></strong>
+											上门时间：<strong id="smsj"></strong>
 										</a>
 									</li>
 									<li class="mui-table-view-cell">
@@ -89,7 +249,7 @@
 									</li>
 									<li class="mui-table-view-cell">
 										<p class="order-title">请对报修项目进行描述:</p>
-										<textarea id="caseDesc"  name="caseDesc" rows="5" cols="5"></textarea>
+										<textarea id="caseDesc" name="caseDesc" rows="5" cols="5"></textarea>
 									</li>
 								</ul>
 							</div>
@@ -133,74 +293,76 @@
 		<script type="text/javascript" src="../js/upload.js"></script>
 		<script>
 			var token = app.getState().token;
-			document.getElementById("token").value=token;
-			var checkId='';
+			document.getElementById("token").value = token;
+			var checkId = '';
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
-			});
-				mui.plusReady(function() {
+			});　
+			mui.plusReady(function() {
 					plus.nativeUI.showWaiting();
 					var customerType = document.getElementById("customerType");
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/addCase";
-					mui.ajax(url,{
-						type:'POST',
-						data: {token: token},
-						dataType:'json',
+					mui.ajax(url, {
+						type: 'POST',
+						data: {
+							token: token
+						},
+						dataType: 'json',
 						//async : false,
 						//cache : false,
-						timeout:5000,//超时时间设置为5秒；
-						success:function(data){
-							if(data.msgCode=="0000"){
-								if (data.data.shopList!=undefined) {//品牌用户报修
+						timeout: 5000, //超时时间设置为5秒；
+						success: function(data) {
+							if(data.msgCode == "0000") {
+								if(data.data.shopList != undefined) { //品牌用户报修
 									checkId = '#shopId';
-									var html = '<li class="mui-table-view-cell" >'+
-										            '<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">'+
-														'选择店铺：<strong id="userResult" ></strong>'+
-													'</a>'+
-												'</li>'
-									customerType.innerHTML=html;
+									var html = '<li class="mui-table-view-cell" >' +
+										'<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">' +
+										'选择店铺：<strong id="userResult" ></strong>' +
+										'</a>' +
+										'</li>'
+									customerType.innerHTML = html;
 									var userPicker = new $.PopPicker();
-									userPicker.setData(eval("("+data.data.shopList+")"));
+									userPicker.setData(eval("(" + data.data.shopList + ")"));
 									var showUserPickerButton = doc.getElementById('showUserPicker');
 									var userResult = doc.getElementById('userResult');
 									showUserPickerButton.addEventListener('tap', function(event) {
 										userPicker.show(function(items) {
-											userResult.innerHTML ="&nbsp;" + items[0].text;
+											userResult.innerHTML = "&nbsp;" + items[0].text;
 											doc.getElementById('shopId').value = items[0].value;
 										});
 									}, false);
-								} else if(data.data.customer != undefined){//店铺报修
+								} else if(data.data.customer != undefined) { //店铺报修
 									checkId = '#serviceId';
-									var html = '<li class="mui-table-view-cell">'+
-													'<p class="mui-navigate-right iconfont icon-iconfontaddress">'+
-														'报修店铺: '+ data.data.customer.customerName +
-													'</p>'+
-												'</li>'
-								} else {//个人用户
+									var html = '<li class="mui-table-view-cell">' +
+										'<p class="mui-navigate-right iconfont icon-iconfontaddress">' +
+										'报修店铺: ' + data.data.customer.customerName +
+										'</p>' +
+										'</li>'
+								} else { //个人用户
 									checkId = '#addressId';
-									var html = '<li class="mui-table-view-cell">'+
-													'<a id="address" href="address.html?true" class="mui-navigate-right iconfont icon-iconfontaddress">'+
-														'报修地址 ：'+ (data.data.address == null?' ' : data.data.address.address) +
-													'</a>'+
-												'</li>'
+									var html = '<li class="mui-table-view-cell">' +
+										'<a id="address" href="address.html?true" class="mui-navigate-right iconfont icon-iconfontaddress">' +
+										'报修地址 ：' + (data.data.address == null ? ' ' : data.data.address.address) +
+										'</a>' +
+										'</li>'
 									customerType.innerHTML = html;
 									document.getElementById('addressId').value = data.data.address.id;
 									//var self = plus.webview.currentWebview();
 									var href = location.href;
 									var itemId = href.split("?")[1];
 									//alert(itemId);
-								    if(itemId != 0){
-								    	var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneAddress";
-										mui.ajax(url,{
+									if(itemId != 0) {
+										var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneAddress";
+										mui.ajax(url, {
 											data: {
-												id:itemId,
+												id: itemId,
 												token: app.getState().token
 											},
-											type:'POST',//HTTP请求类型
-											dataType:'json',
-											timeout:5000,//超时时间设置为5秒；
-											success:function(data){
+											type: 'POST', //HTTP请求类型
+											dataType: 'json',
+											timeout: 5000, //超时时间设置为5秒；
+											success: function(data) {
 												document.getElementById('address').innerHTML = '报修地址 ：' + data.data.address;
 												document.getElementById('addressId').value = data.data.id;
 											},
@@ -208,14 +370,14 @@
 												return mui.toast('网络繁忙');
 											}
 										});
-							    	}
-								
+									}
+
 								}
-							}else if (data.msgCode=="0002"){
+							} else if(data.msgCode == "0002") {
 								mui.alert('你已在其它地方登录,请重新登录!', function() {
 									mui.openWindow({
-									   url: '../login.html', 
-									   id:'login'
+										url: '../login.html',
+										id: 'login'
 									});
 								});
 							}
@@ -229,107 +391,108 @@
 						plus.nativeUI.closeWaiting();
 					}, 500);
 				});
-			 
-			//页面跳转
-			/*mui('body').on('tap', '#address', function() {
-				mui.openWindow({url:'address.html',id:'address',
-				    extras:{
-				        item:true
-				    }
-				});	
-				mui.currentWebview.close();
-			});*/
-			
-			//开启A标签的跳转
-			mui('body').on('tap', 'a', function() {
-				window.top.location.href = this.href;
-			});
-			//实现ios平台原生侧滑关闭页面；
-			if(mui.os.plus && mui.os.ios) {
-				mui.plusReady(function() {
-					//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-					plus.webview.currentWebview().setStyle({
-						'popGesture': 'none'
+
+				//页面跳转
+				/*mui('body').on('tap', '#address', function() {
+					mui.openWindow({url:'address.html',id:'address',
+					    extras:{
+					        item:true
+					    }
+					});	
+					mui.currentWebview.close();
+				});*/
+
+				//开启A标签的跳转
+				mui('body').on('tap', 'a', function() {
+					window.top.location.href = this.href;
+				});
+				//实现ios平台原生侧滑关闭页面；
+				if(mui.os.plus && mui.os.ios) {
+					mui.plusReady(function() {
+						//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+						plus.webview.currentWebview().setStyle({
+							'popGesture': 'none'
+						});
+					});
+				}
+				//初始化单页的区域滚动
+				mui('.mui-scroll-wrapper').scroll();
+
+				mui('body').on('shown', '.mui-popover', function(e) {
+					//console.log('shown', e.detail.id);//detail为当前popover元素
+				}); mui('body').on('hidden', '.mui-popover', function(e) {
+					//console.log('hidden', e.detail.id);//detail为当前popover元素
+				});
+
+				mui('body').on('tap', '.crossClick', function() {
+					var a = this,
+						parent;
+					//根据点击按钮，反推当前是哪个actionsheet
+					for(parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
+						if(parent.classList.contains('mui-popover-action')) {
+							break;
+						}
+					}
+					//关闭actionsheet
+					mui('#' + parent.id).popover('toggle');
+				})
+				//控制上传图片的自适应宽度
+				mui(function($) {
+					var arr = document.querySelectorAll('.cross');
+					for(var i = 0; i < arr.length; i++) {
+						arr[i].style.padding = "12%";
+					}
+				}); document.getElementById('submit').addEventListener('tap', function() {
+					if($(checkId).val() == '' || $("#serviceId").val() == '') {
+						return mui.toast("请先选择");
+					}
+					if($("#imgUrl").val() == '') {
+						return mui.toast("请先上传照片");
+					}
+					/*if(${customer.customerType == 5}){
+						if($("#addressId").val() == ''){
+							return mui.toast("请选择地址");
+						}
+					}else if(${customer.customerType == 3}){
+						if($("#shopId").val()==''){
+							return mui.toast("请选择店铺");
+						}
+					}
+					*/
+					if($("#servicingTime").val() == '') {
+						return mui.toast("请选择上门时间");
+					}
+					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
+					mui.ajax(url, {
+						data: $('#objectContent').serialize(),
+						type: 'post', //HTTP请求类型
+						dataType: 'json',
+						timeout: 5000, //超时时间设置为5秒；
+						success: function(data) {
+							mui.toast(data.msg);
+							if(data.msgCode == "0000") {
+								mui.openWindow({
+									url: 'order-details.html',
+									id: 'order-details',
+									extras: {
+										caseId: data.data
+									}
+								});
+							} else if(data.msgCode == "0002") {
+								mui.alert('你已在其它地方登录,请重新登录!', function() {
+									mui.openWindow({
+										url: '../login.html',
+										id: 'login'
+									});
+								});
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.toast("网络繁忙,请重试！");
+							console.log(type);
+						}
 					});
 				});
-			}
-			//初始化单页的区域滚动
-			mui('.mui-scroll-wrapper').scroll();
-
-			mui('body').on('shown', '.mui-popover', function(e) {
-				//console.log('shown', e.detail.id);//detail为当前popover元素
-			});
-			mui('body').on('hidden', '.mui-popover', function(e) {
-				//console.log('hidden', e.detail.id);//detail为当前popover元素
-			});
-
-			mui('body').on('tap', '.crossClick', function() {
-				var a = this,parent;
-				//根据点击按钮，反推当前是哪个actionsheet
-				for(parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
-					if(parent.classList.contains('mui-popover-action')) {
-						break;
-					}
-				}
-				//关闭actionsheet
-				mui('#' + parent.id).popover('toggle');
-			})
-			//控制上传图片的自适应宽度
-			mui(function($) {
-				var arr = document.querySelectorAll('.cross');
-				for(var i = 0; i < arr.length; i++) {
-					arr[i].style.padding = "12%";
-				}
-			});
-			document.getElementById('submit').addEventListener('tap',function(){
-				if($(checkId).val()=='' || $("#serviceId").val()==''){
-					return mui.toast("请先选择");
-				}if($("#imgUrl").val()==''){
-					return mui.toast("请先上传照片");
-				}
-				/*if(${customer.customerType == 5}){
-					if($("#addressId").val() == ''){
-						return mui.toast("请选择地址");
-					}
-				}else if(${customer.customerType == 3}){
-					if($("#shopId").val()==''){
-						return mui.toast("请选择店铺");
-					}
-				}
-				*/
-				if($("#servicingTime").val()==''){
-					return mui.toast("请选择上门时间");
-				}
-				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
-				mui.ajax(url,{
-					data:$('#objectContent').serialize(),
-					type:'post',//HTTP请求类型
-					dataType:'json',
-					timeout:5000,//超时时间设置为5秒；
-					success:function(data){
-						mui.toast(data.msg);
-						if(data.msgCode=="0000"){
-							mui.openWindow({
-							    url:'order-details.html',
-							    id:'order-details',
-							    extras:{
-							        caseId:data.data
-							    }
-							});
-						}else if (data.msgCode=="0002"){
-							mui.alert('你已在其它地方登录,请重新登录!', function() {
-								mui.openWindow({
-								   url: '../login.html', 
-								   id:'login'
-								});
-							});
-						}
-					},error:function(xhr,type,errorThrown){
-						mui.toast("网络繁忙,请重试！");
-						console.log(type);
-					}
-				});
-			});
 		</script>
 	</body>
 
