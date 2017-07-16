@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>订单详情</title>
@@ -8,13 +9,235 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css" type="text/css">
 		<style>
-			body,html{background-color:#efeff4;font-size:14px}.title{margin:35px 15px 10px}.title+.content{margin:10px 15px 35px;color:#bbb;text-indent:1em;font-size:14px;line-height:24px}.f-white{color:#fff!important}.f-orange{color:#ff5700!important}.f-14{font-size:14px!important}.bg-white{background:#fff}.bg-orange{background:#ff5700!important}.userPic{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#offCanvasSideScroll{padding-top:44px}.content{margin:0 15px 10px;padding:40px 0;position:relative;overflow:hidden;z-index:1}.order-line{float:left;position:relative;width:20%;text-align:center}.order-line img{width:50%}.order-line p{position:absolute;top:-20px;left:50%;-webkit-transform:translate(-50%,0);-ms-transform:translate(-50%,0);transform:translate(-50%,0);font-size:12px;width:100%}#line-active,.line{position:absolute;left:0;top:50%;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%);width:100%;height:4px;z-index:-2;background-color:#ccc}#line-active{background:#ff5700;z-index:-1;width:50%}.active p{top:98%;color:#ff5700}.order-img ul{padding:0}.low{padding-bottom:44px}.order-img li{float:left;list-style:none;width:25%;padding:0 5px 10px 5px}.order-img ul li img{width:100%;height:100%;min-width:100%;min-height:100%}.bottom_tel{position:fixed;bottom:0;left:0;right:0;color:#ccc;border-top:1px solid #f5f5f5}#tel{background:#ff5700;color:#fff}tbody td{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}.active img{animation:myfirst 6s linear infinite;-moz-animation:myfirst 6s linear infinite;-webkit-animation:myfirst 6s linear infinite;-o-animation:myfirst 6s linear infinite}@keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}@-moz-keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}@-webkit-keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}@-o-keyframes myfirst{from{transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);-o-transform:rotate(0);-moz-transform:rotate(0)}to{transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);-o-transform:rotate(360deg);-moz-transform:rotate(360deg)}}
+			body,
+			html {
+				background-color: #efeff4;
+				font-size: 14px
+			}
+			
+			.title {
+				margin: 35px 15px 10px
+			}
+			
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px
+			}
+			
+			.f-white {
+				color: #fff!important
+			}
+			
+			.f-orange {
+				color: #ff5700!important
+			}
+			
+			.f-14 {
+				font-size: 14px!important
+			}
+			
+			.bg-white {
+				background: #fff
+			}
+			
+			.bg-orange {
+				background: #ff5700!important
+			}
+			
+			.userPic {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%)
+			}
+			
+			#offCanvasSideScroll {
+				padding-top: 44px
+			}
+			
+			.content {
+				margin: 0 15px 10px;
+				padding: 40px 0;
+				position: relative;
+				overflow: hidden;
+				z-index: 1
+			}
+			
+			.order-line {
+				float: left;
+				position: relative;
+				width: 20%;
+				text-align: center
+			}
+			
+			.order-line img {
+				width: 50%
+			}
+			
+			.order-line p {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				-webkit-transform: translate(-50%, 0);
+				-ms-transform: translate(-50%, 0);
+				transform: translate(-50%, 0);
+				font-size: 12px;
+				width: 100%
+			}
+			
+			#line-active,
+			.line {
+				position: absolute;
+				left: 0;
+				top: 50%;
+				-webkit-transform: translate(0, -50%);
+				-ms-transform: translate(0, -50%);
+				transform: translate(0, -50%);
+				width: 100%;
+				height: 4px;
+				z-index: -2;
+				background-color: #ccc
+			}
+			
+			#line-active {
+				background: #ff5700;
+				z-index: -1;
+				width: 50%
+			}
+			
+			.active p {
+				top: 98%;
+				color: #ff5700
+			}
+			
+			.order-img ul {
+				padding: 0
+			}
+			
+			.low {
+				padding-bottom: 44px
+			}
+			
+			.order-img li {
+				float: left;
+				list-style: none;
+				width: 25%;
+				padding: 0 5px 10px 5px
+			}
+			
+			.order-img ul li img {
+				width: 100%;
+				height: 100%;
+				min-width: 100%;
+				min-height: 100%
+			}
+			
+			.bottom_tel {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				color: #ccc;
+				border-top: 1px solid #f5f5f5
+			}
+			
+			#tel {
+				background: #ff5700;
+				color: #fff
+			}
+			
+			tbody td {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			.active img {
+				animation: myfirst 6s linear infinite;
+				-moz-animation: myfirst 6s linear infinite;
+				-webkit-animation: myfirst 6s linear infinite;
+				-o-animation: myfirst 6s linear infinite
+			}
+			
+			@keyframes myfirst {
+				from {
+					transform: rotate(0);
+					-ms-transform: rotate(0);
+					-webkit-transform: rotate(0);
+					-o-transform: rotate(0);
+					-moz-transform: rotate(0)
+				}
+				to {
+					transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					-webkit-transform: rotate(360deg);
+					-o-transform: rotate(360deg);
+					-moz-transform: rotate(360deg)
+				}
+			}
+			
+			@-moz-keyframes myfirst {
+				from {
+					transform: rotate(0);
+					-ms-transform: rotate(0);
+					-webkit-transform: rotate(0);
+					-o-transform: rotate(0);
+					-moz-transform: rotate(0)
+				}
+				to {
+					transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					-webkit-transform: rotate(360deg);
+					-o-transform: rotate(360deg);
+					-moz-transform: rotate(360deg)
+				}
+			}
+			
+			@-webkit-keyframes myfirst {
+				from {
+					transform: rotate(0);
+					-ms-transform: rotate(0);
+					-webkit-transform: rotate(0);
+					-o-transform: rotate(0);
+					-moz-transform: rotate(0)
+				}
+				to {
+					transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					-webkit-transform: rotate(360deg);
+					-o-transform: rotate(360deg);
+					-moz-transform: rotate(360deg)
+				}
+			}
+			
+			@-o-keyframes myfirst {
+				from {
+					transform: rotate(0);
+					-ms-transform: rotate(0);
+					-webkit-transform: rotate(0);
+					-o-transform: rotate(0);
+					-moz-transform: rotate(0)
+				}
+				to {
+					transform: rotate(360deg);
+					-ms-transform: rotate(360deg);
+					-webkit-transform: rotate(360deg);
+					-o-transform: rotate(360deg);
+					-moz-transform: rotate(360deg)
+				}
+			}
 			
 			.mui-preview-image.mui-fullscreen {
 				position: fixed;
 				z-index: 20;
 				background-color: #000;
 			}
+			
 			.mui-preview-header,
 			.mui-preview-footer {
 				position: absolute;
@@ -22,14 +245,17 @@
 				left: 0;
 				z-index: 10;
 			}
+			
 			.mui-preview-header {
 				height: 44px;
 				top: 0;
 			}
+			
 			.mui-preview-footer {
 				height: 50px;
 				bottom: 0px;
 			}
+			
 			.mui-preview-header .mui-preview-indicator {
 				display: block;
 				line-height: 25px;
@@ -41,6 +267,7 @@
 				border-radius: 12px;
 				font-size: 16px;
 			}
+			
 			.mui-preview-image {
 				display: none;
 				-webkit-animation-duration: 0.5s;
@@ -48,19 +275,23 @@
 				-webkit-animation-fill-mode: both;
 				animation-fill-mode: both;
 			}
+			
 			.mui-preview-image.mui-preview-in {
 				-webkit-animation-name: fadeIn;
 				animation-name: fadeIn;
 			}
+			
 			.mui-preview-image.mui-preview-out {
 				background: none;
 				-webkit-animation-name: fadeOut;
 				animation-name: fadeOut;
 			}
+			
 			.mui-preview-image.mui-preview-out .mui-preview-header,
 			.mui-preview-image.mui-preview-out .mui-preview-footer {
 				display: none;
 			}
+			
 			.mui-zoom-scroller {
 				position: absolute;
 				display: -webkit-box;
@@ -81,26 +312,32 @@
 				margin: 0;
 				-webkit-backface-visibility: hidden;
 			}
+			
 			.mui-zoom {
 				-webkit-transform-style: preserve-3d;
 				transform-style: preserve-3d;
 			}
+			
 			.mui-slider .mui-slider-group .mui-slider-item img {
 				width: auto;
 				height: auto;
 				max-width: 100%;
 				max-height: 100%;
 			}
+			
 			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
 				width: 100%;
 			}
+			
 			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
 				display: inline-table;
 			}
+			
 			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
 				display: table-cell;
 				vertical-align: middle;
 			}
+			
 			.mui-preview-loading {
 				position: absolute;
 				width: 100%;
@@ -109,9 +346,11 @@
 				left: 0;
 				display: none;
 			}
+			
 			.mui-preview-loading.mui-active {
 				display: block;
 			}
+			
 			.mui-preview-loading .mui-spinner-white {
 				position: absolute;
 				top: 50%;
@@ -121,10 +360,12 @@
 				height: 50px;
 				width: 50px;
 			}
+			
 			.mui-preview-image img.mui-transitioning {
 				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
 				transition: transform 0.5s ease, opacity 0.5s ease;
 			}
+			
 			@-webkit-keyframes fadeIn {
 				0% {
 					opacity: 0;
@@ -133,6 +374,7 @@
 					opacity: 1;
 				}
 			}
+			
 			@keyframes fadeIn {
 				0% {
 					opacity: 0;
@@ -141,6 +383,7 @@
 					opacity: 1;
 				}
 			}
+			
 			@-webkit-keyframes fadeOut {
 				0% {
 					opacity: 1;
@@ -149,6 +392,7 @@
 					opacity: 0;
 				}
 			}
+			
 			@keyframes fadeOut {
 				0% {
 					opacity: 1;
@@ -157,13 +401,14 @@
 					opacity: 0;
 				}
 			}
+			
 			p img {
 				max-width: 100%;
 				height: auto;
 			}
-		
 		</style>
 	</head>
+
 	<body>
 		<div>
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
@@ -172,80 +417,81 @@
 				<a href="message.html" class="mui-pull-right"></a>
 			</header>
 			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
-			<div class="low">
-				<div class="bg-white">
-					<div class="content">
-						<div class="order-line" style="text-align: left;">
-							<img src="../images/already-order.png" />
-							<p>已下单</p>
-						</div>
-						<div class="order-line">
-							<p id="type1">待接单</p>
-							<img src="../images/not-audit.png" />
-						</div>
-						<div class="order-line">
-							<p>待上门</p>
-							<img src="../images/not-visit.png" />
-						</div>
-						<div class="order-line">
-								<p id="type2">待付款</p>
-							<img src="../images/not-pay.png" />
-						</div>
-						<div class="order-line" style="text-align: right;">
-							<p>待评价</p>
-							<img src="../images/not-evaluate.png" />
-						</div>
-						<span class="line"></span>
-						<span id="line-active"></span>
-					</div>
-				</div>
-				<div class="">
-					<ul class="mui-table-view">
-						<li class="mui-table-view-cell mui-media bg-white">
-							订单详情
-						</li>
-						<li class="mui-table-view-cell mui-media bg-white">
-							<table border="0" cellspacing="0" cellpadding="0" style="width:100%;table-layout: fixed;">
-								<tbody>
-									<tr>
-										<td style="width:18%">订单编号:</td>
-										<td style="width:80%" id="claimCode"></td>
-									</tr>
-									<tr>
-										<td style="width:18%">下单时间:</td>
-										<td style="width:80%" id="createTime"></td>
-									</tr>
-									<tr>
-									<tr>
-										<td>预约时间:</td>
-										<td id="servicingTime"></td>
-									</tr><tr>
-										<td>联系人:</td>
-										<td id="name"></td>
-									</tr>
-									<tr>
-										<td>联系电话:</td>
-										<td id="mobile"></td>
-									</tr>
-									<tr>
-										<td>地址:</td>
-										<td id="address"></td>
-									</tr>
-								</tbody>
-							</table>
-						</li>
-						<li id="caseDesc" class="mui-table-view-cell mui-media bg-white">
-							报修描述：
-						</li>
-						<li class="mui-table-view-cell mui-media bg-white">
-							报修照片:
-							<div class="order-img">
-								<ul id="order-img">
-								</ul>
+				<div class="low">
+					<div class="bg-white">
+						<div class="content">
+							<div class="order-line" style="text-align: left;">
+								<img src="../images/already-order.png" />
+								<p>已下单</p>
 							</div>
-						</li>
-					</ul>
-				</div>
+							<div class="order-line">
+								<p id="type1">待接单</p>
+								<img src="../images/not-audit.png" />
+							</div>
+							<div class="order-line">
+								<p>待上门</p>
+								<img src="../images/not-visit.png" />
+							</div>
+							<div class="order-line">
+								<p id="type2">待付款</p>
+								<img src="../images/not-pay.png" />
+							</div>
+							<div class="order-line" style="text-align: right;">
+								<p>待评价</p>
+								<img src="../images/not-evaluate.png" />
+							</div>
+							<span class="line"></span>
+							<span id="line-active"></span>
+						</div>
+					</div>
+					<div class="">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell mui-media bg-white">
+								订单详情
+							</li>
+							<li class="mui-table-view-cell mui-media bg-white">
+								<table border="0" cellspacing="0" cellpadding="0" style="width:100%;table-layout: fixed;">
+									<tbody>
+										<tr>
+											<td style="width:18%">订单编号:</td>
+											<td style="width:80%" id="claimCode"></td>
+										</tr>
+										<tr>
+											<td style="width:18%">下单时间:</td>
+											<td style="width:80%" id="createTime"></td>
+										</tr>
+										<tr>
+											<tr>
+												<td>预约时间:</td>
+												<td id="servicingTime"></td>
+											</tr>
+											<tr>
+												<td>联系人:</td>
+												<td id="name"></td>
+											</tr>
+											<tr>
+												<td>联系电话:</td>
+												<td id="mobile"></td>
+											</tr>
+											<tr>
+												<td>地址:</td>
+												<td id="address"></td>
+											</tr>
+									</tbody>
+								</table>
+							</li>
+							<li id="caseDesc" class="mui-table-view-cell mui-media bg-white">
+								报修描述：
+							</li>
+							<li class="mui-table-view-cell mui-media bg-white">
+								报修照片:
+								<div class="order-img">
+									<ul id="order-img">
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="bottom_tel">
 					<ul class="mui-table-view">
@@ -278,36 +524,41 @@
 		<script src="../js/mui.zoom.js"></script>
 		<script src="../js/mui.previewimage.js"></script>
 		<script>
-			var caseId,caseObj,token = app.getState().token;
+			var caseId, caseObj, token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));;
 			var contactUs = localStorage.getItem('$contactUs');
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
 			var wxChannel = null; // 微信支付  
-            var aliChannel = null; // 支付宝支付  
-            var channel = null;   //支付通道 
+			var aliChannel = null; // 支付宝支付  
+			var channel = null; //支付通道 
 			//主界面和侧滑菜单界面均支持区域滚动；
-			mui('#offCanvasSideScroll').scroll({indicators: false});
+			mui('#offCanvasSideScroll').scroll({
+				indicators: false
+			});
 			//实现ios平台原生侧滑关闭页面；
 			mui.plusReady(function() {
 				plus.nativeUI.showWaiting();
 				caseId = plus.webview.currentWebview().caseId;
 				var url2 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
-				mui.ajax(url2,{
-					type:'POST',
+				mui.ajax(url2, {
+					type: 'POST',
 					data: {
 						token: app.getState().token,
-						caseId : caseId
+						caseId: caseId
 					},
 					//async : false,
-					cache : false,
-					dataType:'json',
-					timeout:5000,//超时时间设置为5秒；
-					success:function(data){
-						if (data.msgCode=="0002"){
+					cache: false,
+					dataType: 'json',
+					timeout: 5000, //超时时间设置为5秒；
+					success: function(data) {
+						if(data.msgCode == "0002") {
 							mui.alert('你已在其它地方登录,请重新登录!', function() {
-								mui.openWindow({url: '../login.html',id:'login'});
+								mui.openWindow({
+									url: '../login.html',
+									id: 'login'
+								});
 								mui.currentWebview.close();
 							});
 							return;
@@ -316,15 +567,15 @@
 						var attList = data.data.attachmentList;
 						var attUl = document.getElementById("order-img");
 						var html = '';
-						for (var item in attList) {
-							html += '<li><img src="'+attList[item].attachmentUrl+'" data-preview-src="'+attList[item].attachmentUrl+'" data-preview-group="1" /></li>';
+						for(var item in attList) {
+							html += '<li><img src="' + attList[item].attachmentUrl + '" data-preview-src="' + attList[item].attachmentUrl + '" data-preview-group="1" /></li>';
 						}
 						attUl.innerHTML = html;
 						//地址
 						var address = data.data.address;
-						document.getElementById("mobile").innerText=address.mobile;
-						document.getElementById("name").innerText=address.name;
-						
+						document.getElementById("mobile").innerText = address.mobile;
+						document.getElementById("name").innerText = address.name;
+
 						//订单
 						caseObj = data.data.obj;
 						document.getElementById("address").innerText = caseObj.proName + caseObj.regiontName + caseObj.cityName + address.address;
@@ -332,141 +583,165 @@
 						document.getElementById("createTime").innerText = caseObj.createTime;
 						document.getElementById("servicingTime").innerText = caseObj.servicingTime;
 						document.getElementById("caseDesc").innerText = '报修描述:' + caseObj.caseDesc;
-						if(caseObj.caseStatus == -1 && caseObj.customerType == 5){//待接单
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="order-new.html" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
+						if(caseObj.caseStatus == -1 && caseObj.customerType == 5) { //待接单
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="order-new.html" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
 							cycle(0);
-						}else if(caseObj.caseStatus == -1 && caseObj.customerType != 5){//待审核
+						} else if(caseObj.caseStatus == -1 && caseObj.customerType != 5) { //待审核
 							document.getElementById("type1").innerHTML = '待审核';
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="order-new.html" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="order-new.html" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
 							cycle(0);
-						}else if(caseObj.caseStatus == 0 || caseObj.caseStatus == 1 || caseObj.caseStatus == 2){//待上门
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:'+contactUs+'" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
+						} else if(caseObj.caseStatus == 0 || caseObj.caseStatus == 1 || caseObj.caseStatus == 2) { //待上门
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="tel:' + contactUs + '" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
 							cycle(1);
-						}else if(caseObj.caseStatus == 3 && caseObj.customerType != 5 ){//待审批
+						} else if(caseObj.caseStatus == 3 && caseObj.customerType != 5) { //待审批
 							document.getElementById("type2").innerHTML = '待审批';
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:'+contactUs+'" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="tel:' + contactUs + '" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
 							cycle(2);
-						}else if(caseObj.caseStatus == 3 && caseObj.customerType == 5 ){//待付款
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<div class="text mui-pull-left">应付金额:<span class="f-orange">￥'+ caseObj.caseActualMoney +'</span></div><a href="#picture" id="tel" class="mui-text-center mui-pull-right"><span class="mui-icon-extra mui-icon-extra-gold f-14"> 去支付</span></a>';
+						} else if(caseObj.caseStatus == 3 && caseObj.customerType == 5) { //待付款
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<div class="text mui-pull-left">应付金额:<span class="f-orange">￥' + caseObj.caseActualMoney + '</span></div><a href="#picture" id="tel" class="mui-text-center mui-pull-right"><span class="mui-icon-extra mui-icon-extra-gold f-14"> 去支付</span></a>';
 							cycle(2);
-						}else if(caseObj.caseStatus == 4 && caseObj.assessScore==undefined ){//待评价
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="javascript:;" class="mui-text-center bg-orange f-white doEvaluation" class="mui-text-center bg-orange f-white"><span class="mui-icon-extra mui-icon-extra-like f-14">待评价</span></a>';
+						} else if(caseObj.caseStatus == 4 && caseObj.assessScore == undefined) { //待评价
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="javascript:;" class="mui-text-center bg-orange f-white doEvaluation" class="mui-text-center bg-orange f-white"><span class="mui-icon-extra mui-icon-extra-like f-14">待评价</span></a>';
 							cycle(3);
-						}else{//完成订单
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML='<a href="tel:'+contactUs+'" id="submit" class="mui-text-center bg-orange f-white">已完成</a>';
+						} else { //完成订单
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="tel:' + contactUs + '" id="submit" class="mui-text-center bg-orange f-white">已完成</a>';
 							cycle(4);
 						}
 						//设置图片的平均分配宽度
 						var old = document.querySelectorAll('.order-img li');
-						for(var i=0;i<old.length;i++){
-							old[i].style.height=old[i].parentNode.parentNode.scrollWidth/4+"px";
+						for(var i = 0; i < old.length; i++) {
+							old[i].style.height = old[i].parentNode.parentNode.scrollWidth / 4 + "px";
 						}
 						mui.previewImage();
 						//关闭等待框
-			    		plus.nativeUI.closeWaiting();
+						plus.nativeUI.closeWaiting();
 					},
-					error:function(xhr,type,errorThrown){
-						mui.toast("网络繁忙,请重试！");
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络繁忙,请稍后重试！");
 						//关闭等待框
-			    		plus.nativeUI.closeWaiting();
-			    		//mui.back();
+						plus.nativeUI.closeWaiting();
+						mui.back();
 					}
-					
+
 				});
 				// 获取支付通道  
-                plus.payment.getChannels(function(channels){
-                for (var i in channels) { 
-                        if (channels[i].id == "wxpay") { 
-                             wxChannel=channels[i];  
-                        }else{ 
-                            aliChannel=channels[i];  
-                        } 
-                    }     
-                },function(e){  
-                 	alert("获取支付通道失败："+e.message);  
-                });  
-				
+				plus.payment.getChannels(function(channels) {
+					for(var i in channels) {
+						if(channels[i].id == "wxpay") {
+							wxChannel = channels[i];
+						} else {
+							aliChannel = channels[i];
+						}
+					}
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+
 			});
 			//跳转评价
 			mui('body').on('tap', '.doEvaluation', function() {
 				mui.openWindow({
-				    url:'evaluation.html',
-				    id:'evaluation',
-				    extras:{
-				        caseId:caseObj.id
-				    }
+					url: 'evaluation.html',
+					id: 'evaluation',
+					extras: {
+						caseId: caseObj.id
+					}
 				});
 				//mui.currentWebview.close();
 			});
 			//状态的封装
-			function cycle(a,b) {
+			function cycle(a, b) {
 				var arr = document.querySelectorAll('.content .order-line img');
 				var arr2 = document.querySelectorAll('.content .order-line');
 				var arr3 = document.querySelectorAll('.bottom_tel');
 				for(var i = 0; i <= a; i++) {
-					document.querySelector('#line-active').style.width = 20 * (i+1) + 10 + "%";
+					document.querySelector('#line-active').style.width = 20 * (i + 1) + 10 + "%";
 					arr[i].setAttribute('src', arr[i].getAttribute('src').replace(/not/, "already"));
-					arr[i].parentNode.querySelector('p').innerHTML=	arr[i].parentNode.querySelector('p').innerHTML.replace(/待/, "已");
+					arr[i].parentNode.querySelector('p').innerHTML = arr[i].parentNode.querySelector('p').innerHTML.replace(/待/, "已");
 				}
-				i>=5?" ":arr2[i].classList.add('active');
+				i >= 5 ? " " : arr2[i].classList.add('active');
 			};
-			
+
 			//开启A标签的跳转
 			mui('body').on('tap', 'a', function() {
 				window.top.location.href = this.href;
 			});
-			var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/payment";
-			document.getElementById('weixin').addEventListener('tap',function(){
-				 pay('wxpay'); 
+			document.getElementById('weixin').addEventListener('tap', function() {
+				pay('wxpay');
 			});
-			document.getElementById('zhifubao').addEventListener('tap',function(){
-				pay('alipay'); 
+			document.getElementById('zhifubao').addEventListener('tap', function() {
+				pay('alipay');
 				//mui.toast("后续开放");
 			});
-        var weixinUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/weixinpay";
-        var aliUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/alipayold";
-        // 2. 发起支付请求
-        function pay(id){
-        	var ALIPAYSERVER = aliUrl +'?caseId=' + caseObj.id + '&token=' + token + '&claimCode='+caseObj.claimCode+'&total=';  
-        	var WXPAYSERVER = weixinUrl +'?caseId=' + caseObj.id + '&token=' + token + '&claimCode='+caseObj.claimCode+'&total=';  
-                // 从服务器请求支付订单  
-                var PAYSERVER='';  
-                if(id=='alipay'){  
-               	 	PAYSERVER=ALIPAYSERVER;  
-                	channel = aliChannel;  
-            	}else if(id=='wxpay'){  
-                    PAYSERVER=WXPAYSERVER;  
-                    channel = wxChannel;  
-                }else{
-                    plus.nativeUI.alert("不支持此支付通道！",null,"付款");  
-                    return;  
-             }  
-                var xhr=new XMLHttpRequest();  
-                var amount = caseObj.caseActualMoney; 
-                xhr.onreadystatechange=function(){  
-                    switch(xhr.readyState){  
-                        case 4:  
-                        if(xhr.status==200){  
-                            plus.payment.request(channel,xhr.responseText,function(result){  
-                                plus.nativeUI.alert("支付成功！",function(){  
-                                	document.location.reload();	
-                                	//back();  
-                            	});  
-                            },function(error){  
-                                plus.nativeUI.alert("支付失败：" + error.code);  
-                            });  
-                        }else{  
-                            mui.alert("获取订单信息失败！");  
-                        }  
-                        break;  
-                    default: 
-                    break;  
-                }  
-         }  
-            xhr.open('POST',PAYSERVER+amount);  
-            xhr.send();  
-            
-    }  
+			var weixinUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/weixinpay";
+			var aliUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/alipayold";
+			// 2. 发起支付请求
+			function pay(id) {
+				var ALIPAYSERVER = aliUrl + '?caseId=' + caseObj.id + '&token=' + token + '&claimCode=' + caseObj.claimCode + '&total=';
+				var WXPAYSERVER = weixinUrl + '?caseId=' + caseObj.id + '&token=' + token + '&claimCode=' + caseObj.claimCode + '&total=';
+				// 从服务器请求支付订单  
+				var PAYSERVER = '';
+				if(id == 'alipay') {
+					PAYSERVER = ALIPAYSERVER;
+					channel = aliChannel;
+				} else if(id == 'wxpay') {
+					PAYSERVER = WXPAYSERVER;
+					channel = wxChannel;
+				} else {
+					plus.nativeUI.alert("不支持此支付通道！", null, "付款");
+					return;
+				}
+				var xhr = new XMLHttpRequest();
+				var amount = caseObj.caseActualMoney;
+				xhr.onreadystatechange = function() {
+					switch(xhr.readyState) {
+						case 4:
+							if(xhr.status == 200) {
+								plus.payment.request(channel, xhr.responseText, function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										alert(JSON.stringify(result));
+										var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/payStatus";
+										mui.ajax(url, {
+											data: {
+												caseId: caseObj.id,
+												token: app.getState().token
+											},
+											type: 'POST', //HTTP请求类型
+											dataType: 'json',
+											success: function(data) {
+												if(data.msgCode == "0000") {
+													mui.toast("删除成功");
+												} else if(data.msgCode == "0002") {
+													mui.alert('你已在其它地方登录,请重新登录!', function() {
+														mui.openWindow({
+															url: '../login.html',
+															id: 'login'
+														});
+													});
+												}
+											},
+											error: function(xhr, type, errorThrown) {
+												return mui.toast('请联系客服');
+											}
+										});
+										document.location.reload();
+										//back();  
+									});
+								}, function(error) {
+									plus.nativeUI.alert("支付失败：" + error.code);
+								});
+							} else {
+								mui.alert("获取订单信息失败！");
+							}
+							break;
+						default:
+							break;
+					}
+				}
+				xhr.open('POST', PAYSERVER + amount);
+				xhr.send();
+
+			}
 		</script>
 	</body>
 

@@ -231,7 +231,7 @@
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 							<li class="mui-table-view-cell">
 								<a href="javascript:;" class="mui-navigate-right tel">
-									清除缓存
+									清除缓存<p align="right" id="cache"></p>
 								</a>
 							</li>
 							<li class="mui-table-view-cell">
@@ -425,8 +425,16 @@
 	                        plus.runtime.quit();  
 	                    }  
 	                }  
-             	} 
-				
+             	}
+				document.addEventListener( "plusready", onPlusReady, false );
+				// 扩展API加载完毕，现在可以正常调用扩展API 
+				function onPlusReady() {
+					plus.cache.calculate( function ( size ) {
+						// Calculate cache complete code.
+						mui("#cache").innerHTML=size;
+						//alert( "Application cache size: " + size + " byte!" );
+					});
+				}
 				plus.nativeUI.closeWaiting();
 			});
 
@@ -466,7 +474,7 @@
 
 			//主界面‘显示侧滑菜单’按钮的点击事件
 			document.getElementById('offCanvasShow').addEventListener('tap', function() {
-					if(token == undefined || token == "{}") {
+					if(token == undefined || app.getState() == "{}") {
 						mui.openWindow({url: 'login.html',id: 'login'});
 					}else{
 						app.findUser(function(data){
@@ -486,7 +494,7 @@
 				}
 
 			);
-			if(token == undefined || token == "{}") {
+			if(token == undefined || pp.getState() == "{}") {
 				offCanvasInner.addEventListener('drag', function(event) {
 					mui.toast("您还未登录!");
 					/*if (token == undefined || token == "{}" ) {
@@ -544,9 +552,13 @@
 					var btnArray = ['取消', '确定'];
 					mui.confirm('您确定清除缓存吗？', '温馨提示', btnArray, function(e) {
 						if(e.index == 1) {
-							setTimeout(function() {
-								mui.toast('清除成功');
-							}, 2000);
+							document.addEventListener( "plusready", onPlusReady, false );
+							var r = null; 
+							function onPlusReady() { 
+								plus.cache.clear( function () {
+									mui.toast('清除成功');
+								});
+							}
 						}
 					})
 				}

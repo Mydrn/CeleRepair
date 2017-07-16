@@ -20,9 +20,10 @@
 		//首页接口
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndex";
 		var data = {};
-		if(owner.getState().token == undefined) {} else {
+		if(owner.getState().token == undefined) {
+			
+		} else {
 			data.token = owner.getState().token;
-			alert(data.token);
 		}
 		console.log(url);
 		$.ajax(url, {
