@@ -485,7 +485,8 @@ p {
 	width: 100%;
 	background: #ff5700;
 	color: #fff;
-	border: none
+	border: none!important;
+	padding: 9px 12px;
 }
 
 .mui-col-sm-1,
@@ -1185,7 +1186,7 @@ input[type=submit]:enabled:active {
 	display: block;
 	width: 100%;
 	margin-bottom: 10px;
-	padding: 15px 0
+	padding: 10px 0
 }
 
 .mui-btn .mui-badge {
