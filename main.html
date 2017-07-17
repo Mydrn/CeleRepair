@@ -475,6 +475,7 @@
 			document.getElementById('offCanvasShow').addEventListener('tap', function() {
 					if(token == undefined || app.getState() == "{}") {
 						mui.openWindow({url: 'login.html',id: 'login'});
+						offCanvasWrapper.offCanvas('close');
 					}else{
 						app.findUser(function(data){
 							document.getElementById("name").innerHTML = data.data.name;
