@@ -402,14 +402,33 @@
 							});
 						});
 					}
-					//自动播放轮播图
-					mui(function(e) {
-						mui("#slider").slider({
-							interval: 4000
-						})
-					})
 				});
 				
+				//自动播放轮播图
+				mui(function(e) {
+					mui("#slider").slider({
+						interval: 4000
+					})
+				})
+				
+				//主界面‘显示侧滑菜单’按钮的点击事件
+				document.getElementById('offCanvasShow').addEventListener('tap', function() {
+						if(token == undefined || app.getState() == "{}") {
+							//this.location.href = "login.html";
+							window.open("login.html","_top");
+						}else{
+							app.findUser(function(data){
+								document.getElementById("name").innerHTML = data.data.name;
+								if(data.data.photoUrl!=null){
+									document.getElementById("userImg").src = data.data.photoUrl;
+								}
+							})
+						}
+						offCanvasWrapper.offCanvas('show');
+					}
+	
+				);
+			
 				//首页禁止返回
 				var first = null;
 				mui.back=function () {  
@@ -471,23 +490,7 @@
 				});
 			}
 
-			//主界面‘显示侧滑菜单’按钮的点击事件
-			document.getElementById('offCanvasShow').addEventListener('tap', function() {
-					if(token == undefined || app.getState() == "{}") {
-						mui.openWindow({url: 'login.html',id: 'login'});
-						offCanvasWrapper.offCanvas('close');
-					}else{
-						app.findUser(function(data){
-							document.getElementById("name").innerHTML = data.data.name;
-							if(data.data.photoUrl!=null){
-								document.getElementById("userImg").src = data.data.photoUrl;
-							}
-						})
-					}
-					offCanvasWrapper.offCanvas('show');
-				}
-
-			);
+			
 			//主界面‘显示侧滑菜单’按钮的点击事件
 			document.getElementById('back').addEventListener('tap', function() {
 					offCanvasWrapper.offCanvas('close');
