@@ -1945,7 +1945,8 @@ input[type=submit]:enabled:active {
 }
 
 .mui-table-view-cell p {
-	margin-bottom: 0
+	margin-bottom: 0;
+	padding-right: 15%;
 }
 
 .mui-table-view-cell.mui-transitioning>.mui-slider-handle,
