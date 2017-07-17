@@ -300,199 +300,200 @@
 				swipeBack: true //启用右滑关闭功能
 			});　
 			mui.plusReady(function() {
-					plus.nativeUI.showWaiting();
-					var customerType = document.getElementById("customerType");
-					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/addCase";
-					mui.ajax(url, {
-						type: 'POST',
-						data: {
-							token: token
-						},
-						dataType: 'json',
-						//async : false,
-						//cache : false,
-						timeout: 5000, //超时时间设置为5秒；
-						success: function(data) {
-							if(data.msgCode == "0000") {
-								if(data.data.shopList != undefined) { //品牌用户报修
-									checkId = '#shopId';
-									var html = '<li class="mui-table-view-cell" >' +
-										'<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">' +
-										'选择店铺：<strong id="userResult" ></strong>' +
-										'</a>' +
-										'</li>'
-									customerType.innerHTML = html;
-									var userPicker = new $.PopPicker();
-									userPicker.setData(eval("(" + data.data.shopList + ")"));
-									var showUserPickerButton = doc.getElementById('showUserPicker');
-									var userResult = doc.getElementById('userResult');
-									showUserPickerButton.addEventListener('tap', function(event) {
-										userPicker.show(function(items) {
-											userResult.innerHTML = "&nbsp;" + items[0].text;
-											doc.getElementById('shopId').value = items[0].value;
-										});
-									}, false);
-								} else if(data.data.customer != undefined) { //店铺报修
-									checkId = '#serviceId';
-									var html = '<li class="mui-table-view-cell">' +
-										'<p class="mui-navigate-right iconfont icon-iconfontaddress">' +
-										'报修店铺：' + data.data.customer.customerName +
-										'</p>' +
-										'</li>'
-								} else { //个人用户
-									checkId = '#addressId';
-									var html = '<li class="mui-table-view-cell">' +
-										'<a id="address" href="address.html?true" class="mui-navigate-right iconfont icon-iconfontaddress">' +
-										' 报修地址：' + (data.data.address == null ? ' ' : data.data.address.address) +
-										'</a>' +
-										'</li>'
-									customerType.innerHTML = html;
-									document.getElementById('addressId').value=(data.data.address == null ? '' : data.data.address.id);
-									var href = location.href;
-									var itemId = href.split("?")[1];
-									//alert(itemId);
-									if(itemId != 0) {
-										var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneAddress";
-										mui.ajax(url, {
-											data: {
-												id: itemId,
-												token: app.getState().token
-											},
-											type: 'POST', //HTTP请求类型
-											dataType: 'json',
-											timeout: 5000, //超时时间设置为5秒；
-											success: function(data) {
-												document.getElementById('address').innerHTML = '报修地址 ：' + data.data.address;
-												document.getElementById('addressId').value = data.data.id;
-											},
-											error: function(xhr, type, errorThrown) {
-												return mui.toast('网络繁忙');
-											}
-										});
-									}
-
+				plus.nativeUI.showWaiting();
+				var customerType = document.getElementById("customerType");
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/addCase";
+				mui.ajax(url, {
+					type: 'POST',
+					data: {
+						token: token
+					},
+					dataType: 'json',
+					//async : false,
+					//cache : false,
+					timeout: 5000, //超时时间设置为5秒；
+					success: function(data) {
+						if(data.msgCode == "0000") {
+							if(data.data.shopList.length > 0) { //品牌用户报修
+								checkId = '#shopId';
+								var html = '<li class="mui-table-view-cell" >' +
+									'<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">' +
+									'选择店铺：<strong id="userResult" ></strong>' +
+									'</a>' +
+									'</li>'
+								customerType.innerHTML = html;
+								var userPicker = new $.PopPicker();
+								userPicker.setData(eval("(" + data.data.shopList + ")"));
+								var showUserPickerButton = doc.getElementById('showUserPicker');
+								var userResult = doc.getElementById('userResult');
+								showUserPickerButton.addEventListener('tap', function(event) {
+									userPicker.show(function(items) {
+										userResult.innerHTML = "&nbsp;" + items[0].text;
+										doc.getElementById('shopId').value = items[0].value;
+									});
+								}, false);
+							} else if(data.data.customer.length > 0) { //店铺报修
+								checkId = '#serviceId';
+								var html = '<li class="mui-table-view-cell">' +
+									'<p class="mui-navigate-right iconfont icon-iconfontaddress">' +
+									'报修店铺：' + data.data.customer.customerName +
+									'</p>' +
+									'</li>'
+							} else { //个人用户
+								checkId = '#addressId';
+								var html = '<li class="mui-table-view-cell">' +
+									'<a id="address" href="address.html?true" class="mui-navigate-right iconfont icon-iconfontaddress">' +
+									' 报修地址：' + (data.data.address == null ? ' ' : data.data.address.address) +
+									'</a>' +
+									'</li>'
+								customerType.innerHTML = html;
+								document.getElementById('addressId').value = (data.data.address == null ? '' : data.data.address.id);
+								var href = location.href;
+								var itemId = href.split("?")[1];
+								//alert(itemId);
+								if(itemId != 0) {
+									var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doOneAddress";
+									mui.ajax(url, {
+										data: {
+											id: itemId,
+											token: app.getState().token
+										},
+										type: 'POST', //HTTP请求类型
+										dataType: 'json',
+										timeout: 5000, //超时时间设置为5秒；
+										success: function(data) {
+											document.getElementById('address').innerHTML = '报修地址 ：' + data.data.address;
+											document.getElementById('addressId').value = data.data.id;
+										},
+										error: function(xhr, type, errorThrown) {
+											return mui.toast('网络繁忙');
+										}
+									});
 								}
-							} else if(data.msgCode == "0002") {
-								mui.alert('你已在其它地方登录,请重新登录!', function() {
+							}
+						} else if(data.msgCode == "0002") {
+							mui.alert('你已在其它地方登录,请重新登录!', function() {
 //									mui.openWindow({
 //										url: '../login.html',
 //										id: 'login'
 //									});
 								window.location.href="../login.html";
 								});
-							}
-						},
-						error: function(xhr, type, errorThrown) {
-							plus.nativeUI.closeWaiting();
-							return mui.toast('网络繁忙');
 						}
-					});
-					setTimeout(function() {
+					},
+					error: function(xhr, type, errorThrown) {
 						plus.nativeUI.closeWaiting();
-					}, 500);
+						return mui.toast('网络繁忙');
+					}
 				});
+				setTimeout(function() {
+					plus.nativeUI.closeWaiting();
+				}, 500);
+			});
 
-				//页面跳转
-				/*mui('body').on('tap', '#address', function() {
-					mui.openWindow({url:'address.html',id:'address',
-					    extras:{
-					        item:true
-					    }
-					});	
-					mui.currentWebview.close();
-				});*/
+			//页面跳转
+			/*mui('body').on('tap', '#address', function() {
+				mui.openWindow({url:'address.html',id:'address',
+				    extras:{
+				        item:true
+				    }
+				});	
+				mui.currentWebview.close();
+			});*/
 
-				//开启A标签的跳转
-				mui('body').on('tap', 'a', function() {
-					window.top.location.href = this.href;
-				});
-				//实现ios平台原生侧滑关闭页面；
-				if(mui.os.plus && mui.os.ios) {
-					mui.plusReady(function() {
-						//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-						plus.webview.currentWebview().setStyle({
-							'popGesture': 'none'
-						});
+			//开启A标签的跳转
+			mui('body').on('tap', 'a', function() {
+				window.top.location.href = this.href;
+			});
+			//实现ios平台原生侧滑关闭页面；
+			if(mui.os.plus && mui.os.ios) {
+				mui.plusReady(function() {
+					//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
 					});
+				});
+			}
+			//初始化单页的区域滚动
+			mui('.mui-scroll-wrapper').scroll();
+
+			mui('body').on('shown', '.mui-popover', function(e) {
+				//console.log('shown', e.detail.id);//detail为当前popover元素
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			});
+
+			mui('body').on('tap', '.crossClick', function() {
+				var a = this,
+					parent;
+				//根据点击按钮，反推当前是哪个actionsheet
+				for(parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
+					if(parent.classList.contains('mui-popover-action')) {
+						break;
+					}
 				}
-				//初始化单页的区域滚动
-				mui('.mui-scroll-wrapper').scroll();
-
-				mui('body').on('shown', '.mui-popover', function(e) {
-					//console.log('shown', e.detail.id);//detail为当前popover元素
-				}); mui('body').on('hidden', '.mui-popover', function(e) {
-					//console.log('hidden', e.detail.id);//detail为当前popover元素
-				});
-
-				mui('body').on('tap', '.crossClick', function() {
-					var a = this,
-						parent;
-					//根据点击按钮，反推当前是哪个actionsheet
-					for(parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
-						if(parent.classList.contains('mui-popover-action')) {
-							break;
-						}
+				//关闭actionsheet
+				mui('#' + parent.id).popover('toggle');
+			})
+			//控制上传图片的自适应宽度
+			mui(function($) {
+				var arr = document.querySelectorAll('.cross');
+				for(var i = 0; i < arr.length; i++) {
+					arr[i].style.padding = "12%";
+				}
+			});
+			document.getElementById('submit').addEventListener('tap', function() {
+				if($(checkId).val() == '' || $("#serviceId").val() == '') {
+					return mui.toast("请先选择");
+				}
+				if($("#imgUrl").val() == '') {
+					return mui.toast("请先上传照片");
+				}
+				/*if(${customer.customerType == 5}){
+					if($("#addressId").val() == ''){
+						return mui.toast("请选择地址");
 					}
-					//关闭actionsheet
-					mui('#' + parent.id).popover('toggle');
-				})
-				//控制上传图片的自适应宽度
-				mui(function($) {
-					var arr = document.querySelectorAll('.cross');
-					for(var i = 0; i < arr.length; i++) {
-						arr[i].style.padding = "12%";
+				}else if(${customer.customerType == 3}){
+					if($("#shopId").val()==''){
+						return mui.toast("请选择店铺");
 					}
-				}); document.getElementById('submit').addEventListener('tap', function() {
-					if($(checkId).val() == '' || $("#serviceId").val() == '') {
-						return mui.toast("请先选择");
-					}
-					if($("#imgUrl").val() == '') {
-						return mui.toast("请先上传照片");
-					}
-					/*if(${customer.customerType == 5}){
-						if($("#addressId").val() == ''){
-							return mui.toast("请选择地址");
-						}
-					}else if(${customer.customerType == 3}){
-						if($("#shopId").val()==''){
-							return mui.toast("请选择店铺");
-						}
-					}
-					*/
-					if($("#servicingTime").val() == '') {
-						return mui.toast("请选择上门时间");
-					}
-					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
-					mui.ajax(url, {
-						data: $('#objectContent').serialize(),
-						type: 'post', //HTTP请求类型
-						dataType: 'json',
-						timeout: 5000, //超时时间设置为5秒；
-						success: function(data) {
-							mui.toast(data.msg);
-							if(data.msgCode == "0000") {
+				}
+				*/
+				if($("#servicingTime").val() == '') {
+					return mui.toast("请选择上门时间");
+				}
+				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
+				mui.ajax(url, {
+					data: $('#objectContent').serialize(),
+					type: 'post', //HTTP请求类型
+					dataType: 'json',
+					timeout: 5000, //超时时间设置为5秒；
+					success: function(data) {
+						mui.toast(data.msg);
+						if(data.msgCode == "0000") {
+							mui.openWindow({
+								url: 'order-details.html',
+								id: 'order-details',
+								extras: {
+									caseId: data.data
+								}
+							});
+						} else if(data.msgCode == "0002") {
+							mui.alert('你已在其它地方登录,请重新登录!', function() {
 								mui.openWindow({
-									url: 'order-details.html',
-									id: 'order-details',
-									extras: {
-										caseId: data.data
-									}
+									url: '../login.html',
+									id: 'login'
 								});
-							} else if(data.msgCode == "0002") {
-								mui.alert('你已在其它地方登录,请重新登录!', function() {
-									mui.openWindow({
-										url: '../login.html',
-										id: 'login'
-									});
-								});
-							}
-						},
-						error: function(xhr, type, errorThrown) {
-							mui.toast("网络繁忙,请重试！");
-							console.log(type);
+							});
 						}
-					});
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络繁忙,请重试！");
+						console.log(type);
+					}
 				});
+			});
 		</script>
 	</body>
 
