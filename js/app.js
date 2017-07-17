@@ -6,9 +6,9 @@
 		path: "/celefix/backend/h5/" //环境路径
 
 		//本地
-		//		app_ip: "http://192.168.3.37",
-		//		app_port: "8000",
-		//		path: "/celefix/backend/h5/" //环境路径
+//				app_ip: "http://192.168.3.37",
+//				app_port: "8000",
+//				path: "/celefix/backend/h5/" //环境路径
 	};
 	//服务器地址存储本地
 	localStorage.setItem('$serviceinfo', JSON.stringify(serviceinfo));
