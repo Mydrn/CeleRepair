@@ -662,7 +662,7 @@ var arr = [];
 				 * rs.h 时，用法同年
 				 * rs.i 分（minutes 的第二个字母），用法同年
 				 */
-				document.getElementById("smsj").innerHTML =rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + "时";
+				document.getElementById("smsj").innerHTML =rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + ":00";
 				document.getElementById("servicingTime").value = rs.y.text + rs.m.text + rs.d.text + rs.h.text;
 				/* 
 				 * 返回 false 可以阻止选择框的关闭
