@@ -314,7 +314,8 @@
 					timeout: 5000, //超时时间设置为5秒；
 					success: function(data) {
 						if(data.msgCode == "0000") {
-							if(data.data.shopList.length > 0) { //品牌用户报修
+							alert(JSON.stringify(data));
+							if(data.data.shopList!=undefined) { //品牌用户报修
 								checkId = '#shopId';
 								var html = '<li class="mui-table-view-cell" >' +
 									'<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">' +
@@ -322,23 +323,24 @@
 									'</a>' +
 									'</li>'
 								customerType.innerHTML = html;
-								var userPicker = new $.PopPicker();
+								var userPicker = new mui.PopPicker();
 								userPicker.setData(eval("(" + data.data.shopList + ")"));
-								var showUserPickerButton = doc.getElementById('showUserPicker');
-								var userResult = doc.getElementById('userResult');
+								var showUserPickerButton = document.getElementById('showUserPicker');
+								var userResult = document.getElementById('userResult');
 								showUserPickerButton.addEventListener('tap', function(event) {
 									userPicker.show(function(items) {
 										userResult.innerHTML = "&nbsp;" + items[0].text;
-										doc.getElementById('shopId').value = items[0].value;
+										document.getElementById('shopId').value = items[0].value;
 									});
 								}, false);
-							} else if(data.data.customer.length > 0) { //店铺报修
+							} else if(data.data.customer!=undefined) { //店铺报修
 								checkId = '#serviceId';
 								var html = '<li class="mui-table-view-cell">' +
-									'<p class="mui-navigate-right iconfont icon-iconfontaddress">' +
-									'报修店铺：' + data.data.customer.customerName +
-									'</p>' +
-									'</li>'
+											'<p class="mui-navigate-right iconfont icon-iconfontaddress">' +
+											'报修店铺：' + data.data.customer.name +
+											'</p>' +
+										'</li>'
+								customerType.innerHTML = html;
 							} else { //个人用户
 								checkId = '#addressId';
 								var html = '<li class="mui-table-view-cell">' +
