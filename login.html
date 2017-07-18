@@ -218,9 +218,13 @@
 					customerName: customerName.value,
 					password: password.value
 				};
+				
 				app.login(loginInfo, function(err) {
 					mui.toast("登录成功")
-					window.location.href = "main.html";
+					var webview = plus.webview.create( "main.html" );
+					plus.nativeUI.showWaiting();
+					webview.show();
+					//window.location.href = "main.html";
 				});
 			});
 		</script>

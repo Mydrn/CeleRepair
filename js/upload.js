@@ -662,7 +662,7 @@ var arr = [];
 				 * rs.h 时，用法同年
 				 * rs.i 分（minutes 的第二个字母），用法同年
 				 */
-				document.getElementById("smsj").innerHTML =rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + ":00";
+				document.getElementById("contract").innerHTML =" 预约时间："+rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + ":00";
 				document.getElementById("servicingTime").value = rs.y.text + rs.m.text + rs.d.text + rs.h.text;
 				/* 
 				 * 返回 false 可以阻止选择框的关闭
@@ -699,9 +699,8 @@ var arr = [];
 				cityPicker.setData(eval("("+data+")"));
 				mui('body').on('tap', '.showCityPicker', function(event) {
 					cityPicker.show(function(items) {
-						
 						document.getElementById("serviceId").value = items[1].value;
-						document.getElementById("bxlx").innerHTML =items[0].text+"&nbsp;&nbsp;" +items[1].text;
+						document.getElementsByClassName("showCityPicker")[0].innerHTML =" 报修类型："+items[0].text+"&nbsp;&nbsp;" +items[1].text;
 					});
 				}, false);
 			},

@@ -203,7 +203,8 @@
 						//mui.toast(data.msg);
 						if (data.msgCode == "0000") {
 							mui.alert('修改成功', function() {
-								mui.openWindow({url: 'personal.html',id:'personal'});
+								//mui.openWindow({url: 'mian.html',id:'personal'});
+								mui.back();
 							});
 						}else if(data.msgCode == "0001"){
 							return mui.toast("验证码错误");

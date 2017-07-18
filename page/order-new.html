@@ -171,6 +171,11 @@
 			.iconfont {
 				font-size: 16px!important
 			}
+			
+			.mui-position-right {
+    position: absolute;
+    right: 40px;
+}
 		</style>
 	</head>
 
@@ -222,7 +227,7 @@
 										</a>
 									</li>
 									<li class="mui-table-view-cell demo3">
-										<a href="javascript:;" id="demo3" data-options='{"value":"2017-07-10 10:00","beginYear":2017,"endYear":2025}' class="mui-navigate-right iconfont icon-shangmenshijian">
+										<a href="javascript:;" id="contract" data-options='{"value":"2017-07-10 10:00","beginYear":2017,"endYear":2025}' class="mui-navigate-right iconfont icon-shangmenshijian">
 											预约时间：<strong id="smsj"></strong>
 										</a>
 									</li>
@@ -253,7 +258,14 @@
 									</li>
 								</ul>
 							</div>
-							<br />
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a href="tel:400-616-1636" class="mui-navigate-right iconfont icon-kefu">
+										客服热线 
+									<span class="mui-position-right" id="xm">400-616-1636</span>
+									</a>
+								</li>
+							</ul>
 							<div class="order_new">
 								<ul class="mui-table-view">
 									<li class="mui-table-view-cell">
@@ -301,6 +313,10 @@
 			});　
 			mui.plusReady(function() {
 				plus.nativeUI.showWaiting();
+				var contactUs = localStorage.getItem('$contactUs');
+				var child=document.getElementById("xm");
+				child.innerHTML=contactUs;
+				child.parentNode.setAttribute("href","tel:"+contactUs);
 				var customerType = document.getElementById("customerType");
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/addCase";
 				mui.ajax(url, {
@@ -324,7 +340,8 @@
 									'</li>'
 								customerType.innerHTML = html;
 								var userPicker = new mui.PopPicker();
-								userPicker.setData(eval("(" + data.data.shopList + ")"));
+								var dataPicker = eval("(" + data.data.shopList + ")")
+								userPicker.setData(dataPicker);
 								var showUserPickerButton = document.getElementById('showUserPicker');
 								var userResult = document.getElementById('userResult');
 								showUserPickerButton.addEventListener('tap', function(event) {
@@ -375,11 +392,11 @@
 							}
 						} else if(data.msgCode == "0002") {
 							mui.alert('你已在其它地方登录,请重新登录!', function() {
-//									mui.openWindow({
-//										url: '../login.html',
-//										id: 'login'
-//									});
-								window.location.href="../login.html";
+									mui.openWindow({
+										url: '../login.html',
+										id: 'login'
+									});
+								//window.location.href="../login.html";
 								});
 						}
 					},

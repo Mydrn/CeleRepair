@@ -107,14 +107,14 @@
 			"delay": "0"
 		},
 		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
-		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "68179a943268106e04ba2321db7cceac",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
 			"plugins": {
 				"payment": {
 					"alipay": {
 						"description": "阿里支付",
-						"scheme": ""
+						"scheme": "mg7D0T/lLL89wjp51kfGXM9PYN38Cwv"
 					},
 					"appleiap": {
 						"description": "Apple应用内支付"
@@ -316,9 +316,12 @@
 					"images/3.gif",
 					"css/mui.min.css",
 					"treaty.html",
-					"images/bg.jpg"
+					"images/bg.jpg",
+					"page/personal.html"
 				],
-				"refer": [],
+				"refer": [
+					"main.html"
+				],
 				"priority": 0
 			},
 			"page/order-details.html": {
@@ -341,7 +344,8 @@
 					"images/already-pay.png",
 					"index.html",
 					"css/app.css",
-					"page/images/3.gif"
+					"page/images/3.gif",
+					"page/order-new.html"
 				],
 				"refer": [
 					"page/evaluation.html",
@@ -379,9 +383,15 @@
 					"css/mui.min.css",
 					"page/address.html",
 					"js/mui.picker.min.js",
-					"main.html"
+					"main.html",
+					"images/bg.png",
+					"images/icons.png",
+					"images/success.png",
+					"images/progress.png"
 				],
-				"refer": [],
+				"refer": [
+					"page/order-details.html"
+				],
 				"priority": 0
 			},
 			"page/personal.html": {
@@ -395,11 +405,10 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"page/personal-password.html",
-					"main.html"
-				],
-				"refer": [
+					"main.html",
 					"login.html"
 				],
+				"refer": [],
 				"priority": 0
 			},
 			"page/order.html": {
@@ -413,7 +422,8 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"images/cbd.jpg"
+					"images/cbd.jpg",
+					"main.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -442,7 +452,8 @@
 					"css/app.css",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"page/personal.html"
+					"page/personal.html",
+					"js/mui.min.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -496,10 +507,11 @@
 					"css/mui.min.css",
 					"page/order-new.html",
 					"page/message.html",
-					"page/personal.html"
+					"page/personal.html",
+					"login.html",
+					"page/order.html"
 				],
 				"refer": [
-					"login.html",
 					"page/order-details.html"
 				],
 				"priority": 0

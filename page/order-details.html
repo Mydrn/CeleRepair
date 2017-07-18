@@ -584,17 +584,17 @@
 						document.getElementById("servicingTime").innerText = caseObj.servicingTime;
 						document.getElementById("caseDesc").innerText = '报修描述:' + caseObj.caseDesc;
 						if(caseObj.caseStatus == -1 && caseObj.customerType == 5) { //待接单
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="order-new.html" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="order-new.html?0" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
 							cycle(0);
 						} else if(caseObj.caseStatus == -1 && caseObj.customerType != 5) { //待审核
 							document.getElementById("type1").innerHTML = '待审核';
-							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="order-new.html" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
+							document.getElementById("type2").innerHTML = '待审批';
+							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="order-new.html?0" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
 							cycle(0);
 						} else if(caseObj.caseStatus == 0 || caseObj.caseStatus == 1 || caseObj.caseStatus == 2) { //待上门
 							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="tel:' + contactUs + '" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
 							cycle(1);
 						} else if(caseObj.caseStatus == 3 && caseObj.customerType != 5) { //待审批
-							document.getElementById("type2").innerHTML = '待审批';
 							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="tel:' + contactUs + '" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>';
 							cycle(2);
 						} else if(caseObj.caseStatus == 3 && caseObj.customerType == 5) { //待付款
@@ -634,7 +634,7 @@
 						}
 					}
 				}, function(e) {
-					alert("获取支付通道失败：" + e.message);
+					mui.alert("获取支付通道失败：" + e.message);
 				});
 
 			});
@@ -671,7 +671,11 @@
 			});
 			document.getElementById('zhifubao').addEventListener('tap', function() {
 				pay('alipay');
-				//mui.toast("后续开放");
+				/*if (mui.os.ios) {
+					mui.toast("后续开放");
+				} else{
+					pay('alipay');
+				}*/
 			});
 			var weixinUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/weixinpay";
 			var aliUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/alipayold";

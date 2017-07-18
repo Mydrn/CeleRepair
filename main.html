@@ -180,7 +180,7 @@
 			<aside id="offCanvasSide" class="mui-off-canvas-left">
 				<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
 					<a href="javascript:;" id="back" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
-					<h1 class="mui-title" id="name">乔布斯</h1>
+					<h1 class="mui-title" id="name">快修</h1>
 					<a href="page/message.html" class="mui-pull-right">
 						<span class="mui-icon mui-icon-chatbubble"></span>
 					</a>
@@ -396,10 +396,12 @@
 						//document.getElementById('mask').style.display='none';
 					} else if(data.msgCode == "0002") {
 						mui.alert('你已在其它地方登录,请重新登录!', function() {
-							mui.openWindow({
+							var w = plus.webview.create( "login.html" );
+								w.show(); // 显示窗口
+							/*mui.openWindow({
 								url: 'login.html',
 								id: 'login'
-							});
+							});*/
 						});
 					}
 				});
@@ -418,6 +420,9 @@
 							window.open("login.html","_top");
 						}else{
 							app.findUser(function(data){
+								if(data.data.customerType!=5){//不是个人注册的，没有地址
+									document.getElementById("address").parentNode.remove();
+								}
 								document.getElementById("name").innerHTML = data.data.name;
 								if(data.data.photoUrl!=null){
 									document.getElementById("userImg").src = data.data.photoUrl;
@@ -449,7 +454,7 @@
 				function onPlusReady() {
 					plus.cache.calculate( function ( size ) {
 						// Calculate cache complete code.
-						mui("#cache").innerHTML=size;
+						mui("#cache").innerText=size;
 						//alert( "Application cache size: " + size + " byte!" );
 					});
 				}

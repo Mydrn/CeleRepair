@@ -106,7 +106,7 @@
 				mui.plusReady(function() {
 					window.addEventListener('refresh', function(msg) {
 				        //自定义方法，刷新数据，不刷新页面
-				        mui.toast("B页面返回并刷新了数据");
+				        //mui.toast("B页面返回并刷新了数据");
 				        location.reload();
 				    });
 					plus.nativeUI.showWaiting();
@@ -131,7 +131,7 @@
 									}
 									document.getElementById("addressList").innerHTML = html +
 										'<div class="mui-card mui-input-group">' +
-										'<div class="mui-card-content addressId" id="div' + addressList[item].id + '">' +
+										'<div class="mui-card-content addressId" name="' + addressList[item].id + '" id="div' + addressList[item].id + '">' +
 										'<div class="mui-card-content-inner">' +
 										'<table border="0" cellspacing="0" cellpadding="0" style="width:100%">' +
 										'<tbody><tr>' +
@@ -171,7 +171,7 @@
 					var item = href.split("?")[1];
 					//alert(this.id);
 					if(item) { //下单页面跳转过来
-						window.location.href='order-new.html?'+this.id;
+						window.location.href='order-new.html?'+this.id.substring(3);
 //						mui.openWindow({
 //							url: 'order-new.html?'+this.id,
 //							id: 'order',

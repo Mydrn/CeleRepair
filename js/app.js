@@ -1,14 +1,14 @@
 (function($, owner) {
 	var serviceinfo = {
 		//测试接口
-		app_ip: "http://116.62.48.143",
-		app_port: "8088",
-		path: "/celefix/backend/h5/" //环境路径
+//		app_ip: "http://116.62.48.143",
+//		app_port: "8088",
+//		path: "/celefix/backend/h5/" //环境路径
 
 		//本地
-//				app_ip: "http://192.168.3.37",
-//				app_port: "8000",
-//				path: "/celefix/backend/h5/" //环境路径
+						app_ip: "http://192.168.3.37",
+						app_port: "8000",
+						path: "/celefix/backend/h5/" //环境路径
 	};
 	//服务器地址存储本地
 	localStorage.setItem('$serviceinfo', JSON.stringify(serviceinfo));
@@ -21,7 +21,7 @@
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndex";
 		var data = {};
 		if(owner.getState().token == undefined) {
-			
+
 		} else {
 			data.token = owner.getState().token;
 		}

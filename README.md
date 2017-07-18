@@ -46,6 +46,12 @@ console.log(2);
 })
 
 #页面传值
+
+
+var w = plus.webview.create( "http://www.bcty365.com" );
+	w.show(); // 显示窗口
+
+
 //A
 mui.openWindow({url:'address-new.html',id:'address-new',
 					    extras:{itemId:id}
