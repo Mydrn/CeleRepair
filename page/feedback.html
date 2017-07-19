@@ -333,9 +333,6 @@
 								<div class="mui-popover-arrow"></div>
 								<ul class="mui-table-view">
 									<!--仅流应用环境下显示-->
-									<li class="mui-table-view-cell stream">
-										<a href="#">桌面快捷方式创建失败</a>
-									</li>
 									<li class="mui-table-view-cell">
 										<a href="#">界面显示错乱</a>
 									</li>
@@ -355,7 +352,8 @@
 					<div class="row mui-input-row mui-rows">
 						<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
 					</div>
-					<p>图片(选填<!--,提供问题截图,总大小10M以下-->)</p>
+					<p>图片(选填
+						<!--,提供问题截图,总大小10M以下-->)</p>
 					<div id='image-list' class="row image-list">
 						<div class="file-box">
 							<input type="file" name="file" class="file" accept="image/*" />
@@ -417,8 +415,8 @@
 					formData = new FormData();
 					formData.append("file", this.files[0]);
 					formData.append("attachmentType", 8);
-					formData.append("token",app.getState().token)
-					mui.ajax(url,{
+					formData.append("token", app.getState().token)
+					mui.ajax(url, {
 						type: "post",
 						dataType: 'text',
 						contentType: false, //必须 
@@ -482,7 +480,7 @@
 			window.event.returnValue = false;
 			mui.ajax(url, {
 				data: {
-					token:app.getState().token,
+					token: app.getState().token,
 					score: starIndex,
 					title: title.value,
 					adviceContent: adviceContent.value,
@@ -494,17 +492,22 @@
 				timeout: 5000, //超时时间设置为5秒；             
 				success: function(data) {
 					if(data.msgCode == "0000") {
-						mui.alert('反馈成功', function() {
-							window.history.back();
-						});
+//						mui.alert('反馈成功', function() {
+//							mui.back();
+//						});
+						mui.toast("反馈成功");
+						mui.back();
 					} else if(data.msgCode == "0002") {
 						mui.alert('你已在其它地方登录,请重新登录!', function() {
-							mui.openWindow({url: 'login.html',id:'login'});
+							mui.openWindow({
+								url: 'login.html',
+								id: 'login'
+							});
 						});
 					}
 				},
 				error: function(xhr, type, errorThrown) {
-
+					mui.toast("网络繁忙");
 				}
 			});
 		});

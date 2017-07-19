@@ -52,27 +52,13 @@
 				margin-left: -6px
 			}
 			
-			.textA {
-				vertical-align: middle
-			}
-			
-			.f-white {
-				color: #fff!important
-			}
-			
-			.f-14 {
-				font-size: 14px!important
-			}
-			
-			.bg-orange {
-				background-color: #ff5700!important
-			}
 			
 			.userImg {
 				position: absolute;
 				top: 0;
 				right: 40px;
 				height: 43px;
+				width:43px;
 				padding: 3px 0
 			}
 			
@@ -83,18 +69,6 @@
 			
 			.mui-bar {
 				background-color: #ff5700
-			}
-			
-			.f-orange {
-				color: #ff5700!important
-			}
-			
-			.exit .mui-table-view-cell {
-				padding-right: 0
-			}
-			
-			.exit .mui-table-view-cell>a:not(.mui-btn) {
-				margin-right: 0
 			}
 			
 			[type="file"] {
@@ -120,9 +94,8 @@
 				<div class="mui-scroll">
 					<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 						<li class="mui-table-view-cell">
-							<a href="#picture" class="mui-navigate-right" id="photo">
-								<!--头像<img class="userImg" id="userImg" src="../images/ice-repair.png" />-->
-							</a>
+							<a class="mui-navigate-right" id="photo">头像</a>
+							<input type="file" name="picture" id="picture" class="mui-opacity" accept="image/*" />
 						</li>
 						<li class="mui-table-view-cell">
 							<a>
@@ -157,23 +130,6 @@
 					</ul>
 				</div>
 			</div>
-			<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell">
-						<h4 class="mui-vertical">拍照或录像</h4>
-						<input type="file" name="picture" id="camera" class="mui-opacity" capture="camera" accept="image/*" />
-					</li>
-					<li class="mui-table-view-cell">
-						<h4 class="mui-vertical">选取现有的</h4>
-						<input type="file" name="picture" id="picture" class="mui-opacity" accept="image/*" />
-					</li>
-				</ul>
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell">
-						<a href="#picture" class=""><b>取消</b></a>
-					</li>
-				</ul>
-			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/app.js"></script>
@@ -195,15 +151,11 @@
 				timeout: 5000, //超时时间设置为5秒；
 				success: function(data) {
 					if(data.msgCode == "0000") {
-						if(data.data.photoUrl == undefined) {
-							tx.innerHTML = "头像<img class='userImg' id='userImg' src='../images/logo.png' />";
-						} else {
+						if(data.data.photoUrl != undefined && data.data.photoUrl != '') {
 							tx.innerHTML = "头像<img class='userImg' id='userImg' src='" + data.data.photoUrl + "' />";
 						}
 						document.getElementById("xm").innerHTML = data.data.name;
 						document.getElementById("phone").innerHTML = data.data.mobile;
-					}else{
-						tx.innerHTML = "头像<img class='userImg' id='userImg' src='../images/logo.png' />";
 					}
 				},
 				error:function(xhr,type,errorThrown){
@@ -229,7 +181,7 @@
 			//修改头像事件
 			(function($, doc) {
 				mui("body").on('change', '.mui-opacity', function(e) {
-					console.log(this.files[0]);
+					//console.log(this.files[0]);
 					formData = new FormData();
 					formData.append("file", this.files[0]);
 					formData.append("attachmentType", 7);

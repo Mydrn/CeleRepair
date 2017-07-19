@@ -1,14 +1,14 @@
 (function($, owner) {
 	var serviceinfo = {
 		//测试接口
-//		app_ip: "http://116.62.48.143",
-//		app_port: "8088",
-//		path: "/celefix/backend/h5/" //环境路径
+		app_ip: "http://116.62.48.143",
+		app_port: "8088",
+		path: "/celefix/backend/h5/" //环境路径
 
 		//本地
-						app_ip: "http://192.168.3.37",
-						app_port: "8000",
-						path: "/celefix/backend/h5/" //环境路径
+		//				app_ip: "http://192.168.3.37",
+		//				app_port: "8000",
+		//				path: "/celefix/backend/h5/" //环境路径
 	};
 	//服务器地址存储本地
 	localStorage.setItem('$serviceinfo', JSON.stringify(serviceinfo));
@@ -34,6 +34,65 @@
 				if(data.msgCode == "0000") {
 					//设置客服电话
 					localStorage.setItem('$contactUs', data.data.contactUs);
+					if(data.msgCode == "0000") {
+						//广告数据
+						var slider = document.getElementById("slider-list");
+						var html = '';
+						var adList = data.data.adList;
+						for(var item in adList) {
+							html += '<div class="mui-slider-item">' +
+								'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
+								'<img src="' + adList[item].adUrl + '">' +
+								'</a>' +
+								'</div>'
+						}
+						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
+						//自动播放轮播图
+						//订单列表
+						var caseList = data.data.caseList;
+						var caseUl = document.getElementById("caseUl");
+						if(caseList==undefined || caseList.length<=0 ) {
+							var orderList = document.getElementById("orderList")
+							orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+							return;
+						}
+						var caseHTML='';
+						for(var item in caseList) {
+							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
+								stateType = state1
+							} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
+								stateType = state7
+							} else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2) {
+								stateType = state2
+							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5) {
+								stateType = state3
+							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5) {
+								stateType = state4
+							} else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null) {
+								stateType = state5
+							}
+							caseHTML += '<li class="mui-table-view-cell mui-media bg-white"><a href="javascript:;" class="details" id="' + caseList[item].id + '">' +
+								'<img class="mui-media-object mui-pull-left" src="' + caseList[item].attachmentFile + '">' +
+								'<div class="mui-media-body">' +
+								'<p class="order-title mui-ellipsis">' + caseList[item].claimCode + '</p>' +
+								'<p class="mui-ellipsis">' + caseList[item].updateTime + '</p>' +
+								'</div>' +
+								'<span class="stateType">' + stateType +
+								'</a></li>';
+						}
+						caseUl.innerHTML = caseHTML;
+						//document.getElementById('mask').style.display='none';
+					} else if(data.msgCode == "0002") {
+						mui.alert('你已在其它地方登录,请重新登录!', function() {
+							var w = plus.webview.create( "login.html" );
+								w.show(); // 显示窗口
+							/*mui.openWindow({
+								url: 'login.html',
+								id: 'login'
+							});*/
+						});
+					}
+					
 					//console.log(JSON.stringify(data));
 					return callback(data);
 				} else if(data.msgCode == "0002") {

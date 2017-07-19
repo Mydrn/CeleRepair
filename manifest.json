@@ -7,7 +7,7 @@
 	"id": "H59C3D0A1",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "快修内测版",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "0.9.8",/*应用版本名称*/
+		"name": "0.9.9",/*应用版本名称*/
 		"code": ""
 	},
 	"description": "“快修”是专业从事全国终端连锁店铺及个人家居测量、安装、维修等。专业技术力量遍布全国各大省市区直辖市，拥有最强的技术服务及完善的售后服务支持。",/*应用描述信息*/
@@ -114,7 +114,7 @@
 				"payment": {
 					"alipay": {
 						"description": "阿里支付",
-						"scheme": "mg7D0T/lLL89wjp51kfGXM9PYN38Cwv"
+						"scheme": "wx2e79ed958a1f46fb"
 					},
 					"appleiap": {
 						"description": "Apple应用内支付"
@@ -225,9 +225,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "C:/Users/pssio/Desktop/快修引导页切图/480x800/快修闪屏.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"hdpi": "C:/Users/pssio/Desktop/微信图片_20170718175019.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/pssio/Desktop/微信图片_20170718175031.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/pssio/Desktop/微信图片_20170718175026.png"
 				}
 			},
 			"debug": true,
@@ -299,7 +299,9 @@
 					"css/mui.min.css",
 					"css/app.css",
 					"js/mui.picker.js",
-					"page/images/3.gif"
+					"page/images/3.gif",
+					"js/mui.picker.min.js",
+					"css/mui.picker.min.css"
 				],
 				"refer": [
 					"page/address.html"
@@ -387,11 +389,10 @@
 					"images/bg.png",
 					"images/icons.png",
 					"images/success.png",
-					"images/progress.png"
-				],
-				"refer": [
+					"images/progress.png",
 					"page/order-details.html"
 				],
+				"refer": [],
 				"priority": 0
 			},
 			"page/personal.html": {
@@ -406,7 +407,9 @@
 					"css/mui.min.css",
 					"page/personal-password.html",
 					"main.html",
-					"login.html"
+					"login.html",
+					"page/personal.html",
+					"images/logo.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -431,7 +434,9 @@
 			"page/about.html": {
 				"resources": [
 					"./images/logo.png",
-					"index.html"
+					"index.html",
+					"main.html",
+					"/images/logo.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -509,10 +514,16 @@
 					"page/message.html",
 					"page/personal.html",
 					"login.html",
-					"page/order.html"
+					"page/order.html",
+					"js/mui.pullToRefresh.js",
+					"js/mui.pullToRefresh.material.js",
+					"main.html",
+					"page/feedback.html",
+					"page/about.html"
 				],
 				"refer": [
-					"page/order-details.html"
+					"page/order-details.html",
+					"page/address.html"
 				],
 				"priority": 0
 			},
@@ -525,6 +536,14 @@
 				"refer": [
 					"main.html"
 				],
+				"priority": 0
+			},
+			"page/feedback.html": {
+				"resources": [
+					"main.html",
+					"css/feedback.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

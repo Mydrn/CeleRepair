@@ -386,8 +386,8 @@
 					var li;
 					var caseList = data.data.caseList;
 						if(caseList.length<=0) {
-							//item2.querySelector('.mui-table-view').innerHTML = '<div class="order-null"><img src="../images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
-							return mui.toast("暂无数据");
+							item2.querySelector('.mui-table-view').innerHTML = '<br/><p class="mui-text-center dataTime">暂无进行中订单</p>';
+							return;
 						}
 						for(var item in caseList) {
 							stateType = "已<br />完<br />成";

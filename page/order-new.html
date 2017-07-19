@@ -198,7 +198,7 @@
 							<input type="text" hidden id="token" name="token" value="" />
 							<input type="datetime" hidden id="servicingTime" name="servicingTime" />
 							<p class="about  mui-text-center">
-								<!-- 个人用户可在此报修， -->请填写需求内容<br />我们会尽快安排工作人员上门服务</p>
+								请填写需求内容<br />我们会尽快安排工作人员上门服务</p>
 							<div class="mui-bar-nav">
 								<ul id='customerType' class="mui-table-view">
 									<li class="mui-table-view-cell">
@@ -211,11 +211,6 @@
 											选择店铺：<strong id="userResult" ></strong>
 										</a>
 										
-									</li>
-									 <li class="mui-table-view-cell">
-										<p class="mui-navigate-right iconfont icon-iconfontaddress">
-											报修店铺:${ customer.customerName }
-										</p>
 									</li>-->
 								</ul>
 							</div>
@@ -278,23 +273,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<h4 class="mui-vertical">拍照或录像</h4>
-					<input type="file" name="picture" id="camera" onchange="file(this)" class="mui-opacity" capture="camera" accept="image/*" />
-				</li>
-				<li class="mui-table-view-cell">
-					<h4 class="mui-vertical">选取现有的</h4>
-					<input type="file" name="picture" id="picture" onchange="file(this)" class="mui-opacity" accept="image/*" />
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a href="#picture" class=""><b>取消</b></a>
-				</li>
-			</ul>
-		</div>
+		
 		<script type="text/javascript" src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/app.js"></script>
 		<script type="text/javascript" src="../js/mui.picker.min.js"></script>
@@ -335,7 +314,7 @@
 								checkId = '#shopId';
 								var html = '<li class="mui-table-view-cell" >' +
 									'<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">' +
-									'选择店铺：<strong id="userResult" ></strong>' +
+									'选择店铺:<strong id="userResult" ></strong>' +
 									'</a>' +
 									'</li>'
 								customerType.innerHTML = html;
@@ -354,7 +333,7 @@
 								checkId = '#serviceId';
 								var html = '<li class="mui-table-view-cell">' +
 											'<p class="mui-navigate-right iconfont icon-iconfontaddress">' +
-											'报修店铺：' + data.data.customer.name +
+											'报修店铺:' + data.data.customer.name +
 											'</p>' +
 										'</li>'
 								customerType.innerHTML = html;
@@ -362,7 +341,7 @@
 								checkId = '#addressId';
 								var html = '<li class="mui-table-view-cell">' +
 									'<a id="address" href="address.html?true" class="mui-navigate-right iconfont icon-iconfontaddress">' +
-									' 报修地址：' + (data.data.address == null ? ' ' : data.data.address.address) +
+									' 报修地址:&nbsp;&nbsp;&nbsp;&nbsp;' + (data.data.address == null ? ' ' : data.data.address.address) +
 									'</a>' +
 									'</li>'
 								customerType.innerHTML = html;

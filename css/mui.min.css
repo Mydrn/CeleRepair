@@ -4747,6 +4747,9 @@ body>.mui-progressbar {
 	right: 10px;
 	top: 50%;
 	transform: translate(0, -50%);
+	-webkit-transform: translate(0, -50%);
+	-moz-transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
 	padding: 3px 6px;
 	border: none;
 	font-size: 14px;

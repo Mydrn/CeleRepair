@@ -206,7 +206,7 @@
 							</div>
 						</div>
 						<div class="cele-footer">
-							<button id="submit">提交</button>
+							<button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">提交</button>
 						</div>
 					</div>
 				</div>
@@ -357,20 +357,22 @@
 					async: true,
 					timeout: 5000, //超时时间设置为5秒；             
 					success: function(data) {
-						if(data.statusCode == "0000") {
-							mui.alert('评价成功', function() {
+						if(data.msgCode == "0000") {
+							var w = plus.webview.create( "../main.html" );
+							plus.nativeUI.showWaiting();
+							w.show(); // 显示窗口
+						}else if(data.msgCode == "0002") {
+							mui.alert('你已在其它地方登录,请重新登录!', function() {
 								mui.openWindow({
-									url: 'order-details.html',
-									id: 'order-details',
-									extras: {
-										caseId: data.status
-									}
+									url: '../login.html',
+									id: 'login'
 								});
+								plus.nativeUI.showWaiting();
 							});
 						}
 					},
 					error: function(xhr, type, errorThrown) {
-
+						mui.toast("网络繁忙,请重试！");
 					}
 				});
 			});
