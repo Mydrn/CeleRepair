@@ -127,15 +127,19 @@
 			.f-white {
 				color: #fff!important
 			}
+			
 			.order-null {
-				margin:0 auto;
+				margin: 0 auto;
 				padding-top: 10%;
-				width:50%;
+				width: 50%;
 				font-weight: bold;
-				color:#ccc;
+				color: #ccc;
 			}
-			.mui-table-view-cell p{
+			
+			.mui-table-view-cell p {
 				text-align: left;
+				margin-bottom: 0;
+				padding-right: 37px;
 			}
 		</style>
 	</head>
@@ -167,12 +171,12 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
-						<div  class="mui-scroll-wrapper">
+						<div class="mui-scroll-wrapper">
 							<div id="orderList" class="mui-scroll mui-text-center">
 								<!--订单为空时额样式布局-->
-								
+
 								<ul id="caseUl" class="mui-table-view mui-loading">
 									<div class="order-null">
 										<img src="../images/ice-null.png" />
@@ -300,7 +304,7 @@
 									} else if(data[item].caseStatus == 4 && data[item].assessScore == null) {
 										stateType = state5
 									}
-									
+
 									li = document.createElement('li');
 									li.className = 'mui-table-view-cell mui-media';
 									li.innerHTML = '<a href="javascript:;" class="details" id="' + data[item].id + '">' +
@@ -334,11 +338,11 @@
 				app.indexList(function(data) {
 					if(data.msgCode == "0000") {
 						var caseList = data.data.caseList;
-						if(caseList.length<=0) {
+						if(caseList.length <= 0) {
 							item2.querySelector('.mui-table-view').innerHTML = '<br/><p class="mui-text-center dataTime">暂无进行中订单</p>';
 							return;
 						}
-					}else if(data.msgCode == "0002") {
+					} else if(data.msgCode == "0002") {
 						mui.alert('你已在其它地方登录,请重新登录!', function() {
 							var w = plus.webview.create("../login.html");
 							w.show(); // 显示窗口
@@ -347,15 +351,14 @@
 				});
 			})(mui);
 			mui('body').on('tap', '.details', function() {
-					mui.openWindow({
-						url: 'order-details.html',
-						id: 'orderdetails',
-						extras: {
-							caseId: this.id
-						}
-					});
+				mui.openWindow({
+					url: 'order-details.html',
+					id: 'orderdetails',
+					extras: {
+						caseId: this.id
+					}
 				});
-				
+			});
 		</script>
 	</body>
 
