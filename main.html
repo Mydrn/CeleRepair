@@ -288,7 +288,7 @@
 							<li class="mui-table-view-cell">
 								<a href="javascript:;" class="mui-navigate-right btnFn">
 									清除缓存
-									<span class="mui-position-right" id="cache">0.0K</span>
+									<!--<span class="mui-position-right" id="cache">0.0K</span>-->
 								</a>
 							</li>
 							<li class="mui-table-view-cell">
@@ -405,8 +405,12 @@
 				//手机设备定位
 				plus.geolocation.getCurrentPosition(
 					function(p) {
-						document.getElementsByClassName("satellitePositioning")[0].innerHTML = p.address.province;
-						console.log("定位成功：" + p.address.province);
+						if(p.address.province==null){
+							mui.toast("定位失败")
+						}else{
+							document.getElementsByClassName("satellitePositioning")[0].innerHTML = p.address.province;
+							mui.toast("定位成功：" + p.address.province);
+						}
 					},
 					function(p) {
 						alert(p);
@@ -610,7 +614,7 @@
 				// 扩展API加载完毕，现在可以正常调用扩展API 
 				function onPlusReady() {
 					plus.cache.calculate(function(size) {
-						document.getElementById("cache").innerText = (size / 1024) / 1024+"M";
+					document.getElementById("cache").innerText = (size / 1024) / 1024+"M";
 						//alert( "App cache size: " + size + " byte!" );
 					});
 				}

@@ -170,10 +170,10 @@
 								<ul id='customerType' class="mui-table-view">
 									<li class="mui-table-view-cell">
 										<a id="address" href="javascript:;" class="mui-navigate-right iconfont icon-iconfontaddress">
-											报修地址：
+											报修地址：请选择地址
 										</a>
 									</li>
-									<!--  <li class="mui-table-view-cell" >
+									 <!--<li class="mui-table-view-cell" >
 							            <a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">
 											选择店铺：<strong id="userResult" ></strong>
 										</a>
@@ -279,20 +279,17 @@
 							//alert(JSON.stringify(data));
 							if(data.data.shopList!=undefined) { //品牌用户报修
 								checkId = '#shopId';
-								var html = '<li class="mui-table-view-cell" >' +
-									'<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">' +
-									'选择店铺:<strong id="userResult" ></strong>' +
-									'</a>' +
-									'</li>'
-								customerType.innerHTML = html;
 								var userPicker = new mui.PopPicker();
 								var dataPicker = eval("(" + data.data.shopList + ")")
 								userPicker.setData(dataPicker);
+								customerType.innerHTML ='<li class="mui-table-view-cell" >' +
+																'<a href="javascript:;" id="showUserPicker" class="mui-navigate-right iconfont icon-iconfontaddress">' +
+																' 选择店铺：</a>' +
+																'</li>';
 								var showUserPickerButton = document.getElementById('showUserPicker');
-								var userResult = document.getElementById('userResult');
 								showUserPickerButton.addEventListener('tap', function(event) {
 									userPicker.show(function(items) {
-										userResult.innerHTML = "&nbsp;" + items[0].text;
+										showUserPickerButton.innerHTML =' 选择店铺：'+ items[0].text ;
 										document.getElementById('shopId').value = items[0].value;
 									});
 								}, false);
