@@ -409,11 +409,11 @@
 							mui.toast("定位失败")
 						}else{
 							document.getElementsByClassName("satellitePositioning")[0].innerHTML = p.address.province;
-							mui.toast("定位成功：" + p.address.province);
+							//mui.toast("定位成功：" + p.address.province);
 						}
 					},
 					function(p) {
-						alert(p);
+						//alert(p);
 					}
 				);
 				app.indexList(function(data) {

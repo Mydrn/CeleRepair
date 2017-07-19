@@ -74,11 +74,11 @@
 				<form class="mui-input-group" id="objectContent">
 					<div class="mui-input-row">
 						<span class="iconfont icon-shoujihao icon-left"></span>
-						<button class="bg-orange f-white" id="send">发送验证码</button>
 						<input type="tel" id="mobile" name="mobile"  data-input-password="3" placeholder="新手机号" style="padding-right:102px">
 					</div>
 					<div class="mui-input-row">
 						<span class="iconfont icon-icon0103 icon-left"></span>
+						<button class="bg-orange f-white" id="send">发送验证码</button>
 						<input type="number" id="code" name="code" data-input-password="3" placeholder="验证码">
 					</div>
 					<div class="mui-input-row">
@@ -111,7 +111,7 @@
 					return mui.toast("手机号码有误");
 				}
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/updateMobileCode";
-				mui.get(url,{mobile:phone.value},function(data){
+				mui.get(url,{mobile:phone.value,token:app.getState().token},function(data){
 					mui.toast(data.msg);
 					if (data.msgCode == "0000") {
 						//成功
