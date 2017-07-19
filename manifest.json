@@ -114,7 +114,7 @@
 				"payment": {
 					"alipay": {
 						"description": "阿里支付",
-						"scheme": "wx2e79ed958a1f46fb"
+						"scheme": "2088521292376582"
 					},
 					"appleiap": {
 						"description": "Apple应用内支付"
@@ -225,9 +225,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "C:/Users/pssio/Desktop/微信图片_20170718175019.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "C:/Users/pssio/Desktop/微信图片_20170718175031.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "C:/Users/pssio/Desktop/微信图片_20170718175026.png"
+					"hdpi": "C:/Users/pssio/Desktop/快修引导页切图/min.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/pssio/Desktop/快修引导页切图/maxmin.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/pssio/Desktop/快修引导页切图/max.png"
 				}
 			},
 			"debug": true,

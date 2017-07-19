@@ -84,7 +84,7 @@
 						//document.getElementById('mask').style.display='none';
 					} else if(data.msgCode == "0002") {
 						mui.alert('你已在其它地方登录,请重新登录!', function() {
-							var w = plus.webview.create( "login.html" );
+							var w = plus.webview.create( "../login.html" );
 								w.show(); // 显示窗口
 							/*mui.openWindow({
 								url: 'login.html',
@@ -179,14 +179,12 @@
 			}
 		});
 	};
-
 	owner.createState = function(jsonData, callback) {
 		var state = owner.getState();
 		state.token = jsonData.data;
 		owner.setState(state);
 		return callback();
 	};
-
 	/**
 	 * 获取当前状态
 	 **/
@@ -205,7 +203,6 @@
 		//settings.gestures = '';
 		//owner.setSettings(settings);
 	};
-
 	/**
 	 * 设置应用本地配置
 	 **/
@@ -222,17 +219,4 @@
 		var settingsText = localStorage.getItem('$settings') || "{}";
 		return JSON.parse(settingsText);
 	}
-
-	/*$.ready(function() {
-		document.onreadystatechange = function() {
-			if(document.readyState == "complete") {
-				var body = document.getElementsByTagName('body');
-				var div = document.createElement('div');
-				div.setAttribute("id", "mask");
-				div.innerHTML = '<img src="./images/3.gif"/><span id="mask-num">0%</span>';
-				body[0].appendChild(div);
-			}
-		}
-	})*/
-
 }(mui, window.app = {}));
