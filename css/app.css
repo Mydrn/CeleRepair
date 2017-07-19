@@ -1,5 +1,5 @@
 /*
- *这是单独个性化css，可以覆盖标准mui的css定义；
+ *这是单独为hello mui准备的个性化css，可以覆盖标准mui的css定义；
  * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
  * 
  * */
@@ -12,11 +12,36 @@
 	padding: 0;
 }
 
+
+/*hm开头的表示仅为 Hello MUI示例定义*/
+
 .hm-description {
 	margin: .5em 0;
+}
+
+.see {
+	cursor: pointer;
 }
 
 .hm-description>li {
 	font-size: 14px;
 	color: #8f8f94;
+}
+
+.mui-filter {
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px)
+}
+
+.bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: -99;
 }

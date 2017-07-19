@@ -127,6 +127,16 @@
 			.f-white {
 				color: #fff!important
 			}
+			.order-null {
+				margin:0 auto;
+				padding-top: 10%;
+				width:50%;
+				font-weight: bold;
+				color:#ccc;
+			}
+			.mui-table-view-cell p{
+				text-align: left;
+			}
 		</style>
 	</head>
 
@@ -144,18 +154,6 @@
 					<a class="mui-control-item" href="#item2mobile">
 						进行中
 					</a>
-					<!--<a class="mui-control-item" href="#item2mobile">
-						审核中
-					</a>
-					<a class="mui-control-item" href="#item3mobile">
-						待上门
-					</a>
-					<a class="mui-control-item" href="#item4mobile">
-						待支付
-					</a>
-					<a class="mui-control-item" href="#item5mobile">
-						待评价
-					</a>-->
 				</div>
 				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6 bg-orange"></div>
 				<div class="mui-slider-group">
@@ -169,68 +167,21 @@
 							</div>
 						</div>
 					</div>
+					
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
-						<div class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view mui-loading">
-									<!--<c:forEach var="obj" items="${ caseList }">
-									<c:if test="${ obj.caseStatus == -1 }">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell mui-media">
-												<a href="${ctx}/backend/h5/case/doCaseOne?caseId=${ obj.id }">
-													<img class="mui-media-object mui-pull-left" src="${obj.attachmentFile}">
-													<div class="mui-media-body">
-														<p class="order-title">${ obj.claimCode }</p>
-														<p class="mui-ellipsis">${ obj.createTime }</p>
-													</div><span class="stateType">审<br />核<br />中</span>
-												</a>
-											</li>
-										</ul>
-									</c:if>
-									</c:forEach>-->
+						<div  class="mui-scroll-wrapper">
+							<div id="orderList" class="mui-scroll mui-text-center">
+								<!--订单为空时额样式布局-->
+								
+								<ul id="caseUl" class="mui-table-view mui-loading">
+									<div class="order-null">
+										<img src="../images/ice-null.png" />
+										<div class="f-essential">暂无进行中订单</div>
+									</div>
 								</ul>
 							</div>
 						</div>
 					</div>
-					<!--<div id="item3mobile" class="mui-slider-item mui-control-content">
-						<div class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view mui-loading">
-									<c:forEach var="obj" items="${ caseList }">
-										<c:if test="${ obj.caseStatus == 0 || obj.caseStatus == 1 || obj.caseStatus == 2 }">
-											<ul class="mui-table-view">
-												<li class="mui-table-view-cell mui-media">
-													<a href="${ctx}/backend/h5/case/doCaseOne?caseId=${ obj.id }">
-														<img class="mui-media-object mui-pull-left" src="${obj.attachmentFile}">
-														<div class="mui-media-body">
-															<p class="order-title">${ obj.claimCode }</p>
-															<p class="mui-ellipsis">${ obj.createTime }</p>
-														</div><span class="stateType">待<br />上<br />门</span>
-													</a>
-												</li>
-											</ul>
-										</c:if>
-										</c:forEach>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div id="item4mobile" class="mui-slider-item mui-control-content">
-						<div class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view mui-loading">
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div id="item5mobile" class="mui-slider-item mui-control-content">
-						<div class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view mui-loading">
-								</ul>
-							</div>
-						</div>
-					</div>-->
 				</div>
 			</div>
 		</div>
@@ -380,82 +331,20 @@
 						ul.appendChild(createFragment(ul, 1, 10));
 					}, 500);
 				}
-				
 				app.indexList(function(data) {
-					var fragment = document.createDocumentFragment();
-					var li;
-					var caseList = data.data.caseList;
+					if(data.msgCode == "0000") {
+						var caseList = data.data.caseList;
 						if(caseList.length<=0) {
 							item2.querySelector('.mui-table-view').innerHTML = '<br/><p class="mui-text-center dataTime">暂无进行中订单</p>';
 							return;
 						}
-						for(var item in caseList) {
-							stateType = "已<br />完<br />成";
-							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
-								stateType = state1
-							} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
-								stateType = state7
-							} else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2) {
-								stateType = state2
-							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5) {
-								stateType = state3
-							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5) {
-								stateType = state4
-							} else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null) {
-								stateType = state5
-							}
-							li = document.createElement('li');
-									li.className = 'mui-table-view-cell mui-media';
-									li.innerHTML = '<a href="javascript:;" class="details" id="' + caseList[item].id + '">' +
-										'<img class="mui-media-object mui-pull-left" src="' + caseList[item].attachmentFile + '">' +
-										'<div class="mui-media-body">' +
-										'<p class="order-title mui-ellipsis">' + caseList[item].claimCode + '</p>' +
-										'<p class="mui-ellipsis">' + caseList[item].updateTime + '</p>' +
-										'</div>' +
-										'<span class="stateType">' + stateType +
-										'</a>';
-							fragment.appendChild(li);
-						}
-						var ul = item2.querySelector('.mui-table-view');
-						ul.innerHTML = '';
-						ul.appendChild(fragment);
-						//item2.querySelector('.mui-table-view').appendChild = fragment;
-						
-				});
-				
-				
-				//点击导航栏时的事件
-				/* document.getElementById('slider').addEventListener('slide', function(e) {
-					//第二屏的页面内容
-					if(e.detail.slideNumber === 1) {
-						if(item2.querySelector('.mui-loading')) {
-							setTimeout(function() {
-								item2.querySelector('.mui-table-view').innerHTML = html2;
-							}, 500); 
-						}
-					//第三屏的页面内容
-					} else if(e.detail.slideNumber === 2) {
-						if(item3.querySelector('.mui-loading')) {
-							setTimeout(function() {
-								item3.querySelector('.mui-table-view').innerHTML = html3;
-							}, 500);
-						}
-					//第四屏的页面内容
-					} else if(e.detail.slideNumber === 3) {
-						if(item4.querySelector('.mui-loading')) {
-							setTimeout(function() {
-								//item4.querySelector('.mui-table-view').innerHTML = html4;
-							}, 500);
-						}
-					//第五屏的页面内容
-					} else if(e.detail.slideNumber === 4) {
-						if(item5.querySelector('.mui-loading')) {
-							setTimeout(function() {
-								//item5.querySelector('.mui-table-view').innerHTML = html5;
-							}, 500);
-						}
+					}else if(data.msgCode == "0002") {
+						mui.alert('你已在其它地方登录,请重新登录!', function() {
+							var w = plus.webview.create("../login.html");
+							w.show(); // 显示窗口
+						});
 					}
-				}); */
+				});
 			})(mui);
 			mui('body').on('tap', '.details', function() {
 					mui.openWindow({
@@ -466,6 +355,7 @@
 						}
 					});
 				});
+				
 		</script>
 	</body>
 

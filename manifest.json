@@ -319,7 +319,8 @@
 					"css/mui.min.css",
 					"treaty.html",
 					"images/bg.jpg",
-					"page/personal.html"
+					"page/personal.html",
+					"css/app.css"
 				],
 				"refer": [
 					"main.html"
@@ -351,7 +352,8 @@
 				],
 				"refer": [
 					"page/evaluation.html",
-					"login.html"
+					"login.html",
+					"page/order.html"
 				],
 				"priority": 0
 			},
@@ -426,9 +428,13 @@
 					"fonts/mui.ttf",
 					"css/mui.min.css",
 					"images/cbd.jpg",
-					"main.html"
+					"main.html",
+					"images/ice-null.png",
+					"page/images/ice-null.png"
 				],
-				"refer": [],
+				"refer": [
+					"page/order-details.html"
+				],
 				"priority": 0
 			},
 			"page/about.html": {
@@ -519,7 +525,13 @@
 					"js/mui.pullToRefresh.material.js",
 					"main.html",
 					"page/feedback.html",
-					"page/about.html"
+					"page/about.html",
+					"images/2.jpg",
+					"images/5.jpg",
+					"images/1.jpg",
+					"images/cdbg.png",
+					"images/6.jpg",
+					"images/4.jpg"
 				],
 				"refer": [
 					"page/order-details.html",

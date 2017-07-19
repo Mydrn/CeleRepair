@@ -334,10 +334,10 @@
 								<ul class="mui-table-view">
 									<!--仅流应用环境下显示-->
 									<li class="mui-table-view-cell">
-										<a href="#">界面显示错乱</a>
+										<a href="#">服务态度好</a>
 									</li>
 									<li class="mui-table-view-cell">
-										<a href="#">启动缓慢，卡出翔了</a>
+										<a href="#">相应及时</a>
 									</li>
 									<li class="mui-table-view-cell">
 										<a href="#">偶发性崩溃</a>
@@ -352,8 +352,7 @@
 					<div class="row mui-input-row mui-rows">
 						<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
 					</div>
-					<p>图片(选填
-						<!--,提供问题截图,总大小10M以下-->)</p>
+					<p>图片(选填<!--,提供问题截图,总大小10M以下-->)</p>
 					<div id='image-list' class="row image-list">
 						<div class="file-box">
 							<input type="file" name="file" class="file" accept="image/*" />
@@ -492,9 +491,6 @@
 				timeout: 5000, //超时时间设置为5秒；             
 				success: function(data) {
 					if(data.msgCode == "0000") {
-//						mui.alert('反馈成功', function() {
-//							mui.back();
-//						});
 						mui.toast("反馈成功");
 						mui.back();
 					} else if(data.msgCode == "0002") {

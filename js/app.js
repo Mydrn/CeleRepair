@@ -31,32 +31,27 @@
 			type: 'POST', //HTTP请求类型
 			timeout: 3000, //超时时间设置为6秒；
 			success: function(data) {
+				var state1 = "审<br />核<br />中",
+					state2 = "待<br />上<br />门",
+					state3 = "待<br />审<br />批",
+					state4 = "待<br />付<br />款",
+					state5 = "待<br />评<br />价",
+					state6 = "已<br />完<br />成",
+					state7 = "待<br />接<br />单";
+				var stateType = "已<br />完<br />成";
 				if(data.msgCode == "0000") {
 					//设置客服电话
 					localStorage.setItem('$contactUs', data.data.contactUs);
 					if(data.msgCode == "0000") {
-						//广告数据
-						var slider = document.getElementById("slider-list");
-						var html = '';
-						var adList = data.data.adList;
-						for(var item in adList) {
-							html += '<div class="mui-slider-item">' +
-								'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
-								'<img src="' + adList[item].adUrl + '">' +
-								'</a>' +
-								'</div>'
-						}
-						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
-						//自动播放轮播图
 						//订单列表
 						var caseList = data.data.caseList;
 						var caseUl = document.getElementById("caseUl");
-						if(caseList==undefined || caseList.length<=0 ) {
+						if(caseList == undefined || caseList.length <= 0) {
 							var orderList = document.getElementById("orderList")
 							orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
 							return;
 						}
-						var caseHTML='';
+						var caseHTML = '';
 						for(var item in caseList) {
 							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
 								stateType = state1
@@ -81,31 +76,13 @@
 								'</a></li>';
 						}
 						caseUl.innerHTML = caseHTML;
-						//document.getElementById('mask').style.display='none';
-					} else if(data.msgCode == "0002") {
-						mui.alert('你已在其它地方登录,请重新登录!', function() {
-							var w = plus.webview.create( "../login.html" );
-								w.show(); // 显示窗口
-							/*mui.openWindow({
-								url: 'login.html',
-								id: 'login'
-							});*/
-						});
-					}
-					
+					} 
 					//console.log(JSON.stringify(data));
-					return callback(data);
-				} else if(data.msgCode == "0002") {
-					mui.alert('你已在其它地方登录,请重新登录!', function() {
-						mui.openWindow({
-							url: 'login.html',
-							id: 'login'
-						});
-					});
 				}
+				return callback(data);
 			},
 			error: function(xhr, type, errorThrown) {
-				plus.nativeUI.closeWaiting();
+				//plus.nativeUI.closeWaiting();
 				return mui.toast('网络繁忙!');
 			}
 		});
@@ -218,5 +195,18 @@
 	owner.getSettings = function() {
 		var settingsText = localStorage.getItem('$settings') || "{}";
 		return JSON.parse(settingsText);
+	}
+
+	owner.see = function() {
+		mui("body").on("tap", ".see", function() {
+			var pass = this.previousElementSibling;
+			if(pass.getAttribute('type') == "password") {
+				pass.setAttribute("type", "text");
+				this.setAttribute('class', this.getAttribute('class').replace(/off/, "no"));
+			} else {
+				pass.setAttribute("type", "password");
+				this.setAttribute('class', this.getAttribute('class').replace(/no/, "off"));
+			}
+		})
 	}
 }(mui, window.app = {}));

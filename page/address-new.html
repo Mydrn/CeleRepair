@@ -16,27 +16,6 @@
 				background-color: #fff
 			}
 			
-			span.mui-icon {
-				font-size: 20px;
-				color: #fff
-			}
-			
-			.mui-off-canvas-left {
-				color: #fff
-			}
-			
-			.title {
-				margin: 35px 15px 10px
-			}
-			
-			.title+.content {
-				margin: 10px 15px 35px;
-				color: #bbb;
-				text-indent: 1em;
-				font-size: 14px;
-				line-height: 24px
-			}
-			
 			#offCanvasSideScroll {
 				padding-top: 44px
 			}
@@ -100,18 +79,18 @@
 					<input type="text" hidden name="regionId" value="" id="regionId" />
 					<div class="mui-input-row">
 						<label>联系地址:</label>
-						<input type="text" placeholder="请选择地址" class="mui-text-right text-overflow" id="showCityPicker3">
+						<input type="text" placeholder="请选择地址" class="mui-text-right text-overflow" id="showCityPicker3" readOnly="true">
 					</div>
 					<div class="mui-input">
 						<textarea id="address" name="address" placeholder="请输入详细地址" rows="3" cols="2"></textarea>
 					</div>
 					<div class="mui-input-row">
 						<label>联系人:</label>
-						<input type="text" id="addressName" name="name" value="" class="mui-input-clear mui-text-right" placeholder="请输入联系人" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+						<input type="text" id="addressName" name="name" class="mui-input-clear mui-text-right" placeholder="请输入联系人" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
 					</div>
 					<div class="mui-input-row">
 						<label>联系电话:</label>
-						<input type="tel" id="mobile" name="mobile" value="" class="mui-input-clear mui-text-right" placeholder="请输入联系电话" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+						<input type="tel" id="mobile" name="mobile" maxlength="11" class="mui-input-clear mui-text-right" placeholder="请输入联系电话" data-input-clear="5"><span class="mui-icon mui-icon-clear mui-hidden"></span>
 					</div>
 					<div class="cele-footer">
 						<button id="submit" class="mui-btn bg-orange f-white">确认</button>
@@ -212,6 +191,9 @@
 					if(addressName.value.trim() == '') {
 						return mui.toast("请输入联系人");
 					}
+					if( addressName.value.trim().length<=2) {
+						return mui.toast("联系人必须大于一个汉字");
+					}
 					if(mobile.value.replace(/^1(3|4|5|7|8)\d{9}$/, "")) {
 						return mui.toast("请输入正确的联系电话");
 					}
@@ -246,10 +228,6 @@
 			
 			
 			});
-			
-			/*setTimeout(function(){
-				document.querySelector('#mask').style.display='none'
-			},1500);*/
 			function seach(a) {
 				for(var i = 0; i < cityData3.length; i++) {
 					if(cityData3[i].value == a) {
@@ -269,7 +247,6 @@
 					}
 				}
 			}
-					
 			
 		</script>
 	</body>

@@ -12,23 +12,6 @@
 			#offCanvasSideScroll {
 				padding-top: 44px
 			}
-			
-			.textA {
-				vertical-align: middle
-			}
-			
-			.f-white {
-				color: #fff!important
-			}
-			
-			.bg-white {
-				background-color: #fff!important
-			}
-			
-			.bg-orange {
-				background-color: #ff5700!important
-			}
-			
 			.mui-icon-star {
 				font-size: 20px
 			}
@@ -247,7 +230,6 @@
 						caseObj = data.data;
 						document.getElementById("OderId").value = caseObj.id;
 						document.getElementById("claimCode").innerHTML = caseObj.claimCode;
-						//document.getElementById("createTime").innerText = caseObj.createTime;
 						document.getElementById("serviceName").innerHTML = caseObj.serviceName;
 					},
 					error:function(xhr,type,errorThrown){

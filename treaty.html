@@ -8,11 +8,6 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="css/mui.min.css">
 		<style>
-			html,
-			body {
-				background-color: #efeff4;
-			}
-			
 			#offCanvasSideScroll {
 				padding-top: 44px
 			}
@@ -61,7 +56,7 @@
 				<a href="message.html" class="mui-pull-right">
 				</a>
 			</header>
-			<div id="offCanvasSideScroll" class="mui-scroll-wrapper mui-text-center">
+			<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
 				<div class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						<div id="content">
@@ -76,20 +71,11 @@
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
-		<script src="js/app.js"></script>
 		<script>
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
-			//实现ios平台原生侧滑关闭页面；
-			if(mui.os.plus && mui.os.ios) {
-				mui.plusReady(function() {
-					//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-					plus.webview.currentWebview().setStyle({
-						'popGesture': 'none'
-					});
-				});
-			}
+			
 			(function($, doc) {
 				var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 				var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "list/findAgreementFirst";

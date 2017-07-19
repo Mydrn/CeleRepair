@@ -474,7 +474,7 @@
 												<td id="mobile"></td>
 											</tr>
 											<tr>
-												<td>地址:</td>
+												<td>联系地址:</td>
 												<td id="address"></td>
 											</tr>
 									</tbody>
@@ -524,7 +524,7 @@
 		<script src="../js/mui.zoom.js"></script>
 		<script src="../js/mui.previewimage.js"></script>
 		<script>
-			var caseId, caseObj, token = app.getState().token;
+			var caseId, caseObj, typeHtml, token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));;
 			var contactUs = localStorage.getItem('$contactUs');
 			mui.init({
@@ -541,6 +541,7 @@
 			mui.plusReady(function() {
 				plus.nativeUI.showWaiting();
 				caseId = plus.webview.currentWebview().caseId;
+				typeHtml   = plus.webview.currentWebview().typeHtml;
 				var url2 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
 				mui.ajax(url2, {
 					type: 'POST',
@@ -578,11 +579,11 @@
 						document.getElementById("name").innerText = address.name;
 						//订单
 						caseObj = data.data.obj;
-						document.getElementById("address").innerText = caseObj.proName + caseObj.regiontName + caseObj.cityName + address.address;
+						document.getElementById("address").innerText = caseObj.proName + caseObj.cityName + caseObj.regiontName + address.address;
 						document.getElementById("claimCode").innerText = caseObj.claimCode;
 						document.getElementById("createTime").innerText = caseObj.createTime;
 						document.getElementById("servicingTime").innerText = caseObj.servicingTime;
-						document.getElementById("caseDesc").innerText = '报修描述:' + caseObj.caseDesc;
+						document.getElementById("caseDesc").innerText = '报修描述: ' + caseObj.caseDesc;
 						if(caseObj.caseStatus == -1 && caseObj.customerType == 5) { //待接单
 							document.querySelector('.bottom_tel .mui-table-view-cell').innerHTML = '<a href="tel:' + contactUs + '" id="submit" class="mui-text-center bg-orange f-white">联系客服</a>'//'<a href="order-new.html?0" id="submit" class="mui-text-center bg-orange f-white">继续下单</a>';
 							cycle(0);
@@ -637,7 +638,7 @@
 				}, function(e) {
 					mui.alert("获取支付通道失败：" + e.message);
 				});
-
+				
 			});
 			//跳转评价
 			mui('body').on('tap', '.doEvaluation', function() {

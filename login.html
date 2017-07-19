@@ -8,82 +8,9 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
 		<link rel="stylesheet" href="https://at.alicdn.com/t/font_t80a2ko6nso47vi.css">
 		<style>
-			body,
-			html {
-				background-color: #efeff4
-			}
-			
-			.mui-filter {
-				-webkit-filter: blur(5px);
-				-moz-filter: blur(5px);
-				-o-filter: blur(5px);
-				-ms-filter: blur(5px);
-				filter: blur(5px)
-			}
-			.bg{
-				position: fixed;
-				top:0;
-				left:0;
-				right:0;
-				bottom: 0;
-				width:100%;
-				z-index: -99;
-			}
-			span.mui-icon {
-				font-size: 20px;
-				color: #fff
-			}
-			
-			.mui-off-canvas-left {
-				color: #fff
-			}
-			
-			.title {
-				margin: 35px 15px 10px
-			}
-			
-			.title+.content {
-				margin: 10px 15px 35px;
-				color: #bbb;
-				text-indent: 1em;
-				font-size: 14px;
-				line-height: 24px
-			}
-			
-			.mui-repair {
-				width: 44%;
-				padding: 4% 0;
-				margin: 0 0 0 4%;
-				color: #fff;
-				border: 0;
-				background: #92b0dd;
-				border-radius: 10px
-			}
-			
-			.mui-repair-left {
-				margin-right: 4%;
-				background: #e0b6b6
-			}
-			
-			.f-white {
-				color: #fff!important
-			}
-			
-			.f-14 {
-				font-size: 14px!important
-			}
-			
-			.bg-orange {
-				background-color: #ff5700!important
-			}
-			
-			.order-null {
-				text-align: center;
-				padding-top: 20%
-			}
-			
 			.icon-left {
 				left: 0;
 				font-size: 20px;
@@ -100,10 +27,6 @@
 			
 			.transparent {
 				background: 0 0
-			}
-			
-			.f-blank {
-				color: #000!important
 			}
 			
 			#login {
@@ -176,7 +99,7 @@
 					<div class="mui-input-row">
 						<span class="iconfont icon-denglumima icon-left"></span>
 						<input type="password" id="password" class="mui-input-password" data-input-password="3" placeholder="密码">
-						<span class="iconfont icon-off-yanjing" onclick="see(this)"></span>
+						<span class="iconfont icon-off-yanjing see"></span>
 					</div>
 					<input type="button" id="submit" value="登录" class="mui-btn mui-btn-block bg-orange f-white" />
 					<a href="forget-password.html" class="mui-right f-white f-14 forget">忘记密码</a>
@@ -195,16 +118,8 @@
 				window.top.location.href = this.href;
 			});
 
-			function see(e) {
-				var pass = e.previousElementSibling;
-				if(pass.getAttribute('type') == "password") {
-					pass.setAttribute("type", "text");
-					e.setAttribute('class', e.getAttribute('class').replace(/off/, "no"));
-				} else {
-					pass.setAttribute("type", "password");
-					e.setAttribute('class', e.getAttribute('class').replace(/no/, "off"));
-				}
-			};
+			app.see();//密码查看
+			
 			var customerName = document.getElementById('customerName');
 			var password = document.getElementById('password');
 			document.getElementById('submit').addEventListener('tap', function() {
@@ -224,7 +139,6 @@
 					var webview = plus.webview.create( "main.html" );
 					plus.nativeUI.showWaiting();
 					webview.show();
-					//window.location.href = "main.html";
 				});
 			});
 		</script>

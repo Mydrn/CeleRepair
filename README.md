@@ -66,3 +66,8 @@ var detailID = href.split("?")[1];
 
 #客服电话
 var contactUs = localStorage.getItem('$contactUs');
+
+
+
+前端
+readOnly="true" 输入框为不可编辑状态

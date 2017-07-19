@@ -7,39 +7,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
 		<link rel="stylesheet" href="./css/mui.min.css">
 		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_n5o6ioc4rv8to6r.css" />
 		<style>
-			html,
-			body {
-				background-color: #efeff4;
-			}
-			
-			span.mui-icon {
-				font-size: 20px;
-				color: #fff;
-			}
-			
-			.mui-filter {
-				-webkit-filter: blur(6px);
-				-moz-filter: blur(6px);
-				-o-filter: blur(6px);
-				-ms-filter: blur(6px);
-				filter: blur(6px);
-			}
-			
-			
-			.bg{
-				position: fixed;
-				top:0;
-				left:0;
-				right:0;
-				bottom: 0;
-				width:100%;
-				z-index: -99;
-			}
-			
 			#register .mui-input-row input {
 				color: #fff;
 				padding: 8px 10px 8px 38px
@@ -237,17 +208,8 @@
 									<div class="mui-input-row">
 										<span class="iconfont icon-denglumima icon-left"></span>
 										<input type="password" class="mui-input-password" data-input-password="3" placeholder="登录密码" id="password" name="password">
-										<span class="iconfont icon-off-yanjing" onclick="see(this)"></span>
+										<span class="iconfont icon-off-yanjing see"></span>
 									</div>
-									<!-- <input type="text" hidden id="imgUrl" name="imgUrl" value="" />
-									<div class="mui-text-left business-body">
-										<label for="file" class="f-white">上传营业执照/身份证正面:</label>
-										<div class="business">
-											<div class="file-box">
-												<input type="file" class="file" accept="image/*" onchange="file(this)" />
-											</div>
-										</div>
-									</div> -->
 									<br />
 									<input type="submit" name="submit" id="submit" value="注册" class="mui-btn mui-btn-block bg-orange f-white" />
 								</form>
@@ -283,16 +245,7 @@
 			//主界面和侧滑菜单界面均支持区域滚动；
 			mui('#offCanvasSideScroll').scroll();
 
-			function see(e) {
-				var pass = e.previousElementSibling;
-				if(pass.getAttribute('type') == "password") {
-					pass.setAttribute("type", "text");
-					e.setAttribute('class', e.getAttribute('class').replace(/off/, "no"));
-				} else {
-					pass.setAttribute("type", "password");
-					e.setAttribute('class', e.getAttribute('class').replace(/no/, "off"));
-				}
-			};
+			app.see();
 
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			//发送验证码

@@ -10,31 +10,6 @@
 		<link rel="stylesheet" href="./css/mui.min.css">
 		<link rel="stylesheet" href="https://at.alicdn.com/t/font_t80a2ko6nso47vi.css">
 		<style>
-			html,
-			body {
-				background-color: #efeff4;
-			}
-			
-			span.mui-icon {
-				font-size: 20px;
-			}
-			
-			.mui-off-canvas-left {
-				color: #fff;
-			}
-			
-			.title {
-				margin: 35px 15px 10px;
-			}
-			
-			.title+.content {
-				margin: 10px 15px 35px;
-				color: #bbb;
-				text-indent: 1em;
-				font-size: 14px;
-				line-height: 24px;
-			}
-			
 			.userPic {
 				position: absolute;
 				top: 50%;
@@ -62,7 +37,7 @@
 			}
 			
 			.userImg {
-				width:80px;
+				width: 80px;
 				max-height: 80px;
 				min-height: 80px;
 				border-radius: 50%;
@@ -173,6 +148,7 @@
 				top: 44px;
 				height: auto;
 			}
+			
 			.mui-pull-top-tips {
 				position: absolute;
 				top: -20px;
@@ -183,9 +159,11 @@
 				border-radius: 100%;
 				z-index: 1;
 			}
+			
 			.mui-bar~.mui-pull-top-tips {
 				top: 24px;
 			}
+			
 			.mui-pull-top-wrapper {
 				width: 42px;
 				height: 42px;
@@ -198,24 +176,28 @@
 				box-shadow: 0 4px 10px #bbb;
 				overflow: hidden;
 			}
+			
 			.mui-pull-top-tips.mui-transitioning {
 				-webkit-transition-duration: 200ms;
 				transition-duration: 200ms;
 			}
+			
 			.mui-pull-top-tips .mui-pull-loading {
 				/*-webkit-backface-visibility: hidden;
 				-webkit-transition-duration: 400ms;
 				transition-duration: 400ms;*/
-				
 				margin: 0;
 			}
+			
 			.mui-pull-top-wrapper .mui-icon,
 			.mui-pull-top-wrapper .mui-spinner {
 				margin-top: 7px;
 			}
+			
 			.mui-pull-top-wrapper .mui-icon.mui-reverse {
 				/*-webkit-transform: rotate(180deg) translateZ(0);*/
 			}
+			
 			.mui-pull-bottom-tips {
 				text-align: center;
 				background-color: #efeff4;
@@ -223,6 +205,7 @@
 				line-height: 40px;
 				color: #777;
 			}
+			
 			.mui-pull-top-canvas {
 				overflow: hidden;
 				background-color: #fafafa;
@@ -232,13 +215,17 @@
 				height: 40px;
 				margin: 0 auto;
 			}
+			
 			.mui-pull-top-canvas canvas {
 				width: 40px;
 			}
+			
 			.mui-slider-indicator.mui-segmented-control {
 				background-color: #efeff4;
 			}
-			
+			.mui-media-body p{
+				padding:0
+			}
 		</style>
 	</head>
 
@@ -257,7 +244,7 @@
 					<div class="mui-scroll">
 						<div class="mui-card">
 							<div class="mui-card-content">
-								<img src="./images/cbd.jpg" alt="" width="100%" />
+								<img src="images/cdbg.png" alt="" width="100%" />
 							</div>
 							<div class="userPic mui-text-center">
 								<img class="userImg" id="userImg" src="./images/logo.png" />
@@ -298,7 +285,8 @@
 						<ul class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
 							<li class="mui-table-view-cell">
 								<a href="javascript:;" class="mui-navigate-right btnFn">
-									清除缓存<p align="right" id="cache"></p>
+									清除缓存
+									<p align="right" id="cache"></p>
 								</a>
 							</li>
 							<li class="mui-table-view-cell">
@@ -328,23 +316,23 @@
 								<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 								<div class="mui-slider-item mui-slider-item-duplicate"></div>
 								<div class="mui-slider-item">
-									<a href="#"> <img src="images/1.png">
+									<a href="#"> <img src="images/1.jpg">
 									</a>
 								</div>
 								<div class="mui-slider-item">
-									<a href="#"> <img src="images/2.png">
+									<a href="#"> <img src="images/2.jpg">
 									</a>
 								</div>
 								<div class="mui-slider-item">
-									<a href="#"> <img src="images/3.png">
+									<a href="#"> <img src="images/4.jpg">
 									</a>
 								</div>
 								<div class="mui-slider-item">
-									<a href="#"> <img src="images/4.png">
+									<a href="#"> <img src="images/5.jpg">
 									</a>
 								</div>
 								<div class="mui-slider-item">
-									<a href="#"> <img src="images/5.png">
+									<a href="#"> <img src="images/6.jpg">
 									</a>
 								</div>
 								<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
@@ -400,56 +388,80 @@
 			mui('#offCanvasSideScroll').scroll({
 				indicators: false
 			});
-				//阻尼系数
-				var deceleration = mui.os.ios?0.003:0.0009;
-				mui('#offCanvasContentScroll').scroll({
-					bounce: false,
-					indicators: false, //是否显示滚动条
-					deceleration:deceleration
-				});
+			//阻尼系数
+			var deceleration = mui.os.ios ? 0.003 : 0.0009;
+			mui('#offCanvasContentScroll').scroll({
+				bounce: false,
+				indicators: false, //是否显示滚动条
+				deceleration: deceleration
+			});
 			
-			var state1 = "审<br />核<br />中",
-				state2 = "待<br />上<br />门",
-				state3 = "待<br />审<br />批",
-				state4 = "待<br />付<br />款",
-				state5 = "待<br />评<br />价",
-				state6 = "已<br />完<br />成",
-				state7 = "待<br />接<br />单";
-			var stateType = "已<br />完<br />成";
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.plusReady(function() {
 				plus.nativeUI.showWaiting();
 				//手机设备定位
 				plus.geolocation.getCurrentPosition(
-					function(p){
-						document.getElementsByClassName("satellitePositioning")[0].innerHTML=p.address.province;
-						console.log("定位成功："+p.address.province);
+					function(p) {
+						document.getElementsByClassName("satellitePositioning")[0].innerHTML = p.address.province;
+						console.log("定位成功：" + p.address.province);
 					},
-					function(p){
+					function(p) {
 						alert(p);
 					}
 				);
-				app.indexList(function(data) {});
-				
+				app.indexList(function(data) {
+					if(data.msgCode == "0000") {
+						//设置客服电话
+						localStorage.setItem('$contactUs', data.data.contactUs);
+						//广告数据
+						var slider = document.getElementById("slider-list");
+						var html = '';
+						var adList = data.data.adList;
+						for(var item in adList) {
+							html += '<div class="mui-slider-item">' +
+								'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
+								'<img src="' + adList[item].adUrl + '">' +
+								'</a>' +
+								'</div>'
+						}
+						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
+					}else if(data.msgCode == "0002") {
+						mui.alert('你已在其它地方登录,请重新登录!', function() {
+							var w = plus.webview.create("./login.html");
+							w.show(); // 显示窗口
+							/*mui.openWindow({
+								url: 'login.html',
+								id: 'login'
+							});*/
+						});
+					}
+				//关闭等待框
+				plus.nativeUI.closeWaiting();
+				});
+
 				//自动播放轮播图
 				mui(function(e) {
 					mui("#slider").slider({
 						interval: 4000
 					})
 				})
-				
+
 				mui.each(document.querySelectorAll('#offCanvasContentScroll .mui-scroll'), function(index, pullRefreshEl) {
-						mui(pullRefreshEl).pullToRefresh({
-							down: {
-								callback: function() {
-									var self = this;
-									setTimeout(function() {
-										app.indexList(function(data) {
-											self.endPullDownToRefresh();
-										});
-									}, 500);
-								}
+					mui(pullRefreshEl).pullToRefresh({
+						down: {
+							callback: function() {
+								var self = this;
+								setTimeout(function() {
+									app.indexList(function(data) {
+										var caseList = data.data.caseList;
+										if(caseList == undefined || caseList.length <= 0) {
+											mui.toast("没有更多数据");
+										}
+										self.endPullDownToRefresh();
+									});
+								}, 500);
+							}
 //							},
 //							up: {
 //								callback: function() {
@@ -459,155 +471,151 @@
 //										self.endPullDownToRefresh();
 //									}, 500);
 //								}
-							}
-						});
+						}
 					});
-					
+				});
+
 				//主界面‘显示侧滑菜单’按钮的点击事件
 				document.getElementById('offCanvasShow').addEventListener('tap', function() {
-						if(token == undefined || app.getState() == "{}") {
-							//this.location.href = "login.html";
-							window.open("login.html","_top");
-						}else{
-							app.findUser(function(data){
-								if(data.data.customerType!=5){//不是个人注册的，没有地址
-									document.getElementById("address").parentNode.remove();
-								}
-								document.getElementById("name").innerHTML = data.data.name;
-								if(data.data.photoUrl != undefined && data.data.photoUrl != '') {
-									document.getElementById("userImg").src = data.data.photoUrl;
-								}
-							})
-						}
-						offCanvasWrapper.offCanvas('show');
+					if(token == undefined || app.getState() == "{}") {
+						//this.location.href = "login.html";
+						window.open("login.html", "_top");
+					} else {
+						app.findUser(function(data) {
+							if(data.data.customerType != 5) { //不是个人注册的，没有地址
+								document.getElementById("address").parentNode.remove();
+							}
+							document.getElementById("name").innerHTML = data.data.name;
+							if(data.data.photoUrl != undefined && data.data.photoUrl != '') {
+								document.getElementById("userImg").src = data.data.photoUrl;
+							}
+						})
 					}
-				);
+					offCanvasWrapper.offCanvas('show');
+				});
 				//首页禁止返回
 				var first = null;
-				mui.back=function () {  
-                   if(!first){  
-	                    first = new Date().getTime();  
-	                    mui.toast('再按一次退出应用');  
-	                    setTimeout(function(){  
-	                        first = null;  
-	                    },2000);  
-	                } else {  
-	                    if(new Date().getTime() - first < 2000){  
-	                        plus.runtime.quit();  
-	                    }  
-	                }  
-             	}
-
-			//侧滑容器父节点
-			var offCanvasWrapper = mui('#offCanvasWrapper');
-			//主界面容器
-			var offCanvasInner = offCanvasWrapper[0]
-				.querySelector('.mui-inner-wrap');
-			//菜单容器
-			var offCanvasSide = document.getElementById("offCanvasSide");
-			if(!mui.os.android) {
-				var spans = document.querySelectorAll('.android-only');
-				for(var i = 0, len = spans.length; i < len; i++) {
-					spans[i].style.display = "none";
+				mui.back = function() {
+					if(!first) {
+						first = new Date().getTime();
+						mui.toast('再按一次退出应用');
+						setTimeout(function() {
+							first = null;
+						}, 2000);
+					} else {
+						if(new Date().getTime() - first < 2000) {
+							plus.runtime.quit();
+						}
+					}
 				}
-			}
-			//移动效果是否为整体移动
-			var moveTogether = false;
-			//侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
-			var classList = offCanvasWrapper[0].classList;
-			//变换侧滑动画移动效果；
-			offCanvasSide.classList.remove('mui-transitioning');
-			offCanvasSide.setAttribute('style', '');
-			classList.remove('mui-slide-in');
-			classList.remove('mui-scalable');
-			classList.add('mui-slide-in');
-			offCanvasWrapper.offCanvas().refresh();
-			//实现ios平台原生侧滑关闭页面；
-			if(mui.os.plus && mui.os.ios) {
-				mui.plusReady(function() {
-					//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-					plus.webview.currentWebview().setStyle({
-						'popGesture': 'none'
+
+				//侧滑容器父节点
+				var offCanvasWrapper = mui('#offCanvasWrapper');
+				//主界面容器
+				var offCanvasInner = offCanvasWrapper[0]
+					.querySelector('.mui-inner-wrap');
+				//菜单容器
+				var offCanvasSide = document.getElementById("offCanvasSide");
+				if(!mui.os.android) {
+					var spans = document.querySelectorAll('.android-only');
+					for(var i = 0, len = spans.length; i < len; i++) {
+						spans[i].style.display = "none";
+					}
+				}
+				//移动效果是否为整体移动
+				var moveTogether = false;
+				//侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
+				var classList = offCanvasWrapper[0].classList;
+				//变换侧滑动画移动效果；
+				offCanvasSide.classList.remove('mui-transitioning');
+				offCanvasSide.setAttribute('style', '');
+				classList.remove('mui-slide-in');
+				classList.remove('mui-scalable');
+				classList.add('mui-slide-in');
+				offCanvasWrapper.offCanvas().refresh();
+				//实现ios平台原生侧滑关闭页面；
+				if(mui.os.plus && mui.os.ios) {
+					mui.plusReady(function() {
+						//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+						plus.webview.currentWebview().setStyle({
+							'popGesture': 'none'
+						});
+					});
+				}
+
+				//主界面‘显示侧滑菜单’按钮的点击事件
+				document.getElementById('back').addEventListener('tap', function() {
+						offCanvasWrapper.offCanvas('close');
+					}
+
+				);
+				if(token == undefined || app.getState() == "{}") {
+					offCanvasInner.addEventListener('drag', function(event) {
+						mui.toast("您还未登录!");
+						event.stopPropagation();
+					});
+				}
+
+				mui('body').on('tap', '.details', function() {
+					mui.openWindow({
+						url: 'page/order-details.html',
+						id: 'order-details',
+						extras: {
+							caseId: this.id
+						}
 					});
 				});
-			}
-
-			
-			//主界面‘显示侧滑菜单’按钮的点击事件
-			document.getElementById('back').addEventListener('tap', function() {
-					offCanvasWrapper.offCanvas('close');
-				}
-
-			);
-			if(token == undefined || app.getState() == "{}") {
-				offCanvasInner.addEventListener('drag', function(event) {
-					mui.toast("您还未登录!");
-					/*if (token == undefined || token == "{}" ) {
-							 mui.openWindow({url:'login.html',id:'login'});
-						}*/
-					event.stopPropagation();
+				mui('body').on('tap', '#address', function() {
+					mui.openWindow({
+						url: 'page/address.html',
+						id: 'order-address',
+						extras: {
+							item: false
+						}
+					});
+					//mui.currentWebview.close();
 				});
-			}
-
-			mui('body').on('tap', '.details', function() {
-				mui.openWindow({
-					url: 'page/order-details.html',
-					id: 'order-details',
-					extras: {
-						caseId: this.id
+				//开启A标签的跳转
+				mui('body').on('tap', 'a', function() {
+					window.top.location.href = this.href;
+				});
+				//电话号码
+				mui('body').on('tap', '.btnFn', function() {
+					if(this.innerText == "客服热线") {
+						var btnArray = ['取消', '拨打'];
+						mui.confirm(localStorage.getItem('$contactUs'), '您确定拨打电话吗？', btnArray, function(e) {
+							if(e.index == 1) {
+								window.location.href = 'tel:' + localStorage.getItem('$contactUs');
+							} else {
+								//info.innerText = '快修祝您愉快'
+							}
+						})
+					} else {
+						var btnArray = ['取消', '确定'];
+						mui.confirm('您确定清除缓存吗？', '温馨提示', btnArray, function(e) {
+							if(e.index == 1) {
+								var views = plus.webview.all();
+								for(var i = 0; i < views.length - 1; i++) {
+									plus.webview.close(views[i].id);
+								}
+								mui.toast("清除完成");
+							}
+						})
 					}
 				});
-			});
-			mui('body').on('tap', '#address', function() {
-				mui.openWindow({
-					url: 'page/address.html',
-					id: 'order-address',
-					extras: {
-						item: false
-					}
-				});
-				//mui.currentWebview.close();
-			});
-			//开启A标签的跳转
-			mui('body').on('tap', 'a', function() {
-				window.top.location.href = this.href;
-			});
-			//电话号码
-			mui('body').on('tap', '.btnFn', function() {
-				if(this.innerText == "客服热线") {
-					var btnArray = ['取消', '拨打'];
-					mui.confirm(localStorage.getItem('$contactUs'), '您确定拨打电话吗？', btnArray, function(e) {
-						if(e.index == 1) {
-							window.location.href = 'tel:' + localStorage.getItem('$contactUs');
-						} else {
-							//info.innerText = '快修祝您愉快'
-						}
-					})
-				} else {
-					var btnArray = ['取消', '确定'];
-					mui.confirm('您确定清除缓存吗？', '温馨提示', btnArray, function(e) {
-						if(e.index == 1) {
-							 var views = plus.webview.all();
-	                        for(var i = 0; i < views.length - 1; i++) {
-	                            plus.webview.close(views[i].id);
-	                        }
-                    		mui.toast("清除完成");
-						}
-					})
+				// 扩展API加载完毕后调用onPlusReady回调函数 
+				document.addEventListener("plusready", onPlusReady, true);
+				// 扩展API加载完毕，现在可以正常调用扩展API 
+				function onPlusReady() {
+					plus.cache.calculate(function(size) {
+						document.getElementById("cache").innerText = (size / 1024) / 1024;
+						//alert( "App cache size: " + size + " byte!" );
+					});
 				}
-			});
-			// 扩展API加载完毕后调用onPlusReady回调函数 
-			document.addEventListener( "plusready", onPlusReady, true );
-			// 扩展API加载完毕，现在可以正常调用扩展API 
-			function onPlusReady() {
-				plus.cache.calculate( function ( size ) {
-					alert( "App cache size: " + size + " byte!" );
+				//广告跳转
+				mui('body').on('tap', '.adLink', function() {
+					plus.runtime.openURL(this.id);
 				});
-			}
-			//广告跳转
-			mui('body').on('tap', '.adLink', function() {
-				plus.runtime.openURL(this.id);
-			});
 				plus.nativeUI.closeWaiting();
 			});
 		</script>
