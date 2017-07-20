@@ -249,7 +249,7 @@
 								<img src="images/cdbg.png" alt="" width="100%" />
 							</div>
 							<div class="userPic mui-text-center">
-								<img class="userImg" id="userImg" src="./images/logo.png" />
+								<img class="userImg" id="userImg" src="./images/logo2.png" />
 								<!--<div>ID:<span >99999</span></div>-->
 								<a href="page/personal.html" class="mui-block mui-navigate-right">
 									<div>编辑资料</div>
@@ -434,12 +434,10 @@
 						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
 					}else if(data.msgCode == "0002") {
 						mui.alert('你已在其它地方登录,请重新登录!', function() {
-							var w = plus.webview.create("./login.html");
-							w.show(); // 显示窗口
-							/*mui.openWindow({
+							mui.openWindow({
 								url: 'login.html',
 								id: 'login'
-							});*/
+							});
 						});
 					}
 				//关闭等待框
@@ -574,7 +572,7 @@
 				mui('body').on('tap', '#address', function() {
 					mui.openWindow({
 						url: 'page/address.html',
-						id: 'order-address',
+						id: 'address',
 						extras: {
 							item: false
 						}
@@ -609,15 +607,6 @@
 						})
 					}
 				});
-				// 扩展API加载完毕后调用onPlusReady回调函数 
-				document.addEventListener("plusready", onPlusReady, true);
-				// 扩展API加载完毕，现在可以正常调用扩展API 
-				function onPlusReady() {
-					plus.cache.calculate(function(size) {
-					document.getElementById("cache").innerText = (size / 1024) / 1024+"M";
-						//alert( "App cache size: " + size + " byte!" );
-					});
-				}
 				//广告跳转
 				mui('body').on('tap', '.adLink', function() {
 					plus.runtime.openURL(this.id);

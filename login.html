@@ -135,9 +135,10 @@
 				
 				app.login(loginInfo, function(err) {
 					mui.toast("登录成功")
-					var webview = plus.webview.create( "main.html" );
+					mui.back();
+					//var webview = plus.webview.create( "main.html" );
 					plus.nativeUI.showWaiting();
-					webview.show();
+					//webview.show();
 				});
 			});
 		</script>

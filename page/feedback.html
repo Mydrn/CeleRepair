@@ -352,7 +352,8 @@
 					<div class="row mui-input-row mui-rows">
 						<textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
 					</div>
-					<p>图片(选填<!--,提供问题截图,总大小10M以下-->)</p>
+					<p>图片(选填
+						<!--,提供问题截图,总大小10M以下-->)</p>
 					<div id='image-list' class="row image-list">
 						<div class="file-box">
 							<input type="file" name="file" class="file" accept="image/*" />
@@ -475,6 +476,15 @@
 		var adviceContent = document.getElementById('question');
 		var imgUrl = document.getElementById('imgUrl');
 		document.getElementById('submit').addEventListener('tap', function() {
+
+			
+			if(adviceContent.value.trim() == '') {
+				return mui.toast("问题和意见不能为空");
+			}
+			if(title.value.trim() == '') {
+				return mui.toast("联系方式不能为空");
+			}
+
 			event.preventDefault();
 			window.event.returnValue = false;
 			mui.ajax(url, {

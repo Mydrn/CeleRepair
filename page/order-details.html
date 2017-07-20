@@ -462,7 +462,7 @@
 										</tr>
 										<tr>
 											<tr>
-												<td>预约时间:</td>
+												<td>上门时间:</td>
 												<td id="servicingTime"></td>
 											</tr>
 											<tr>
@@ -546,6 +546,7 @@
 				mui.ajax(url2, {
 					type: 'POST',
 					data: {
+						v:Math.random(),
 						token: app.getState().token,
 						caseId: caseId
 					},

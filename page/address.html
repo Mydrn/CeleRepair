@@ -13,6 +13,7 @@
 			body {
 				background-color: #efeff4;
 			}
+			
 			.mui-repair {
 				width: 44%;
 				padding: 4% 0;
@@ -52,6 +53,7 @@
 			.content .about {
 				padding: 10px 0 0;
 			}
+			
 			.mui-checkbox.mui-left label,
 			.mui-radio.mui-left label {
 				padding-left: 25px
@@ -105,14 +107,15 @@
 				});
 				mui.plusReady(function() {
 					window.addEventListener('refresh', function(msg) {
-				        //自定义方法，刷新数据，不刷新页面
-				        //mui.toast("B页面返回并刷新了数据");
-				        location.reload();
-				    });
+						//自定义方法，刷新数据，不刷新页面
+						//mui.toast("B页面返回并刷新了数据");
+						location.reload();
+					});
 					plus.nativeUI.showWaiting();
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doAddress";
 					mui.ajax(url, {
 						data: {
+							v: Math.random(),
 							token: app.getState().token
 						},
 						type: 'POST', //HTTP请求类型
@@ -165,20 +168,20 @@
 					});
 					plus.nativeUI.closeWaiting();
 				});
-				
+
 				mui('body').on('tap', '.addressId', function() {
 					var href = location.href;
 					var item = href.split("?")[1];
 					//alert(this.id);
 					if(item) { //下单页面跳转过来
-						window.location.href='order-new.html?'+this.id.substring(3);
-//						mui.openWindow({
-//							url: 'order-new.html?'+this.id,
-//							id: 'order',
-//							extras: {
-//								itemId: this.id
-//							}
-//						});
+						window.location.href = 'order-new.html?' + this.id.substring(3);
+						//						mui.openWindow({
+						//							url: 'order-new.html?'+this.id,
+						//							id: 'order',
+						//							extras: {
+						//								itemId: this.id
+						//							}
+						//						});
 						//mui.currentWebview.close();
 					}
 				});
@@ -199,38 +202,43 @@
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/delAddress";
 					$('body').on('tap', '.del', function() {
 						var itemId = this.id;
-						var check=this.parentNode.parentNode.getElementsByClassName('checkbox')[0];
-						if(check.checked){
-							mui.toast('默认地址不允许删除');
-						}else{
-							mui.ajax(url, {
-								data: {
-									id: itemId,
-									token: app.getState().token
-								},
-								type: 'POST', //HTTP请求类型
-								dataType: 'json',
-								timeout: 3000, //超时时间设置为5秒；
-								success: function(data) {
-									if(data.msgCode == "0000") {
-										mui.toast("删除成功");
-										var itemDiv = document.getElementById("div" + itemId);
-										itemDiv.parentNode.remove();
-									} else if(data.msgCode == "0002") {
-										mui.alert('你已在其它地方登录,请重新登录!', function() {
-											mui.openWindow({
-												url: 'login.html',
-												id: 'login'
-											});
-										});
-										mui.currentWebview.close();
-									}
-								},
-								error: function(xhr, type, errorThrown) {
-									return mui.toast('网络繁忙');
+						var check = this.parentNode.parentNode.getElementsByClassName('checkbox')[0];
+						mui.confirm('确认删除该地址吗？', '温馨提示', function(e) {
+							if(e.index == 1) {
+
+								if(check.checked) {
+									mui.toast('默认地址不允许删除');
+								} else {
+									mui.ajax(url, {
+										data: {
+											id: itemId,
+											token: app.getState().token
+										},
+										type: 'POST', //HTTP请求类型
+										dataType: 'json',
+										timeout: 3000, //超时时间设置为5秒；
+										success: function(data) {
+											if(data.msgCode == "0000") {
+												mui.toast("删除成功");
+												var itemDiv = document.getElementById("div" + itemId);
+												itemDiv.parentNode.remove();
+											} else if(data.msgCode == "0002") {
+												mui.alert('你已在其它地方登录,请重新登录!', function() {
+													mui.openWindow({
+														url: 'login.html',
+														id: 'login'
+													});
+												});
+												mui.currentWebview.close();
+											}
+										},
+										error: function(xhr, type, errorThrown) {
+											return mui.toast('网络繁忙');
+										}
+									});
 								}
-							});
-						}
+							}
+						})
 					});
 
 					var urlIs = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/isDefault";
@@ -256,7 +264,7 @@
 											checkArr[i].removeAttribute('disabled');
 											checkArr[i].previousElementSibling.innerHTML = "设为默认";
 											_this.checked = true;
-											_this.setAttribute('disabled','disabled');
+											_this.setAttribute('disabled', 'disabled');
 											_this.previousElementSibling.innerHTML = "默认地址";
 										}
 									}

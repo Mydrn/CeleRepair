@@ -1,8 +1,8 @@
 (function($, owner) {
 	var serviceinfo = {
 		//测试接口
-		app_ip: "http://116.62.48.143",
-		app_port: "8088",
+		app_ip: "http://celerepair.celelink.com",
+		app_port: "80",
 		path: "/celefix/backend/h5/" //环境路径
 
 		//本地
@@ -19,7 +19,7 @@
 		callback = callback || $.noop;
 		//首页接口
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndex";
-		var data = {};
+		var data = {v:Math.random()};
 		if(owner.getState().token == undefined) {
 
 		} else {
