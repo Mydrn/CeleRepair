@@ -432,20 +432,15 @@
 						data: $('#objectContent').serialize(),
 						type: 'post', //HTTP请求类型
 						dataType: 'json',
-						timeout: 10000, //超时时间设置为5秒；
+						timeout: 5000, //超时时间设置为5秒；
 						success: function(data) {
 							mui.toast(data.msg);
 							if(data.msgCode == "0000") {
-								mui.openWindow({
-									url: '../main.html',
-									id: 'main'
-								});
+								plus.nativeUI.closeWaiting();
+								mui.openWindow({url: '../main.html',id: 'main'});
 							} else if(data.msgCode == "0002") {
 								mui.alert('你已在其它地方登录,请重新登录!', function() {
-									mui.openWindow({
-										url: '../login.html',
-										id: 'login'
-									});
+									mui.openWindow({url: '../login.html',id: 'login'});
 								});
 							}
 						},
