@@ -162,6 +162,8 @@
 									stateType = "已<br />完<br />成";
 									if(data[item].caseStatus == -1 && data[item].customerType != 5) {
 										stateType = state1
+									} else if(data[item].caseStatus == 0 && data[item].technicianId == 0 && data[item].customerType == 5){
+										stateType = state7
 									} else if(data[item].caseStatus == -1 && data[item].customerType == 5) {
 										stateType = state7
 									} else if(data[item].caseStatus == 0 || data[item].caseStatus == 1 || data[item].caseStatus == 2) {

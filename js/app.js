@@ -57,7 +57,9 @@
 					for(var item in caseList) {
 						if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
 							stateType = state1
-						} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
+						}else if(caseList[item].caseStatus == 0 && caseList[item].technicianId == 0 && caseList[item].customerType == 5){
+							stateType = state7
+						}else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
 							stateType = state7
 						} else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2) {
 							stateType = state2

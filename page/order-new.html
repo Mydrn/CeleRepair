@@ -258,12 +258,6 @@
 				swipeBack: true //启用右滑关闭功能
 			});　
 			mui.plusReady(function() {
-				var old_back = mui.back;
-			    mui.back = function() {
-			        var opener = plus.webview.currentWebview().opener();
-			        mui.fire(plus.webview.getWebviewById(opener.id), 'refresh', null);
-			        old_back();
-			    }
 				plus.nativeUI.showWaiting();
 				var contactUs = localStorage.getItem('$contactUs');
 				var child = document.getElementById("xm");
@@ -357,16 +351,6 @@
 				setTimeout(function() {
 					plus.nativeUI.closeWaiting();
 				}, 500);
-				//页面跳转
-				/*mui('body').on('tap', '#address', function() {
-					mui.openWindow({url:'address.html',id:'address',
-					    extras:{
-					        item:true
-					    }
-					});	
-					mui.currentWebview.close();
-				});*/
-
 				//开启A标签的跳转
 				mui('body').on('tap', 'a', function() {
 					window.top.location.href = this.href;
@@ -422,16 +406,6 @@
 					if($("#imgUrl").val() == '') {
 						return mui.toast("请先上传照片");
 					}
-					/*if(${customer.customerType == 5}){
-						if($("#addressId").val() == ''){
-							return mui.toast("请选择地址");
-						}
-					}else if(${customer.customerType == 3}){
-						if($("#shopId").val()==''){
-							return mui.toast("请选择店铺");
-						}
-					}
-					*/
 					plus.nativeUI.showWaiting();
 					var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/saveCase";
 					mui.ajax(url, {
@@ -444,6 +418,11 @@
 							if(data.msgCode == "0000") {
 								plus.nativeUI.closeWaiting();
 								mui.back();
+								var old_back = mui.back;
+							    mui.back = function() {
+							        mui.fire(plus.webview.getWebviewById('main'), 'refresh', null);
+							        old_back();
+							    }
 								//mui.openWindow({url: '../main.html',id: 'main'});
 							} else if(data.msgCode == "0002") {
 								mui.alert('你已在其它地方登录,请重新登录!', function() {

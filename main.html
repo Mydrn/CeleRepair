@@ -162,6 +162,7 @@
 		<script src="js/mui.pullToRefresh.js"></script>
 		<script src="js/mui.pullToRefresh.material.js"></script>
 		<script>
+			mui.init();
 			//主界面和侧滑菜单界面均支持区域滚动；
 			mui('#offCanvasSideScroll').scroll({
 				indicators: false
@@ -176,11 +177,11 @@
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.plusReady(function() {
-				window.addEventListener('refresh', function(msg) {
+				/*window.addEventListener('refresh', function(msg) {
 					//自定义方法，刷新数据，不刷新页面
 					//mui.toast("B页面返回并刷新了数据");
 					location.reload();
-				});
+				});*/
 				plus.nativeUI.showWaiting();
 				//手机设备定位
 				plus.geolocation.getCurrentPosition(
@@ -355,7 +356,8 @@
 						url: 'page/order-details.html',
 						id: 'order-details',
 						extras: {
-							caseId: this.id
+							caseId: this.id,
+							v:Math.random()
 						}
 					});
 				});

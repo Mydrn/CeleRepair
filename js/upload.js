@@ -151,7 +151,10 @@ var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			paste: '#uploader',
 			swf: '../../dist/Uploader.swf',
 			chunked: false,
-			compress: null,
+			compress: {
+				quality:50,
+				noCompressIfLarger: false
+			},
 			auto: false,
 			fileNumLimit: 20,
 			chunkSize: 512 * 1024,
@@ -685,8 +688,8 @@ var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 (function($, doc) {
 	$.init();
 	$.ready(function() {
-		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
-		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/getAllService";
+		var service = JSON.parse(localStorage.getItem('$serviceinfo'));
+		var url = service.app_ip + ":" + service.app_port + service.path + "user/getAllService";
 		$.ajax(url,{
 			data:'none',
 			type:'post',//HTTP请求类型

@@ -434,7 +434,8 @@
 					"page/images/ice-null.png"
 				],
 				"refer": [
-					"page/order-details.html"
+					"page/order-details.html",
+					"login.html"
 				],
 				"priority": 0
 			},
