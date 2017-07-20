@@ -1,4 +1,5 @@
 var arr = [];
+var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 //默认加载完成后就必须执行一次
 (function($) {
 	// 当domReady的时候开始初始化
@@ -136,7 +137,7 @@ var arr = [];
 			alert('Web Uploader 不支持您的浏览器！');
 			return;
 		}
-		var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
+		//console.log(serviceinfo.app_ip + ":" + serviceinfo.app_port + "/celefix/backend/base/saveImg");
 		// 实例化
 		uploader = WebUploader.create({
 			pick: {

@@ -411,7 +411,8 @@
 					"main.html",
 					"login.html",
 					"page/personal.html",
-					"images/logo.png"
+					"images/logo.png",
+					"images/logo2.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -531,7 +532,8 @@
 					"images/1.jpg",
 					"images/cdbg.png",
 					"images/6.jpg",
-					"images/4.jpg"
+					"images/4.jpg",
+					"images/logo2.png"
 				],
 				"refer": [
 					"page/order-details.html",

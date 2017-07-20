@@ -19,7 +19,9 @@
 		callback = callback || $.noop;
 		//首页接口
 		var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "user/doIndex";
-		var data = {v:Math.random()};
+		var data = {
+			v: Math.random()
+		};
 		if(owner.getState().token == undefined) {
 
 		} else {
@@ -30,55 +32,52 @@
 			dataType: 'json', //服务器返回json格式数据
 			cache: false,
 			type: 'POST', //HTTP请求类型
-			timeout: 3000, //超时时间设置为6秒；
+			timeout: 6000, //超时时间设置为6秒；
 			success: function(data) {
-				var state1 = "审<br />核<br />中",
-					state2 = "待<br />上<br />门",
-					state3 = "待<br />审<br />批",
-					state4 = "待<br />付<br />款",
-					state5 = "待<br />评<br />价",
-					state6 = "已<br />完<br />成",
-					state7 = "待<br />接<br />单";
-				var stateType = "已<br />完<br />成";
 				if(data.msgCode == "0000") {
+					var state1 = "审<br />核<br />中",
+						state2 = "待<br />上<br />门",
+						state3 = "待<br />审<br />批",
+						state4 = "待<br />付<br />款",
+						state5 = "待<br />评<br />价",
+						state6 = "已<br />完<br />成",
+						state7 = "待<br />接<br />单";
+					var stateType = "已<br />完<br />成";
 					//设置客服电话
 					localStorage.setItem('$contactUs', data.data.contactUs);
-					if(data.msgCode == "0000") {
-						//订单列表
-						var caseList = data.data.caseList;
-						var caseUl = document.getElementById("caseUl");
-						if(caseList == undefined || caseList.length <= 0) {
-							var orderList = document.getElementById("orderList")
-							orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
-							return;
+					//订单列表
+					var caseList = data.data.caseList;
+					var caseUl = document.getElementById("caseUl");
+					if(caseList == undefined || caseList.length <= 0) {
+						var orderList = document.getElementById("orderList")
+						orderList.innerHTML = '<div class="order-null"><img src="images/ice-null.png" /><div class="f-essential">暂无进行中订单</div></div>';
+						return;
+					}
+					var caseHTML = '';
+					for(var item in caseList) {
+						if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
+							stateType = state1
+						} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
+							stateType = state7
+						} else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2) {
+							stateType = state2
+						} else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5) {
+							stateType = state3
+						} else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5) {
+							stateType = state4
+						} else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null) {
+							stateType = state5
 						}
-						var caseHTML = '';
-						for(var item in caseList) {
-							if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
-								stateType = state1
-							} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
-								stateType = state7
-							} else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2) {
-								stateType = state2
-							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType != 5) {
-								stateType = state3
-							} else if(caseList[item].caseStatus == 3 && caseList[item].customerType == 5) {
-								stateType = state4
-							} else if(caseList[item].caseStatus == 4 && caseList[item].assessScore == null) {
-								stateType = state5
-							}
-							caseHTML += '<li class="mui-table-view-cell mui-media bg-white"><a href="javascript:;" class="details" id="' + caseList[item].id + '">' +
-								'<img class="mui-media-object mui-pull-left" src="' + caseList[item].attachmentFile + '">' +
-								'<div class="mui-media-body">' +
-								'<p class="order-title mui-ellipsis">' + caseList[item].claimCode + '</p>' +
-								'<p class="mui-ellipsis">' + caseList[item].updateTime + '</p>' +
-								'</div>' +
-								'<span class="stateType">' + stateType +
-								'</a></li>';
-						}
-						caseUl.innerHTML = caseHTML;
-					} 
-					//console.log(JSON.stringify(data));
+						caseHTML += '<li class="mui-table-view-cell mui-media bg-white"><a href="javascript:;" class="details" id="' + caseList[item].id + '">' +
+							'<img class="mui-media-object mui-pull-left" src="' + caseList[item].attachmentFile + '">' +
+							'<div class="mui-media-body">' +
+							'<p class="order-title mui-ellipsis">' + caseList[item].claimCode + '</p>' +
+							'<p class="mui-ellipsis">' + caseList[item].updateTime + '</p>' +
+							'</div>' +
+							'<span class="stateType">' + stateType +
+							'</a></li>';
+					}
+					caseUl.innerHTML = caseHTML;
 				}
 				return callback(data);
 			},
