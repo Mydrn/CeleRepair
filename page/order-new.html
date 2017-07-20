@@ -258,6 +258,12 @@
 				swipeBack: true //启用右滑关闭功能
 			});　
 			mui.plusReady(function() {
+				var old_back = mui.back;
+			    mui.back = function() {
+			        var opener = plus.webview.currentWebview().opener();
+			        mui.fire(plus.webview.getWebviewById(opener.id), 'refresh', null);
+			        old_back();
+			    }
 				plus.nativeUI.showWaiting();
 				var contactUs = localStorage.getItem('$contactUs');
 				var child = document.getElementById("xm");
@@ -437,7 +443,8 @@
 							mui.toast(data.msg);
 							if(data.msgCode == "0000") {
 								plus.nativeUI.closeWaiting();
-								mui.openWindow({url: '../main.html',id: 'main'});
+								mui.back();
+								//mui.openWindow({url: '../main.html',id: 'main'});
 							} else if(data.msgCode == "0002") {
 								mui.alert('你已在其它地方登录,请重新登录!', function() {
 									mui.openWindow({url: '../login.html',id: 'login'});

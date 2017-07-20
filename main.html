@@ -81,7 +81,7 @@
 			}
 			
 			.transparent {
-				background: 0 0
+				background: 0
 			}
 			
 			.grad {
@@ -362,7 +362,6 @@
 								<span class="iconfont icon-dengpao"></span>
 								<p class="f-blank">进行中订单</p>
 							</div>
-
 							<div class="mui-card transparent" style="margin-bottom: 35px;">
 								<ul id="caseUl" class="mui-table-view mui-table-view-chevron transparent">
 								</ul>
@@ -388,10 +387,14 @@
 				indicators: false, //是否显示滚动条
 				deceleration: deceleration
 			});
-
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.plusReady(function() {
+				window.addEventListener('refresh', function(msg) {
+					//自定义方法，刷新数据，不刷新页面
+					//mui.toast("B页面返回并刷新了数据");
+					location.reload();
+				});
 				plus.nativeUI.showWaiting();
 				//手机设备定位
 				plus.geolocation.getCurrentPosition(
