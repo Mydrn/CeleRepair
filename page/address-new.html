@@ -121,7 +121,6 @@
 			        mui.fire(plus.webview.getWebviewById(opener.id), 'refresh', null);
 			        old_back();
 			    }
-    
 				plus.nativeUI.showWaiting();
 					//级联示例
 					var cityPicker3 = new mui.PopPicker({
@@ -171,7 +170,7 @@
 							//关闭等待框
 							mui.toast("网络繁忙,请重试！");
 				    		plus.nativeUI.closeWaiting();
-				    		back();
+				    		mui.back();
 						}
 						});
 					}else{

@@ -5,7 +5,6 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>引导页入口</title>
-		<link href="css/mui.min.css" rel="stylesheet" />
 		<style type="text/css">
 			body {
 				background-color: #ccc;
@@ -14,7 +13,7 @@
 	</head>
 
 	<body>
-		<div class="mui-content">
+		<!--<div class="mui-content">
 			<div class="mui-slider mui-fullscreen">
 				<div class="mui-slider-group">
 					<div class="mui-slider-item mui-text-center">
@@ -23,7 +22,7 @@
 						</a>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
@@ -36,33 +35,21 @@
 				 */
 				var launchFlag = plus.storage.getItem("launchFlag");
 				if(launchFlag) {
-					mui.openWindow({
+					var webview = plus.webview.create( "main.html" );
+					webview.show();
+					/*mui.openWindow({
 						url: "./main.html",
 						id: "main",
 						extras: {
 							mark: "index" //额外的参数，仅仅是个标识，实际开发中不用；
 						}
-					});
+					});*/
 				} else {
 					mui.openWindow({
 						url: "guide.html",
 						id: "guide"
 					});
 				}
-				document.getElementById("start").addEventListener("tap", function() {
-					/**
-					 * 向本地存储中设置launchFlag的值，即启动标识；
-					 * http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.setItem
-					 */
-					plus.storage.setItem("launchFlag", "true");
-					mui.openWindow({
-						url: "main.html",
-						id: "main",
-						extras: {
-							mark: "gudie" //同样，这里也只是个标识，实际开发中并不用；
-						}
-					});
-				});
 			});
 		</script>
 	</body>
