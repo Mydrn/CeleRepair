@@ -28,6 +28,7 @@
 		$.ajax(url, {
 			data: data,
 			dataType: 'json', //服务器返回json格式数据
+			cache: false,
 			type: 'POST', //HTTP请求类型
 			timeout: 3000, //超时时间设置为6秒；
 			success: function(data) {

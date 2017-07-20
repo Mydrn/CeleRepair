@@ -142,12 +142,6 @@
 		        			</button>
 						</div>
 						<div id="orderList" class="order-list">
-							<!--订单为空时额样式布局-->
-							<!--<div class="order-null">
-								<img src="../images/ice-null.png" />
-								<div class="f-essential">暂无进行中订单</div>
-							</div>-->
-							<!--有订单时的布局样式-->
 							<div class="mui-text-center">
 								<span class="iconfont icon-dengpao"></span>
 								<p class="f-blank">进行中订单</p>
@@ -264,7 +258,10 @@
 				document.getElementById('offCanvasShow').addEventListener('tap', function() {
 					if(token == undefined || app.getState() == "{}") {
 						//this.location.href = "login.html";
-						window.open("login.html", "_top");
+						mui.openWindow({
+								url: 'login.html',
+								id: 'login'
+							});
 					} else {
 						app.findUser(function(data) {
 							if(data.data.customerType != 5) { //不是个人注册的，没有地址
@@ -272,7 +269,7 @@
 							}
 							document.getElementById("name").innerHTML = data.data.name;
 							if(data.data.photoUrl != undefined && data.data.photoUrl != '') {
-								document.getElementById("userImg").src = data.data.photoUrl;
+								document.getElementById("userImg").setAttribute("src",data.data.photoUrl);
 							}
 						})
 					}
