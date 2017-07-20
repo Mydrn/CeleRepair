@@ -172,7 +172,12 @@
 					success: function(data) {
 						if(data.msgCode == "0000") {
 							mui.alert('注册成功', function() {
-								window.location.href = "login.html";
+								mui.openWindow({
+								    url: 'login.html', 
+								    show:{
+								      autoShow:false
+								    }
+								  });
 							});
 						} else if(data.msgCode == "0003") {
 							return mui.toast("账号名称已存在");
