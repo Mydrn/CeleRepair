@@ -47,10 +47,8 @@ console.log(2);
 
 #页面传值
 
-
 var w = plus.webview.create( "http://www.bcty365.com" );
 	w.show(); // 显示窗口
-
 
 //A
 mui.openWindow({url:'address-new.html',id:'address-new',
@@ -63,11 +61,7 @@ var itemId = self.itemId;
 var href = location.href;
 var detailID = href.split("?")[1];
 
-
 #客服电话
 var contactUs = localStorage.getItem('$contactUs');
 
-
-
-前端
 readOnly="true" 输入框为不可编辑状态

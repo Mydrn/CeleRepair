@@ -187,10 +187,10 @@
 						var p = data.content;
 						mui.confirm(p, h1, function(e) {
 							if(e.index == 1) {
-								document.location.reload();
+								location.reload();
 							} else {
 								setTimeout(function() {
-									document.location.reload();
+									location.reload();
 								}, 0);
 							}
 						});
