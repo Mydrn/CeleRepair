@@ -83,11 +83,14 @@
       "images/3.gif",
       "css/mui.min.css",
       "images/bg.jpg",
-      "page/personal.html"
+      "page/personal.html",
+      "css/app.css",
+      "treaty.html"
     ],
     "refer": [
       "index.html",
-      "main.html"
+      "main.html",
+      "treaty.html"
     ]
   },
   "page/order-details.html": {
@@ -179,7 +182,9 @@
       "js/mui.min.js",
       "fonts/mui.ttf",
       "css/mui.min.css",
-      "images/logo.png"
+      "images/logo.png",
+      "images/logo2.png",
+      "login.html"
     ],
     "refer": [
       "index.html",
@@ -196,11 +201,13 @@
       "js/mui.pullToRefresh.material.js",
       "page/images/3.gif",
       "index.html",
-      "main.html"
+      "main.html",
+      "images/ice-null.png"
     ],
     "refer": [
       "index.html",
-      "main.html"
+      "main.html",
+      "login.html"
     ]
   },
   "page/about.html": {
@@ -247,7 +254,14 @@
       "js/mui.pullToRefresh.material.js",
       "main.html",
       "page/feedback.html",
-      "page/about.html"
+      "page/about.html",
+      "images/2.jpg",
+      "images/5.jpg",
+      "images/cdbg.png",
+      "images/4.jpg",
+      "images/1.jpg",
+      "images/logo2.png",
+      "images/6.jpg"
     ],
     "refer": [
       "login.html",
@@ -299,6 +313,24 @@
     ],
     "refer": [
       "main.html"
+    ]
+  },
+  "treaty.html": {
+    "resources": [
+      "login.html",
+      "register.html"
+    ],
+    "refer": [
+      "login.html",
+      "register.html"
+    ]
+  },
+  "register.html": {
+    "resources": [
+      "js/jquery.js"
+    ],
+    "refer": [
+      "login.html"
     ]
   }
 }
