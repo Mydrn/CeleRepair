@@ -7,7 +7,7 @@
 	"id": "H59C3D0A1",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "快修-商户端",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.1",/*应用版本名称*/
+		"name": "1.0.2",/*应用版本名称*/
 		"code": ""
 	},
 	"description": "“快修”是专业从事全国终端连锁店铺及个人家居测量、安装、维修等。专业技术力量遍布全国各大省市区直辖市，拥有最强的技术服务及完善的售后服务支持。",/*应用描述信息*/
@@ -102,7 +102,7 @@
 	},
 	"plus": {
 		"splashscreen": {
-			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"autoclose": false,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true,
 			"delay": "1000"
 		},
