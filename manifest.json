@@ -5,9 +5,9 @@
 		"iPad"
 	],
 	"id": "H59C3D0A1",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "快修-商户端",/*应用名称，程序桌面图标名称*/
+	"name": "快修",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.2",/*应用版本名称*/
+		"name": "1.0.3",/*应用版本名称*/
 		"code": ""
 	},
 	"description": "“快修”是专业从事全国终端连锁店铺及个人家居测量、安装、维修等。专业技术力量遍布全国各大省市区直辖市，拥有最强的技术服务及完善的售后服务支持。",/*应用描述信息*/
@@ -116,9 +116,7 @@
 						"description": "阿里支付",
 						"scheme": ""
 					},
-					"appleiap": {
-						"description": "Apple应用内支付"
-					},
+					
 					"weixin": {
 						"description": "微信支付",
 						"appid": "wx2e79ed958a1f46fb"
@@ -264,7 +262,8 @@
 					"css/app.css",
 					"page/personal.html",
 					"page/order.html",
-					"page/about.html"
+					"page/about.html",
+					"images/bg.jpg"
 				],
 				"refer": [
 					"page/order-details.html",

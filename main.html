@@ -177,11 +177,6 @@
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.plusReady(function() {
-				/*window.addEventListener('refresh', function(msg) {
-					//自定义方法，刷新数据，不刷新页面
-					//mui.toast("B页面返回并刷新了数据");
-					location.reload();
-				});*/
 				plus.nativeUI.showWaiting();
 				//手机设备定位
 				plus.geolocation.getCurrentPosition(
