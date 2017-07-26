@@ -294,8 +294,9 @@
 			var aliUrl = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "pay/alipayold";
 			// 2. 发起支付请求
 			function pay(id) {
-				var ALIPAYSERVER = aliUrl + '?caseId=' + caseObj.id + '&token=' + token + '&claimCode=' + caseObj.claimCode + '&total=';
-				var WXPAYSERVER = weixinUrl + '?caseId=' + caseObj.id + '&token=' + token + '&claimCode=' + caseObj.claimCode + '&total=';
+				var amount = caseObj.caseActualMoney;
+				var ALIPAYSERVER = aliUrl + '?caseId=' + caseObj.id + '&token=' + token + '&claimCode=' + caseObj.claimCode + '&total=' + amount;
+				var WXPAYSERVER = weixinUrl + '?caseId=' + caseObj.id + '&token=' + token + '&claimCode=' + caseObj.claimCode + '&total=' + amount;
 				// 从服务器请求支付订单  
 				var PAYSERVER = '';
 				if(id == 'alipay') {
@@ -309,7 +310,6 @@
 					return;
 				}
 				var xhr = new XMLHttpRequest();
-				var amount = caseObj.caseActualMoney;
 				xhr.onreadystatechange = function() {
 					switch(xhr.readyState) {
 						case 4:
@@ -353,7 +353,7 @@
 							break;
 					}
 				}
-				xhr.open('GET', PAYSERVER + amount);
+				xhr.open('GET', PAYSERVER);
 				xhr.send();
 
 			}

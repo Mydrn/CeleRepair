@@ -22,15 +22,13 @@
 		var data = {
 			v: Math.random()
 		};
-		if(owner.getState().token == undefined) {
-
-		} else {
+		if(owner.getState().token != undefined || owner.getState() != "{}") {
 			data.token = owner.getState().token;
-		}
+		} 
 		$.ajax(url, {
 			data: data,
 			dataType: 'json', //服务器返回json格式数据
-			cache: false,
+			//cache: false,
 			type: 'POST', //HTTP请求类型
 			timeout: 6000, //超时时间设置为6秒；
 			success: function(data) {

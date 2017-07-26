@@ -202,10 +202,10 @@
 						var adList = data.data.adList;
 						for(var item in adList) {
 							html += '<div class="mui-slider-item">' +
-								'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
-								'<img src="' + adList[item].adUrl + '">' +
-								'</a>' +
-								'</div>'
+										'<a class="adLink" href="javascript:;" id="' + [item].adLink + '">' +
+											'<img src="' + adList[item].adUrl + '">' +
+										'</a>' +
+									'</div>'
 						}
 						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
 					} else if(data.msgCode == "0002") {
@@ -222,7 +222,7 @@
 				//自动播放轮播图
 				mui(function(e) {
 					mui("#slider").slider({
-						interval: 4000
+						interval: 3000
 					})
 				})
 
