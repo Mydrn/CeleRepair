@@ -1,14 +1,14 @@
 (function($, owner) {
 	var serviceinfo = {
 		//测试接口
-		app_ip: "http://celerepair.celelink.com",
-		app_port: "80",
-		path: "/celefix/backend/h5/" //环境路径
+		//		app_ip: "http://celerepair.celelink.com",
+		//		app_port: "80",
+		//		path: "/celefix/backend/h5/" //环境路径
 
 		//本地
-		//				app_ip: "http://192.168.3.37",
-		//				app_port: "8000",
-		//				path: "/celefix/backend/h5/" //环境路径
+		app_ip: "http://116.62.48.143",
+		app_port: "8088",
+		path: "/celefix/backend/h5/" //环境路径
 	};
 	//服务器地址存储本地
 	localStorage.setItem('$serviceinfo', JSON.stringify(serviceinfo));
@@ -24,7 +24,7 @@
 		};
 		if(owner.getState().token != undefined || owner.getState() != "{}") {
 			data.token = owner.getState().token;
-		} 
+		}
 		$.ajax(url, {
 			data: data,
 			dataType: 'json', //服务器返回json格式数据
@@ -55,9 +55,9 @@
 					for(var item in caseList) {
 						if(caseList[item].caseStatus == -1 && caseList[item].customerType != 5) {
 							stateType = state1
-						}else if(caseList[item].caseStatus == 0 && caseList[item].technicianId == 0 && caseList[item].customerType == 5){
+						} else if(caseList[item].caseStatus == 0 && caseList[item].technicianId == 0 && caseList[item].customerType == 5) {
 							stateType = state7
-						}else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
+						} else if(caseList[item].caseStatus == -1 && caseList[item].customerType == 5) {
 							stateType = state7
 						} else if(caseList[item].caseStatus == 0 || caseList[item].caseStatus == 1 || caseList[item].caseStatus == 2) {
 							stateType = state2
