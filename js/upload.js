@@ -152,7 +152,7 @@ var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			swf: '../../dist/Uploader.swf',
 			chunked: false,
 			compress: {
-				quality:50,
+				quality: 50,
 				noCompressIfLarger: false
 			},
 			auto: false,
@@ -649,6 +649,13 @@ var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 		mui('body').on('tap', '.demo3', function() {
 			var optionsJson = this.getAttribute('data-options') || '{}';
 			var options = JSON.parse(optionsJson);
+			var now = new Date();
+			options.beginYear = now.getFullYear();
+			options.beginMonth = now.getMonth() + 1;
+			options.beginDay = now.getDate();
+			options.beginHours = now.getHours() - 1;
+			/*var optionsJson = this.getAttribute('data-options') || '{}';
+			var options = JSON.parse(optionsJson);*/
 			var id = this.getAttribute('id');
 			/*
 			 * 首次显示时实例化组件
@@ -666,8 +673,9 @@ var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 				 * rs.h 时，用法同年
 				 * rs.i 分（minutes 的第二个字母），用法同年
 				 */
-				document.getElementById("contract").innerHTML =" 预约时间："+rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + ":00";
-				document.getElementById("servicingTime").value = rs.y.text + rs.m.text + rs.d.text + rs.h.text;
+				document.getElementById("contract").innerHTML = " 预约时间：" + rs.text;
+				//document.getElementById("contract").innerHTML =" 预约时间："+rs.y.text + "-" + rs.m.text + "-" + rs.d.text +" "+ rs.h.text + ":" + rs.i.text;
+				document.getElementById("servicingTime").value = rs.y.text + rs.m.text + rs.d.text + rs.h.text + rs.i.text;
 				/* 
 				 * 返回 false 可以阻止选择框的关闭
 				 * return false;
@@ -690,28 +698,28 @@ var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 	$.ready(function() {
 		var service = JSON.parse(localStorage.getItem('$serviceinfo'));
 		var url = service.app_ip + ":" + service.app_port + service.path + "user/getAllService";
-		$.ajax(url,{
-			data:'none',
-			type:'post',//HTTP请求类型
+		$.ajax(url, {
+			data: 'none',
+			type: 'post', //HTTP请求类型
 			//timeout:10000,//超时时间设置为10秒；
 			//headers:{'Content-Type':'application/json'},	              
-			success:function(data){
+			success: function(data) {
 				//级联示例
 				var cityPicker = new $.PopPicker({
 					layer: 2
 				});
-				cityPicker.setData(eval("("+data+")"));
+				cityPicker.setData(eval("(" + data + ")"));
 				mui('body').on('tap', '.showCityPicker', function(event) {
 					cityPicker.show(function(items) {
 						document.getElementById("serviceId").value = items[1].value;
-						document.getElementsByClassName("showCityPicker")[0].innerHTML =" 报修类型："+items[0].text+"&nbsp;&nbsp;" +items[1].text;
+						document.getElementsByClassName("showCityPicker")[0].innerHTML = " 报修类型：" + items[0].text + "&nbsp;&nbsp;" + items[1].text;
 					});
 				}, false);
 			},
-			error:function(xhr,type,errorThrown){
+			error: function(xhr, type, errorThrown) {
 				console.log(type);
 			}
-		});	
-		
+		});
+
 	});
 })(mui, document);

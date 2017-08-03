@@ -316,6 +316,7 @@
 							if(xhr.status == 200) {
 								plus.payment.request(channel, xhr.responseText, function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
+										
 										var url = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/payStatus";
 										mui.ajax(url, {
 											data: {
@@ -328,7 +329,11 @@
 												if(data.msgCode == "0000") {
 													document.location.reload();
 													//mui.toast("支付成功");
-												} else if(data.msgCode == "0002") {
+												}else if(data.msgCode == "0001") {
+													mui.alert('订单已支付!', function() {
+														document.location.reload();
+													});
+												}else if(data.msgCode == "0002") {
 													mui.alert('你已在其它地方登录,请重新登录!', function() {
 														mui.openWindow({
 															url: '../login.html',

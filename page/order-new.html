@@ -189,7 +189,7 @@
 										</a>
 									</li>
 									<li class="mui-table-view-cell demo3">
-										<a href="javascript:;" id="contract" data-options='{"value":"2017-07-10 10:00","beginYear":2017,"endYear":2025}' class="mui-navigate-right iconfont icon-shangmenshijian">
+										<a href="javascript:;" id="contract" class="mui-navigate-right iconfont icon-shangmenshijian">
 											上门时间：<strong id="smsj"></strong>
 										</a>
 									</li>
@@ -428,6 +428,7 @@
 						},
 						error: function(xhr, type, errorThrown) {
 							mui.toast("网络繁忙,请重试！");
+							plus.nativeUI.closeWaiting();
 							console.log(type);
 						}
 					});
