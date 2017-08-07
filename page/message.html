@@ -106,12 +106,11 @@
 						if(data.msgCode == "0002") {
 							mui.alert('你已在其它地方登录,请重新登录!', function() {
 								mui.openWindow({
-									url: 'login.html',
+									url: '../login.html',
 									id: 'login'
 								});
 							});
-						}
-						if(data.length == 0) {
+						}else if(data == '' || data.length == 0) {
 							tidings.innerHTML = '<p class="mui-text-center dataTime">暂无消息</p>';
 						} else {
 							for(var item in data) {

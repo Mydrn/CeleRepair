@@ -17,7 +17,7 @@
 	<body>
 		<div id="login">
 			<header class="mui-bar mui-bar-nav transparent mui-box-shadow-none">
-				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
 				<h1 class="mui-title">欢迎登录</h1>
 				<a href="treaty.html" class="mui-btn mui-pull-right f-login">注册</a>
 			</header>
@@ -77,7 +77,7 @@
 					});*/
 					var webview = plus.webview.create("main.html");
 					setTimeout(function(){
-						webview.show();
+						webview.show('slide-in-right')
 					},200);
 				});
 			});

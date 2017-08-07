@@ -1,8 +1,9 @@
 (function($, owner) {
 	var serviceinfo = {
 		//测试接口
-		app_ip: "http://celerepair.celelink.com",
-		app_port: "80",
+		//app_ip: "http://celerepair.celelink.com",
+		app_ip: "http://116.62.48.143",
+		app_port: "8080",
 		path: "/celefix/backend/h5/" //环境路径
 
 		//本地

@@ -383,11 +383,6 @@
 			});
 			//阻尼系数
 			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			mui('#offCanvasContentScroll').scroll({
-				bounce: false,
-				indicators: false, //是否显示滚动条
-				deceleration: deceleration
-			});
 			var token = app.getState().token;
 			var serviceinfo = JSON.parse(localStorage.getItem('$serviceinfo'));
 			mui.plusReady(function() {
@@ -451,7 +446,7 @@
 						mui.alert('请重新登录!', function() {
 							var webview = plus.webview.create("login.html");
 							setTimeout(function() {
-								webview.show();
+								webview.show('slide-in-right')
 							}, 200);
 						});
 					}
@@ -479,7 +474,7 @@
 										mui.alert('请重新登录!', function() {
 											var webview = plus.webview.create("login.html");
 											setTimeout(function() {
-												webview.show();
+												webview.show('slide-in-right')
 											}, 200);
 										});
 									}
