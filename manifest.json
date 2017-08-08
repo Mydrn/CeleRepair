@@ -207,7 +207,7 @@
 			},
 			"debug": false,
 			"error": {
-				"url": "main.html"
+				"url": "./main.html"
 			}
 		}
 	},
@@ -216,17 +216,11 @@
 		"pages": {
 		"main.html": {
 				"resources": [
-					"images/5.png",
-					"images/cbd.jpg",
 					"js/app.js",
 					"images/ice-repair.png",
-					"images/2.png",
 					"images/ice-personal.png",
-					"images/3.png",
-					"images/1.png",
 					"images/logo.png",
 					"fonts/mui.ttf",
-					"images/4.png",
 					"images/ice-null.png",
 					"js/mui.min.js",
 					"css/mui.min.css",
@@ -282,7 +276,6 @@
 					"css/mui.min.css",
 					"css/app.css",
 					"js/mui.picker.js",
-					"page/images/3.gif",
 					"js/mui.picker.min.js",
 					"css/mui.picker.min.css"
 				],
@@ -298,7 +291,6 @@
 					"js/app.js",
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"images/3.gif",
 					"css/mui.min.css",
 					"treaty.html",
 					"images/bg.jpg",
@@ -328,7 +320,6 @@
 					"images/already-visit.png",
 					"images/already-audit.png",
 					"images/already-pay.png",
-					"index.html",
 					"css/app.css",
 					"page/images/3.gif",
 					"page/order-new.html"
@@ -343,7 +334,6 @@
 			"page/message.html": {
 				"resources": [
 					"js/jquery.js",
-					"index.html",
 					"css/app.css",
 					"main.html"
 				],
@@ -353,7 +343,6 @@
 			"page/order-new.html": {
 				"resources": [
 					"js/webuploader.js",
-					"index.html",
 					"js/upload.js",
 					"js/mui.poppicker.js",
 					"css/mui.picker.min.css",
@@ -382,7 +371,6 @@
 			},
 			"page/personal.html": {
 				"resources": [
-					"index.html",
 					"page/images/3.gif",
 					"js/app.js",
 					"images/ice-repair.png",
@@ -513,8 +501,5 @@
 				"images/60x60.gif"
 			]
 		}
-	},
-	"unpackage": [
-		"images/60x60.gif"
-	]
+	}
 }

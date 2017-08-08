@@ -140,7 +140,10 @@
 				mui("body").on('tap', '.exitBtn', function() {
 					app.setState(undefined);
 					mui.toast("退出成功");
-					window.location.href = "../login.html";
+					var webview = plus.webview.create("../login.html");
+					setTimeout(function() {
+						webview.show('slide-in-right')
+					}, 500);
 				});
 				//开启A标签的跳转
 				mui('body').on('tap', 'a', function(e) {

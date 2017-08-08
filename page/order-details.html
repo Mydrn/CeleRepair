@@ -144,14 +144,14 @@
 			//实现ios平台原生侧滑关闭页面；
 			mui.plusReady(function() {
 				plus.nativeUI.showWaiting();
-				caseId = plus.webview.currentWebview().caseId;
+				var self = plus.webview.currentWebview();
 				var url2 = serviceinfo.app_ip + ":" + serviceinfo.app_port + serviceinfo.path + "case/doCaseOne";
 				mui.ajax(url2, {
 					type: 'POST',
 					data: {
 						v:Math.random(),
 						token: app.getState().token,
-						caseId: caseId
+						caseId: self.caseId
 					},
 					//async : false,
 					cache: false,

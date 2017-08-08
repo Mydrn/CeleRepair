@@ -9,7 +9,80 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<style>
-			body,html{background-color:#efeff4}.mui-repair{width:44%;padding:4% 0;margin:0 0 0 4%;color:#fff;border:0;background:#92b0dd;border-radius:10px}#offCanvasSideScroll{padding-top:44px}.mui-repair-left{margin-right:4%;background:#e0b6b6}.mui-repair-right{margin-left:-6px}.mui-position-right{position:absolute;right:40px}.mui-bar{background-color:#ff5700}.f-orange{color:#ff5700!important}.content .about{padding:10px 0 0}.mui-checkbox.mui-left label,.mui-radio.mui-left label{padding-left:25px}.mui-checkbox.mui-left input[type=checkbox],.mui-radio.mui-left input[type=radio]{left:0;top:50%;width:20px;height:20px;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%)}.mui-checkbox input[type=checkbox]:before,.mui-radio input[type=radio]:before{font-size:20px}.mui-checkbox input[type=checkbox]:checked:before,.mui-radio input[type=radio]:checked:before{color:#ff5700}.mui-card-content-inner{padding:10px 15px}
+			body,
+			html {
+				background-color: #efeff4
+			}
+			
+			.mui-repair {
+				width: 44%;
+				padding: 4% 0;
+				margin: 0 0 0 4%;
+				color: #fff;
+				border: 0;
+				background: #92b0dd;
+				border-radius: 10px
+			}
+			
+			#offCanvasSideScroll {
+				padding-top: 44px
+			}
+			
+			.mui-repair-left {
+				margin-right: 4%;
+				background: #e0b6b6
+			}
+			
+			.mui-repair-right {
+				margin-left: -6px
+			}
+			
+			.mui-position-right {
+				position: absolute;
+				right: 40px
+			}
+			
+			.mui-bar {
+				background-color: #ff5700
+			}
+			
+			.f-orange {
+				color: #ff5700!important
+			}
+			
+			.content .about {
+				padding: 10px 0 0
+			}
+			
+			.mui-checkbox.mui-left label,
+			.mui-radio.mui-left label {
+				padding-left: 25px
+			}
+			
+			.mui-checkbox.mui-left input[type=checkbox],
+			.mui-radio.mui-left input[type=radio] {
+				left: 0;
+				top: 50%;
+				width: 20px;
+				height: 20px;
+				-webkit-transform: translate(0, -50%);
+				-ms-transform: translate(0, -50%);
+				transform: translate(0, -50%)
+			}
+			
+			.mui-checkbox input[type=checkbox]:before,
+			.mui-radio input[type=radio]:before {
+				font-size: 20px
+			}
+			
+			.mui-checkbox input[type=checkbox]:checked:before,
+			.mui-radio input[type=radio]:checked:before {
+				color: #ff5700
+			}
+			
+			.mui-card-content-inner {
+				padding: 10px 15px
+			}
 		</style>
 	</head>
 
@@ -84,11 +157,11 @@
 										'</div></div></div>';
 								}
 							} else if(data.msgCode == "0002") {
-								mui.alert('你已在其它地方登录,请重新登录!', function() {
-									mui.openWindow({
-										url: '../login.html',
-										id: 'login'
-									});
+								mui.alert('你已在其它地方登录或未登录!', function() {
+									var webview = plus.webview.create("../login.html");
+									setTimeout(function() {
+										webview.show('slide-in-right')
+									}, 200);
 								});
 							}
 						}
@@ -102,14 +175,6 @@
 					//alert(this.id);
 					if(item) { //下单页面跳转过来
 						window.location.href = 'order-new.html?' + this.id.substring(3);
-						//						mui.openWindow({
-						//							url: 'order-new.html?'+this.id,
-						//							id: 'order',
-						//							extras: {
-						//								itemId: this.id
-						//							}
-						//						});
-						//mui.currentWebview.close();
 					}
 				});
 				//初始化单页的区域滚动
@@ -150,11 +215,11 @@
 												var itemDiv = document.getElementById("div" + itemId);
 												itemDiv.parentNode.remove();
 											} else if(data.msgCode == "0002") {
-												mui.alert('你已在其它地方登录,请重新登录!', function() {
-													mui.openWindow({
-														url: 'login.html',
-														id: 'login'
-													});
+												mui.alert('你已在其它地方登录或未登录!', function() {
+													var webview = plus.webview.create("../login.html");
+													setTimeout(function() {
+														webview.show('slide-in-right')
+													}, 200);
 												});
 												mui.currentWebview.close();
 											}
@@ -196,13 +261,13 @@
 										}
 									}
 								} else if(data.msgCode == "0002") {
-									mui.alert('你已在其它地方登录,请重新登录!', function() {
-										mui.openWindow({
-											url: '../login.html',
-											id: 'login'
-										});
-										mui.currentWebview.close();
+									mui.alert('你已在其它地方登录或未登录!', function() {
+										var webview = plus.webview.create("../login.html");
+										setTimeout(function() {
+											webview.show('slide-in-right')
+										}, 200);
 									});
+									mui.currentWebview.close();
 								}
 							},
 							error: function(xhr, type, errorThrown) {

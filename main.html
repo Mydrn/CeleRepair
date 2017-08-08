@@ -426,6 +426,23 @@
 						//alert(p);
 					}
 				);
+				//定位点击事件
+				document.getElementsByClassName('satellitePositioning')[0].addEventListener('tap', function() {
+					plus.geolocation.getCurrentPosition(
+						function(p) {
+							if(p.address.province == null) {
+								mui.toast("定位失败")
+							} else {
+								document.getElementsByClassName("satellitePositioning")[0].innerHTML = p.address.province;
+								mui.toast("定位成功：" + p.address.province);
+							}
+						},
+						function(p) {
+							//alert(p);
+						}
+					);
+				});
+
 				app.indexList(function(data) {
 					if(data.msgCode == "0000") {
 						//设置客服电话
@@ -443,7 +460,7 @@
 						}
 						slider.innerHTML = '<div class="mui-slider-item mui-slider-item-duplicate"></div>' + html + '<div class="mui-slider-item mui-slider-item-duplicate"></div>';
 					} else if(data.msgCode == "0002") {
-						mui.alert('请重新登录!', function() {
+						mui.alert('你已在其它地方登录或未登录!', function() {
 							var webview = plus.webview.create("login.html");
 							setTimeout(function() {
 								webview.show('slide-in-right')
@@ -471,7 +488,7 @@
 											mui.toast("没有更多数据");
 										}
 									} else if(data.msgCode == "0002") {
-										mui.alert('请重新登录!', function() {
+										mui.alert('你已在其它地方登录或未登录!', function() {
 											var webview = plus.webview.create("login.html");
 											setTimeout(function() {
 												webview.show('slide-in-right')
@@ -514,8 +531,8 @@
 								document.getElementById("userImg").setAttribute("src", data.data.photoUrl);
 							}
 						})
+						offCanvasWrapper.offCanvas('show');
 					}
-					offCanvasWrapper.offCanvas('show');
 				});
 				//首页禁止返回
 				var first = null;
@@ -557,15 +574,6 @@
 				classList.remove('mui-scalable');
 				classList.add('mui-slide-in');
 				offCanvasWrapper.offCanvas().refresh();
-				//实现ios平台原生侧滑关闭页面；
-				if(mui.os.plus && mui.os.ios) {
-					mui.plusReady(function() {
-						//5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
-						plus.webview.currentWebview().setStyle({
-							'popGesture': 'none'
-						});
-					});
-				}
 
 				//主界面‘显示侧滑菜单’按钮的点击事件
 				document.getElementById('back').addEventListener('tap', function() {
@@ -581,23 +589,20 @@
 				}
 
 				mui('body').on('tap', '.details', function() {
-					mui.openWindow({
-						url: 'page/order-details.html',
-						id: 'order-details',
-						extras: {
-							caseId: this.id,
-							v: Math.random()
-						}
+					var webview = plus.webview.create("page/order-details.html", "order-details", {}, {
+						caseId: this.id
 					});
+					setTimeout(function() {
+						webview.show('slide-in-right')
+					}, 200);
 				});
 				mui('body').on('tap', '#address', function() {
-					mui.openWindow({
-						url: 'page/address.html',
-						id: 'address',
-						extras: {
-							item: false
-						}
+					var webview = plus.webview.create("page/address.html", 'address', {}, {
+						item: false
 					});
+					setTimeout(function() {
+						webview.show('slide-in-right')
+					}, 200);
 					//mui.currentWebview.close();
 				});
 				//开启A标签的跳转
